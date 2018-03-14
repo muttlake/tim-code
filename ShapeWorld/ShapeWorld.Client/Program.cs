@@ -1,4 +1,5 @@
 ﻿using System;
+using ShapeWorld.Library;
 
 namespace ShapeWorld.Client
 {
@@ -6,7 +7,17 @@ namespace ShapeWorld.Client
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            PlayWithRectangle();
+        }
+
+        static void PlayWithRectangle()
+        {
+            var r = new Rectangle();
+            var s = r;
+
+            r.Edges = 10;
+
+            Console.WriteLine(s.Edges);
         }
     }
 }

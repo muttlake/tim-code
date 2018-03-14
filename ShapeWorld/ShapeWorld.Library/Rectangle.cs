@@ -1,8 +1,9 @@
-﻿using System;
+
 
 namespace ShapeWorld.Library
 {
-    public class Class1
+    public class Rectangle : Shape
     {
+
     }
 }
