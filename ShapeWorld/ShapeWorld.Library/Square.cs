@@ -35,12 +35,12 @@ namespace ShapeWorld.Library
         // We did not actually have to write this
         public Square(): base()  
         {
-            
+            Edges = 40;
         }
 
         public override double Area()  // you can override the overrides
         {
-            return 1;
+            return _length * _length;
         }
     }
 }

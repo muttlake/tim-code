@@ -5,7 +5,7 @@ namespace ShapeWorld.Library
     public class Rectangle : Shape
     {
 
-        public new int Edges { get; set; }  //square will use these Edges
+        //public new int Edges { get; set; }  //square will use these Edges
 
         public virtual double Length { get; set; }
         public virtual double Width { get; set; }
