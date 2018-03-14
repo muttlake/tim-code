@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using ShapeWorld.Library;
 
 namespace ShapeWorld.Client
@@ -8,6 +10,7 @@ namespace ShapeWorld.Client
         static void Main(string[] args)
         {
             PlayWithRectangle();
+            PlayWithShapes();
         }
 
         static void PlayWithRectangle()
@@ -67,12 +70,51 @@ namespace ShapeWorld.Client
             var item2 = arrShapes4[1,0];
             arrShapes4[1,1] = item2;
 
+            //Jagged arrays: Arrays of arrays
+            Shape[][] arrShapes5 = new Shape[2][];
 
-            
+            var arrayShapes6 = new Shape[][] {new Rectangle[2], new Square[3] 
+            {new Rectangle() as Square, new Rectangle() as Square, new Rectangle() as Square}};
 
+            var item3 = arrayShapes6[0][0];
+            arrayShapes6[1][0] = item3;
 
+            // List
 
+            List<Shape> lsShapes1 = new List<Shape>();
 
+            var lsShapes2 = new List<Shape> { new Rectangle(), new Square(), new Triangle() };
+            var item4 = lsShapes2[1];
+            var item5 = lsShapes2.ElementAt(2);
+
+            lsShapes2.Add(item4);
+
+            //lsShapes2[10] = item5;  //this will not throw error, will put null values at indexes 4 through 9 
+                                    // probably use add instead of bracket index
+            lsShapes2[2] = item5;
+            lsShapes2.Add(item4); // will put it at index 11, it will probably leave empty hole
+
+            // Dictionary
+            Dictionary<string, List<Shape>> diShapes1 = new Dictionary<string, List<Shape>>();
+
+            var diShapes2 = new Dictionary<string, List<Shape>>()
+            {
+                {"a", new List<Shape>()}, // index 0
+                {"b", new List<Shape>()}, // index 1 //From dictionary standpoint it needs to be a shape because it is specified as List<Shape> value
+                {"c", new List<Shape>() {new Rectangle(), new Triangle()}} // index 2
+
+            };
+
+            var item6 = diShapes2["a"]; // get back entire list
+            var item7 = diShapes2.Keys.ElementAt(2); //internally keys are also indexed, should get value at index 2
+
+            //diShapes2.Add("b", item6); // you would get error because key b already exists
+            diShapes2["b"] = diShapes1[item7]; // you would not get an error because key b's value will be updated
+
+            // if (diShapes1.ContainsKey("b"))  // This is what it is doing behind the scenes
+            // {
+            //     return false;
+            // }
 
         }
     }
