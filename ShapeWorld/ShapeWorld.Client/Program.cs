@@ -12,12 +12,19 @@ namespace ShapeWorld.Client
 
         static void PlayWithRectangle()
         {
+            //var r2;  //means absolutely nothing, var grabs type to right of assignment
             var r = new Rectangle();
-            var s = r;
+            //Rectangle r1 = new Rectangle(); // we will use var not Rectangle
+            var sq = new Square();
+            //var s = new Shape();
 
-            r.Edges = 10;
+            Shape s1 = r;  //We want shape to be available but not construct an empty Shape
+            Shape s2 = sq;
 
-            Console.WriteLine(s.Edges);
+            //r.Edges = 10;
+
+            Console.WriteLine(s1.Edges);
+            Console.WriteLine(r.Edges);
         }
     }
 }
