@@ -15,9 +15,9 @@ namespace ContactApp.Client
             var ch = new ContactHelper<Person>();
             ch.Add(new Person());
 
-            Console.WriteLine("\nEntering a new person:");
-            Person p = Person.EnterPersonInfo();
-            ch.Add(p);
+            // Console.WriteLine("\nEntering a new person:");
+            // Person p = Person.EnterPersonInfo();
+            // ch.Add(p);
 
             Company c = new Company("Revature");
             ch.Add(c);

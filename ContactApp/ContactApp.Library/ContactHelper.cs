@@ -1,12 +1,13 @@
 
 using System;
 using System.Collections.Generic;
+using ContactApp.Library.Interfaces;
 using ContactApp.Library.Models;
 
 namespace ContactApp.Library
 {
     //public class ContactHelper<T> where T : IContact  //Right not Contact list will only have Persons
-    public class ContactHelper<T> where T : Person, new()  //Right not Contact list will only have Persons
+    public class ContactHelper<T> where T : IContact, new()  //Right not Contact list will only have Persons
     {                                                      //but could include other things to make contacts of like Companies
         private static List<T> _container = new List<T>();  // container should be static so always same container 
                                                            // even with different instances of ContactHelper
@@ -48,11 +49,11 @@ namespace ContactApp.Library
             _container.Clear();
         }
 
-        public void Update(T t)
-        {
-            int foundIndex = _container.FindIndex(0, 1, a => a.Name == t.Name);
-            _container[foundIndex] = t;
-        }
+        // public void Update(T t)
+        // {
+        //     int foundIndex = _container.FindIndex(0, 1, a => a.Name == t.Name);
+        //     _container[foundIndex] = t;
+        // }
 
         public int Size()
         {

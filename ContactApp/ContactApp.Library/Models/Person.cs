@@ -2,10 +2,11 @@
 using System;
 using System.Collections.Generic;
 using ContactApp.Library.Enums;
+using ContactApp.Library.Interfaces;
 
 namespace ContactApp.Library.Models  // We are in Models folder
 {
-    public class Person: Object  // name of file should match name of class, // all classes we create inherently come from Object
+    public class Person: IContact  // name of file should match name of class, // all classes we create inherently come from Object
     {
         public Name Name { get; set; }
 
@@ -29,6 +30,11 @@ namespace ContactApp.Library.Models  // We are in Models folder
             Phone = phone;
             Email = email;
             Address = address;
+        }
+
+        public Person(string name)
+        {
+            Name = new Name(name);
         }
 
         public static Person EnterPersonInfo()
