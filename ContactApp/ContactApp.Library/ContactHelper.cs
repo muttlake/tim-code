@@ -8,18 +8,19 @@ namespace ContactApp.Library
     //public class ContactHelper<T> where T : IContact  //Right not Contact list will only have Persons
     public class ContactHelper<T> where T : Person, new()  //Right not Contact list will only have Persons
     {                                                      //but could include other things to make contacts of like Companies
-        private List<T> container = new List<T>();
+        private static List<T> _container = new List<T>();  // container should be static so always same container 
+                                                           // even with different instances of ContactHelper
 
         public bool Add(T t)
         {
             try
             {
-                container.Add(t);
+                _container.Add(t);
                 return true;
             }
             catch (ArgumentNullException e)
             {
-                container.Add(new T());
+                _container.Add(new T());
                 return true;
                 throw new Exception("null", e);
             }
@@ -37,15 +38,32 @@ namespace ContactApp.Library
             }
         }
 
-        public void Update()
+        public List<T> Read()
         {
-
+            return _container;
         }
 
         public void Delete()
         {
-
+            _container.Clear();
         }
+
+        public void Update(T t)
+        {
+            int foundIndex = _container.FindIndex(0, 1, a => a.Name == t.Name);
+            _container[foundIndex] = t;
+        }
+
+        public int Size()
+        {
+            return _container.Count;
+        }
+
+
+        // public void Delete()
+        // {
+
+        // }
 
         // public void Add(T t) //Add an Item to end of list
         // {
