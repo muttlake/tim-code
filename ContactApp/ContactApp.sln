@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactApp.Client", "Contac
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactApp.Library", "ContactApp.Library\ContactApp.Library.csproj", "{194331D1-C3D8-4293-AB09-6D5F9C5EE043}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactApp.Tests", "ContactApp.Tests\ContactApp.Tests.csproj", "{5FA15395-292A-42A1-96EF-0C4505EA3215}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,5 +46,17 @@ Global
 		{194331D1-C3D8-4293-AB09-6D5F9C5EE043}.Release|x64.Build.0 = Release|x64
 		{194331D1-C3D8-4293-AB09-6D5F9C5EE043}.Release|x86.ActiveCfg = Release|x86
 		{194331D1-C3D8-4293-AB09-6D5F9C5EE043}.Release|x86.Build.0 = Release|x86
+		{5FA15395-292A-42A1-96EF-0C4505EA3215}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FA15395-292A-42A1-96EF-0C4505EA3215}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FA15395-292A-42A1-96EF-0C4505EA3215}.Debug|x64.ActiveCfg = Debug|x64
+		{5FA15395-292A-42A1-96EF-0C4505EA3215}.Debug|x64.Build.0 = Debug|x64
+		{5FA15395-292A-42A1-96EF-0C4505EA3215}.Debug|x86.ActiveCfg = Debug|x86
+		{5FA15395-292A-42A1-96EF-0C4505EA3215}.Debug|x86.Build.0 = Debug|x86
+		{5FA15395-292A-42A1-96EF-0C4505EA3215}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FA15395-292A-42A1-96EF-0C4505EA3215}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FA15395-292A-42A1-96EF-0C4505EA3215}.Release|x64.ActiveCfg = Release|x64
+		{5FA15395-292A-42A1-96EF-0C4505EA3215}.Release|x64.Build.0 = Release|x64
+		{5FA15395-292A-42A1-96EF-0C4505EA3215}.Release|x86.ActiveCfg = Release|x86
+		{5FA15395-292A-42A1-96EF-0C4505EA3215}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 EndGlobal

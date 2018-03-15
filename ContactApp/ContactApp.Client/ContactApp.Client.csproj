@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ContactApp.Library\ContactApp.Library.csproj" />
+    <ProjectReference Include="..\ContactApp.Tests\ContactApp.Tests.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

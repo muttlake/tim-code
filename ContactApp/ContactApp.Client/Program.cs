@@ -33,10 +33,22 @@ namespace ContactApp.Client
                 System.Console.WriteLine(item);
             }
             Console.WriteLine("\n\n");
+            ch.WriteToText();
+            ch.WriteToXml();
+
+            Person p3 = ch.ReadPersonFromTxt();
+            Console.WriteLine(p3);
+
+            Person p4 = ch.ReadFromXml();
+            Console.WriteLine(p4);
+
+            //Person p2 = Person.ReadPersonFromTxt();
 
             Console.WriteLine("Before Delete: {0}", ch.Size());
             ch.Delete();
             Console.WriteLine("After Delete: {0}", ch.Size());
+
+
 
 
             // for (int a = 0; a < length; a += 1)   // For each is pretty much same as for

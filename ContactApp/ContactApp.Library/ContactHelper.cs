@@ -3,6 +3,9 @@ using System;
 using System.Collections.Generic;
 using ContactApp.Library.Interfaces;
 using ContactApp.Library.Models;
+using System.IO;
+using System.Linq;
+using System.Xml.Serialization;
 
 namespace ContactApp.Library
 {
@@ -61,6 +64,70 @@ namespace ContactApp.Library
         }
 
 
+        // public void WriteToText()
+        // {
+        //     var path = @"C:\Revature\contact.txt";
+        //     using (var f = File.Open(path, FileMode.OpenOrCreate))
+        //     {
+        //         f.Write(_container.ToString());
+
+        //         f.Close();   
+        //     }
+        // }
+
+        public void WriteToText()
+        {
+            var path = @"C:\Revature\tim.code\ContactApp\contact.txt";
+            File.WriteAllText(path, _container.FirstOrDefault().ToString());
+        }
+
+
+        public void WriteToXml()
+        {
+            var path = @"C:\Revature\tim.code\ContactApp\contact.xml";
+            var p = _container.FirstOrDefault();
+
+            using (var s = new StreamWriter(path))
+            {
+                var xml = new XmlSerializer(typeof(Person));
+                xml.Serialize(s, p);
+            }  // you are saving yourself from writing s.dispose() by using using 
+
+            //xml.Serialize(s, p);
+        }
+
+        public Person ReadPersonFromTxt()
+        {
+            var path = @"C:\Revature\tim.code\ContactApp\contact.txt";
+            var p = new Person();
+
+            using (var s = new StreamReader(path))
+            {
+                var text = s.ReadLine();
+                var first = text.Split()[1];
+                var last = text.Split()[2];
+
+                var n = new Name(first, last);
+                p.Name = n;
+            }
+            return p;
+        }
+
+
+        public Person ReadFromXml()
+        {
+            var path = @"C:\Revature\tim.code\ContactApp\contact.xml";
+            Person person;
+
+            using(var s = new StreamReader(path))
+            {
+                var xml = new XmlSerializer(typeof(Person));
+                person = (Person) xml.Deserialize(s);
+                //person = xml.Deserialize(s) as Person;
+            }
+
+            return person;
+        }
         // public void Delete()
         // {
 

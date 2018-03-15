@@ -3,6 +3,9 @@ using System;
 using System.Collections.Generic;
 using ContactApp.Library.Enums;
 using ContactApp.Library.Interfaces;
+using System.Xml.Serialization;
+using System.IO;
+using System.Linq;
 
 namespace ContactApp.Library.Models  // We are in Models folder
 {
@@ -12,8 +15,11 @@ namespace ContactApp.Library.Models  // We are in Models folder
 
         public Phone Phone { get; set; }
 
+
+        [XmlIgnore]
         public Dictionary<ContactEnum, string> Email { get; set; }
     
+        [XmlIgnore]
         public Dictionary<ContactEnum, Address> Address { get; set; }  //usually C# we either deal with lists or dictionaries
 
         public Person()
@@ -22,6 +28,7 @@ namespace ContactApp.Library.Models  // We are in Models folder
             Phone = new Phone();
             Email = new Dictionary<ContactEnum, string>();
             Address = new Dictionary<ContactEnum, Address>();
+            Email.Add(ContactEnum.Home, "fred@revature.com");
         }
 
         public Person(Name name, Phone phone, Dictionary<ContactEnum, string> email, Dictionary<ContactEnum, Address> address)
@@ -99,5 +106,7 @@ namespace ContactApp.Library.Models  // We are in Models folder
 
             return adder;
         }
+
+
     }
 }

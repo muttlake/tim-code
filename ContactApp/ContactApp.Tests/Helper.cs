@@ -3,11 +3,14 @@ using ContactApp.Library.Models;
 using ContactApp.Library.Enums;
 using ContactApp.Library;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ContactApp.Tests
 {
     public class Helper
     {
+
+        public static Person p = new Person();
 
         //Need Attributes (method attributes), do not exist in C++
         [Fact] // Allows XUnit to figure out special methods it needs to run
@@ -38,7 +41,7 @@ namespace ContactApp.Tests
             Assert.False(!added);
         }
 
-        [Fact]
+        [Fact] // Fact means it must happen
         public void Test_ContactHelper_Read()
         {
             //arrange
@@ -55,5 +58,19 @@ namespace ContactApp.Tests
             Assert.True(actual.Count >= expected);
         }
 
+
+        [Fact]
+        // [Theory] // Theory Means you expect it to happen
+        // [InlineData(typeof(Person))]  // Theory means you use some extra InlineData
+        public void Test_ContactHelper_AddPerson()
+        {
+            var ch = new ContactHelper<Person>();
+            var expected = new Name();
+            ch.Add(p);  // creates an instant of a person
+            var actual = ch.Read().Last(); // Need System.Linq to get Last()
+            
+            Assert.True(expected.First == actual.Name.First);
+            Assert.True(expected.Last == actual.Name.Last);
+        }
     }
 }
