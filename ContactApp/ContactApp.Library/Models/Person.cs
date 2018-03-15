@@ -14,5 +14,4 @@ namespace ContactApp.Library.Models  // We are in Models folder
     
         public Dictionary<ContactEnum, Address> Address { get; set; }  //usually C# we either deal with lists or dictionaries
     }
-    
 }
