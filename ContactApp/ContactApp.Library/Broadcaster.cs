@@ -18,10 +18,10 @@
             while (count <= 10)
             {
                 if (EventFire != null) // We don't send broadcast if there are no Receivers
-                {
                     EventFire();  //just like click or typing event
-                    count += 1;
-                }
+                if (Event2 != null)
+                    Event2();
+                count += 1;
             }
         }
 

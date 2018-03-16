@@ -23,7 +23,7 @@ namespace ContactApp.Client
 
             b.Broadcast(); //get nothing becaue it is sync, all 10 happenned before we were listening.
             r.Receiving(b);
-            //b.Broadcast();
+            b.Broadcast();
         }
         static void PlayWithDelegate()
         {

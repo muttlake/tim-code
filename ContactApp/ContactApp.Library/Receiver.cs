@@ -1,23 +1,22 @@
 
 
+using System;
 using static ContactApp.Library.Broadcaster;
 
 namespace ContactApp.Library
 {
     public class Receiver
     {
-        //Broadcaster is actually making things happen, Receiver is listening
         public void Receiving(Broadcaster b)
         {
-            b.EventFire += () => {System.Console.WriteLine("I am listening...");};  // You are listening to b.EventFire specifically
-            b.EventFire += Listening;  // You are listening to b.EventFire specifically, += add one listener per event
-            b.EventFire -= Listening;  // Removes you from that event
-            b.Event2 += () => {};
+            b.EventFire += () => {Console.WriteLine("EventFire event happenned");};
+            b.EventFire += Listening;
+            b.Event2 += () => {Console.WriteLine("Watching Waiting, Anticipating.  Event2");};
         }
 
-        private void Listening()  //delegate almost like referene
+        private void Listening()
         {
-            System.Console.WriteLine("I am listening...");
+            Console.WriteLine("I am Listening.");
         }
     }
 }
