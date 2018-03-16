@@ -1,6 +1,8 @@
 
 
- namespace ContactApp.Library
+using System;
+
+namespace ContactApp.Library
 {
     public class Broadcaster
     {
@@ -10,10 +12,24 @@
                                           //Content of EventFire is of type delegate Notifier
                                           //which is a method that contains nothing
 
+        public delegate bool StartBroadcast();
+        public event StartBroadcast StartIt;
+
+
         public event Notifier Event2;
 
         public void Broadcast()
         {
+            for(;;)
+            {
+                Console.WriteLine("Enter BEGIN to begin Broadcast.");
+                if("BEGIN" == Console.ReadLine())
+                {
+                    StartIt();
+                    break;
+                }
+            }
+
             var count = 0;
             while (count <= 10)
             {
@@ -24,7 +40,5 @@
                 count += 1;
             }
         }
-
-
     }
 }

@@ -18,12 +18,12 @@ namespace ContactApp.Client
             var b = new Broadcaster();
             var r = new Receiver();
             
-            // r.Receiving(b); // Need Receive before Broadcast
-            // b.Broadcast();
-
-            b.Broadcast(); //get nothing becaue it is sync, all 10 happenned before we were listening.
-            r.Receiving(b);
+            r.Receiving(b); // Need Receive before Broadcast
             b.Broadcast();
+
+            // b.Broadcast(); //get nothing becaue it is sync, all 10 happenned before we were listening.
+            // r.Receiving(b);
+            // b.Broadcast();
         }
         static void PlayWithDelegate()
         {

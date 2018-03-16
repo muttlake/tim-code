@@ -9,14 +9,22 @@ namespace ContactApp.Library
     {
         public void Receiving(Broadcaster b)
         {
-            b.EventFire += () => {Console.WriteLine("EventFire event happenned");};
-            b.EventFire += Listening;
-            b.Event2 += () => {Console.WriteLine("Watching Waiting, Anticipating.  Event2");};
+            b.StartIt += () => {return true;};
+            string message = MessageRequest();
+            b.EventFire += () => {Console.WriteLine(message);};
+            //b.EventFire += Listening;
+            //b.Event2 += () => {Console.WriteLine("Watching Waiting, Anticipating.  Event2");};
         }
 
         private void Listening()
         {
             Console.WriteLine("I am Listening.");
+        }
+
+        private string MessageRequest()
+        {
+            Console.WriteLine("What Message do you want displayed when receiving event?");
+            return Console.ReadLine();
         }
     }
 }
