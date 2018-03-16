@@ -11,6 +11,7 @@ namespace ContactApp.Library.Models  // We are in Models folder
 {
     public class Person: IContact  // name of file should match name of class, // all classes we create inherently come from Object
     {
+        public long PId { get; } // Unique Identifier
         public Name Name { get; set; }
 
         public Phone Phone { get; set; }
@@ -24,6 +25,12 @@ namespace ContactApp.Library.Models  // We are in Models folder
 
         public Person()
         {
+            //You would get error if long overflows
+            // checked
+            // {
+            //     PId = DateTime.Now.Ticks; // number of seconds since Jan 1 1970
+            // }
+            PId = DateTime.Now.Ticks;
             Name = new Name();
             Phone = new Phone();
             Email = new Dictionary<ContactEnum, string>();
@@ -33,6 +40,7 @@ namespace ContactApp.Library.Models  // We are in Models folder
 
         public Person(Name name, Phone phone, Dictionary<ContactEnum, string> email, Dictionary<ContactEnum, Address> address)
         {
+            PId = DateTime.Now.Ticks;
             Name = name;
             Phone = phone;
             Email = email;
@@ -41,6 +49,7 @@ namespace ContactApp.Library.Models  // We are in Models folder
 
         public Person(string name)
         {
+            PId = DateTime.Now.Ticks;
             Name = new Name(name);
         }
 

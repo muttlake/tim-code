@@ -8,7 +8,30 @@ namespace ContactApp.Client
     {
         static void Main(string[] args)
         {
-            PlayWithContact();
+            //PlayWithContact();
+            //PlayWithDelegate();
+            PlayWithEvent();
+        }
+
+        static void PlayWithEvent()
+        {
+            var b = new Broadcaster();
+            var r = new Receiver();
+            
+            // r.Receiving(b); // Need Receive before Broadcast
+            // b.Broadcast();
+
+            b.Broadcast(); //get nothing becaue it is sync, all 10 happenned before we were listening.
+            r.Receiving(b);
+            //b.Broadcast();
+        }
+        static void PlayWithDelegate()
+        {
+            var ch = new ContactHelper<Person>();
+            string s = ch.Hello4(() => {return "Goodbye";});  // closure
+            System.Console.WriteLine(s);
+            System.Console.WriteLine(ch.Hello3());
+            //System.Console.WriteLine(ch.hello());
         }
         static void PlayWithContact()  //PlayWithContact static because Main is static so it must exist when Main runs
         {

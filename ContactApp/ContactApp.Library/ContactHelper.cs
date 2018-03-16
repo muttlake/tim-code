@@ -128,6 +128,44 @@ namespace ContactApp.Library
 
             return person;
         }
+
+        public void Update(T t) //Assume you cannot change name for now
+        {
+            var a = _container.First(p => p.PId == t.PId); //Method as Parameter in another Method
+            //We are passing it a predicate, predicates are usually small
+            //In Collection this is called a predicate: p.PId == t.PId
+            //_container.First(
+            //var a = _container.Where(p => p.PId == t.PId).First(); //could also have done this
+            // foreach (var item in _container)  // what this does _container.First(p => p.PId == t.PId);
+            // {
+            //     if (item.PId == t.PId)
+            //     {
+            //         return item;
+            //     }
+            // }
+        }
+
+        //Delegate is an abstraction for functions and actions
+
+        //Functions
+        Func<string> hello = () => { return "hello";}; //Func<returnType>
+        Action<string> hello2 = (string h) => {Console.WriteLine(h);}; // Action<parameter>
+
+        public delegate string Hello5();  //like Funct<string>, but now it is a type
+        public delegate void Hello6(string s); //like Action<>, delegate like shorthand for Action<string>
+                         
+
+        public string Hello3()
+        {
+            return "hello3";
+        }
+
+        public string Hello4(Hello5 fs) // This is how first is written
+                                                // Wants method that takes nothing and returns a string
+        {
+            return fs();
+        }
+
         // public void Delete()
         // {
 
