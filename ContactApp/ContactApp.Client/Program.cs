@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using ContactApp.Library;
 using ContactApp.Library.Models;
 
@@ -10,7 +12,44 @@ namespace ContactApp.Client
         {
             //PlayWithContact();
             //PlayWithDelegate();
-            PlayWithEvent();
+            //PlayWithEvent();
+
+            var arrNames = new string[] { "12345", "fred", "Fred", "fred1", "" };
+            //string validName;
+
+            // foreach (var s in arrNames)
+            // {
+            //     if(NameCheck(s, out string validName))
+            //     {
+            //         System.Console.WriteLine("your valid name is: {0}", validName);
+            //         continue;
+            //     }
+            //     System.Console.WriteLine("your name should not be: {0}", validName);
+            // }
+
+            string first;
+            string middle;
+            string last;
+            foreach (var s in arrNames)
+            {
+                first = s + "1";
+                middle = s + "2";
+                last = s + "3";
+
+                //if(NameCheck(last: last, first: first , middle: middle)) // named parameters
+                if(NameCheck(last: last, first: ref first , middle: middle)) // named parameters, this is boxing(a string value)
+                {
+                    System.Console.WriteLine("your valid name is: {0}", first);
+                }
+                else
+                {
+                    System.Console.WriteLine("your name should not be: {0}", last);
+                }
+            }
+
+            //Params give you option of passing a number of things or one int[] array
+            Sum(1, 2, 3);
+            Sum(new int[] {1, 2, 3, 4, 5});
         }
 
         static void PlayWithEvent()
@@ -25,6 +64,47 @@ namespace ContactApp.Client
             // r.Receiving(b);
             // b.Broadcast();
         }
+
+        static bool NameCheck(string name, out string validName) // has default parameter
+        {
+            if(Regex.IsMatch(name, "^[a-z]*$"))
+            {
+                validName = name;
+                return true;
+            }
+            //var s = validName; illegal because validName is not expected to have value, it is a bucket to take validName out
+            validName = "Not Valid";
+            return false;
+        }
+
+
+        static bool NameCheck(ref string first, string middle, string last = "Default last")
+        {
+            if(Regex.IsMatch(first, "^[a-z].*$"))
+            {
+                var temp = last;
+                last = first;
+                first = middle;
+                middle = temp;
+                return true;
+            }
+            
+            //validName = "Not Valid";
+            return false;
+        }
+
+
+        //How can we pass multiple parameters?
+
+        // static double Sum(List<int> i)
+        // {
+        //     return 1.0;
+        // }
+        static double Sum(params int[] i)
+        {
+            return 1.0;
+        }
+
         static void PlayWithDelegate()
         {
             var ch = new ContactHelper<Person>();
