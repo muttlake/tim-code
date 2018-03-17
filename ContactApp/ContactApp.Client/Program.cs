@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Threading;
 using ContactApp.Library;
 using ContactApp.Library.Models;
 
@@ -50,6 +51,12 @@ namespace ContactApp.Client
             //Params give you option of passing a number of things or one int[] array
             Sum(1, 2, 3);
             Sum(new int[] {1, 2, 3, 4, 5});
+
+
+            PlayWithParallel();
+            Console.WriteLine("Finish Main Thread");
+
+
         }
 
         static void PlayWithEvent()
@@ -164,6 +171,18 @@ namespace ContactApp.Client
             // while(true)
             // {
             // }
+        }
+
+        static void PlayWithParallel()
+        {
+            var p = new Parallel();
+            //p.WorkWithThread();
+            //p.WorkWithTask();
+            //p.WorkWithAsync();
+            //Thread.Sleep(10); // Sleep Main thread for 10ms
+            //p.WorkWithAsync().GetAwaiter(); //Telling main thread to pause when it get here
+            p.WorkWithAsync().GetAwaiter().GetResult(); //This is basically synchronous again, you pause until finished
+
         }
     }
 }

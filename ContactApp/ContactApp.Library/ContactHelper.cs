@@ -148,7 +148,7 @@ namespace ContactApp.Library
         //Delegate is an abstraction for functions and actions
 
         //Functions
-        Func<string> hello = () => { return "hello";}; //Func<returnType>
+        Func<string> hello = () => { return "hello";}; //Func<returnType> // Func delegate can be re-assigned another method
         Action<string> hello2 = (string h) => {Console.WriteLine(h);}; // Action<parameter>
 
         public delegate string Hello5();  //like Funct<string>, but now it is a type
