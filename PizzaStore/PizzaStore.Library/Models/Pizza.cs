@@ -23,5 +23,28 @@ namespace PizzaStore.Library.Models
             Cheeses.Add(CheeseEnum.Mozzarella);
             Toppings = new PizzaHelper<ToppingEnum>(_maxToppings);
         }
+
+
+
+        public override string ToString()
+        {
+            string outputString = "";
+            outputString += string.Format("Crust: {0}", Crust);
+            outputString += string.Format(", Sauce: {0}", Sauce);
+            int counter = 0;
+            foreach (var cheese in Cheeses.Read())
+            {
+                counter += 1;
+                outputString += string.Format(", Cheese{0}: {1}", counter, cheese);
+            }
+            counter = 0;
+            foreach (var topping in Toppings.Read())
+            {
+                counter += 1;
+                outputString += string.Format(", Topping{0}: {1}", counter, topping);
+            }
+            return outputString;
+        }
+
     }
 }

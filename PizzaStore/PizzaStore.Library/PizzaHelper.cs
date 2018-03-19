@@ -1,7 +1,6 @@
 
 using System;
 using System.Collections.Generic;
-using PizzaStore.Library.Interfaces;
 
 namespace PizzaStore.Library
 {
@@ -29,6 +28,11 @@ namespace PizzaStore.Library
             }
             Console.WriteLine("Cannot add any more to PizzaHelper List, Reached maximum.");
             return true;
+        }
+
+        public List<T> Read()
+        {
+            return _container;
         }
     }
 }

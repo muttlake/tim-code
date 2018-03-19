@@ -4,16 +4,16 @@ namespace PizzaStore.Library.Enums
 {
     public enum ToppingEnum
     {
-        pepperoni,
+        Pepperoni,
 
         
-        greenPepper,
+        GreenPepper,
 
-        mushroom,
+        Mushroom,
 
-        onion,
+        Onion,
 
-        meatball
+        Meatball
 
     }
 }
