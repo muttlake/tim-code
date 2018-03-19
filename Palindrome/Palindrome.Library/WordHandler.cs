@@ -25,11 +25,7 @@ namespace Palindrome.Library
             foreach (char c in Word)
             {
                 if(c != ' ')
-                {
-                    //Console.WriteLine(c);
                     noSpaceWord += c;
-                }
-
             }
             return noSpaceWord;
         }
@@ -51,11 +47,9 @@ namespace Palindrome.Library
 
             if(noSpaceWord.Equals(reversedNoSpaceWord))
             {
-                Console.WriteLine("\nYes this is a Palindrome.");
                 return true;
             }
 
-            Console.WriteLine("\nNo this is not a Palindrome.");
             return false;
         }
     }

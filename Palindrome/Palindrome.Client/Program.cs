@@ -16,11 +16,14 @@ namespace Palindrome.Client
             string s = Console.ReadLine();
             var wh = new WordHandler(s);
             
-            string wordNoSpace = wh.NoSpace();
-            Console.WriteLine(wh.NoSpace());
-            Console.WriteLine(wh.Reverse(wordNoSpace));
+            // string wordNoSpace = wh.NoSpace();
+            // Console.WriteLine(wh.NoSpace());
+            // Console.WriteLine(wh.Reverse(wordNoSpace));
 
-            wh.IsPalindrome();
+            if(wh.IsPalindrome())
+                Console.WriteLine("Yes this is a palindrome.");
+            else
+                Console.WriteLine("No this is not a palindrome.");
 
         }
     }
