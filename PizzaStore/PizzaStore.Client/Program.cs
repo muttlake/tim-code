@@ -47,10 +47,10 @@ namespace PizzaStore.Client
             orders.Add(new Order());
             
             var o2 = new Order();
-            o2.Location.Street = "230 Palm Shadow Way";
-            o2.Location.City = "Tampa";
-            o2.Location.State = StateEnum.MD;
-            o2.Location.ZipCode = "24234";
+            o2.Location.Address.Street = "230 Palm Shadow Way";
+            o2.Location.Address.City = "Tampa";
+            o2.Location.Address.State = StateEnum.MD;
+            o2.Location.Address.ZipCode = "24234";
             o2.Location.Inventory.Cheeses[CheeseEnum.Mozzarella] = 2;
             o2.Location.Inventory.Cheeses[CheeseEnum.Cheddar] = 1;
             
