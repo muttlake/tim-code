@@ -1,4 +1,5 @@
 ﻿using System;
+using PizzaStore.Library.Models;
 
 namespace PizzaStore.Client
 {
