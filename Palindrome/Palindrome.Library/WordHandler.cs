@@ -45,6 +45,12 @@ namespace Palindrome.Library
             string noSpaceWord = NoSpace();
             string reversedNoSpaceWord = Reverse(noSpaceWord);
 
+            if(Word == "") // check if word is empty, say it is not palindrome if it is empty
+            {
+                Console.WriteLine("Empty string.");
+                return false;
+            }
+
             if(noSpaceWord.Equals(reversedNoSpaceWord))
             {
                 return true;
