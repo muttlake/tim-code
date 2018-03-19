@@ -1,4 +1,5 @@
 ﻿using System;
+using Palindrome.Library;
 
 namespace Palindrome.Client
 {
@@ -6,7 +7,21 @@ namespace Palindrome.Client
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            PlayWithPalindrome();
+        }
+
+        static void PlayWithPalindrome()
+        {
+            Console.WriteLine("Enter string to test for palindrome.");
+            string s = Console.ReadLine();
+            var wh = new WordHandler(s);
+            
+            string wordNoSpace = wh.NoSpace();
+            Console.WriteLine(wh.NoSpace());
+            Console.WriteLine(wh.Reverse(wordNoSpace));
+
+            wh.IsPalindrome();
+
         }
     }
 }
