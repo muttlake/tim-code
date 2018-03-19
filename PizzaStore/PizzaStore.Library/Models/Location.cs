@@ -17,7 +17,7 @@ namespace PizzaStore.Library.Models
 
         public override string ToString()
         {
-            string outString = "Location: ----- ";
+            string outString = "\nLocation: ----- ";
             outString += string.Format("\nLocation Address {0}", Address);
             outString += string.Format("\nLocation Inventory: {0}", Inventory);
             return outString;
