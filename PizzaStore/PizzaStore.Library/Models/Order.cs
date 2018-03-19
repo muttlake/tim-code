@@ -22,10 +22,10 @@ namespace PizzaStore.Library.Models
         {
             string outString = "";
 
-            outString += string.Format("Location: {0}", Location.ToString());
-            outString += string.Format("\nValue: {0}", Value);
+            outString += string.Format("\nOrder Location: {0}", Location.ToString());
+            outString += string.Format("\nOrder Value: {0}", Value);
             foreach (var pizza in pizzas.Read())
-                outString += string.Format("\nIncludesPizza: {0}", pizza);
+                outString += string.Format("\nOrder IncludesPizza: {0}", pizza);
 
             return outString;
         }
