@@ -66,7 +66,7 @@ namespace PizzaStore.Client
             o2.Location.Inventory.Toppings[ToppingEnum.Meatball] = 44;
             o2.Location.Inventory.Toppings[ToppingEnum.Mushroom] = 30;
 
-            Console.WriteLine("Topping Onion: " + o2.Location.Inventory.Toppings[ToppingEnum.Onion].ToString());
+            //Console.WriteLine("Topping Onion: " + o2.Location.Inventory.Toppings[ToppingEnum.Onion].ToString());
 
             
 
@@ -80,11 +80,11 @@ namespace PizzaStore.Client
             var p2 = new Pizza();
             p2.Crust = CrustEnum.Thin;
             p2.Cheeses.Add(CheeseEnum.Cheddar);
-            p2.Cheeses.Add(CheeseEnum.Colby);
+            //p2.Cheeses.Add(CheeseEnum.Colby);
             p2.Toppings.Add(ToppingEnum.Pepperoni);
             p2.Toppings.Add(ToppingEnum.GreenPepper);
             p2.Toppings.Add(ToppingEnum.Meatball);
-            p2.Toppings.Add(ToppingEnum.Onion);
+            //p2.Toppings.Add(ToppingEnum.Onion);
 
             o2.pizzas.Add(p2);
 
@@ -135,9 +135,7 @@ namespace PizzaStore.Client
             o2.Location.Inventory.Toppings[ToppingEnum.Meatball] = 44;
             o2.Location.Inventory.Toppings[ToppingEnum.Mushroom] = 30;
 
-            Console.WriteLine("Topping Onion: " + o2.Location.Inventory.Toppings[ToppingEnum.Onion].ToString());
-
-            o2.Value = 1000.01;
+            o2.Value = 999.99;
 
             var p1 = new Pizza();
             o2.pizzas.Add(p1);
@@ -146,15 +144,15 @@ namespace PizzaStore.Client
             var p2 = new Pizza();
             p2.Crust = CrustEnum.Thin;
             p2.Cheeses.Add(CheeseEnum.Cheddar);
-            p2.Cheeses.Add(CheeseEnum.Colby);
+            //p2.Cheeses.Add(CheeseEnum.Colby);
             p2.Toppings.Add(ToppingEnum.Pepperoni);
             p2.Toppings.Add(ToppingEnum.GreenPepper);
             p2.Toppings.Add(ToppingEnum.Meatball);
-            p2.Toppings.Add(ToppingEnum.Onion);
+            //p2.Toppings.Add(ToppingEnum.Onion);
 
             o2.pizzas.Add(p2);
 
-            Console.WriteLine("Is o2 Valid: {0}", o2.IsValid());
+            //Console.WriteLine("Is o2 Valid: {0}", o2.IsValid());
 
             u2.OrderHistory[123123] = o2;
 
