@@ -164,6 +164,7 @@ namespace PizzaStore.Client
                 Console.WriteLine(user);
             }
 
+            Console.ReadKey();
 
         }
     }
