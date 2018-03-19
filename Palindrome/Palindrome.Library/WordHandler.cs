@@ -51,8 +51,8 @@ namespace Palindrome.Library
                 return false;
             }
 
-            if(noSpaceWord.Equals(reversedNoSpaceWord))
-            {
+            if(noSpaceWord.Equals(reversedNoSpaceWord)) // Not checking for capital because
+            {                                           // specifications said sequence of characters
                 return true;
             }
 
