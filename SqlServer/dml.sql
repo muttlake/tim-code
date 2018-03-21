@@ -151,14 +151,63 @@ Values('123 main st', null, 'Tampa', 79, 98011, 0xE6100000010C61C64D8ABBD94740C4
 
 SELECT * FROM Person.Address where City = 'Tampa';
 
--- Enhanced Insert
+-- Normal Insert list value types
 INSERT INTO Person.Address(City, AddressLine2, AddressLine1, StateProvinceID, PostalCode, ModifiedDate, rowguid, SpatialLocation)
 Values('Tampa', NULL, '334 Fastball St', 79, 22222, '2018-03-20', '0B6B739D-8EB6-4378-8D55-FE196AF34C2F', 0xE6100000010C61C64D8ABBD94740C460EA3FD8855EC0);
 
 SELECT * FROM Person.Address where City = 'Tampa';
 
+-- This should work but it is blocked by an index
+-- We are moving data from one table into this table using Select
+-- This is "Enhanced Insert"
+INSERT INTO Person.Address(City, AddressLine2, AddressLine1, StateProvinceID, PostalCode, ModifiedDate, SpatialLocation)
+SELECT City, AddressLine2, AddressLine1, StateProvinceID, PostalCode, ModifiedDate, SpatialLocation
+FROM Person.Address
+-- FROM DB2.Person.Address
+WHERE AddressID < 10;
+
+BULK INSERT Person.Address
+FROM 'https://s3.us-east-2.amazonaws.com/1803-mar12-net-44/data.csv'
+WITH (rowterminator = '\n', fieldterminator=','); -- Some Restriction
+
 
 -- UPDATE
+-- UPDATE Person.Address
+-- Set AddressLine1 = '987 fowler ave'; -- Run this and your fired because it will change everyone's address
+-- Always make sure there is a where
+SELECT * FROM Person.Address Where City = 'Tampa';
+
+-- It would not allow to change all Tampa addresses because you cannot have duplicate addresses
+-- This is the Normal Update
+UPDATE Person.Address
+Set AddressLine1 = '980 fowler ave'
+Where City = 'Tampa' and StateProvinceID = 15;
+
+
+-- This is the Enhanced Update
+-- Only update this address if some condition from some other table is true
+UPDATE pa
+Set AddressLine1 = '922 Hooch st'
+from Person.Address as pa
+Where City = 'Tampa' and PostalCode = 98011;
+
+-- UPDATE pa
+-- Set AddressLine1 = '922 Hooch st'
+-- from Person.Address as pa, Person.Person as pp -- Do not do this because you are pulling from two tables
+-- Where City = 'Tampa' and pa.PostalCode = 98011; -- These are not related, Will cause slowdown because FROM will bring both entire tables up
+
 
 -- DELETE
+-- DELETE Person.Address; Would delete the whole table
 
+DELETE FROM Person.Address
+WHERE AddressLine1 = '333 Slap St';
+-- Both "Delete" and "Delete" From Work
+
+SELECT *
+FROM Person.Address
+WHERE City = 'Tampa';
+
+DELETE pa
+FROM Person.Address as pa, Person.Person as pp
+WHERE AddressLine1 = '333 Slap St';
