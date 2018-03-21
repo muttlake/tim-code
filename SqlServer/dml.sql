@@ -209,5 +209,155 @@ FROM Person.Address
 WHERE City = 'Tampa';
 
 DELETE pa
-FROM Person.Address as pa, Person.Person as pp
+FROM Person.Address as pa, Person.Person as pp 
 WHERE AddressLine1 = '333 Slap St';
+
+-- JOIN
+
+-- Try to Join: Person Name and Address
+
+SELECT * FROM sys.tables; -- Shows all Tables
+
+SELECT * FROM Person.Person; -- 19972 address
+SELECT * FROM Person.BusinessEntityAddress;
+
+-- We Will need Transition Table BusinessEntityAddress, 19996 because maybe people have more than one address
+SELECT FirstName, LastName, AddressLine1, City, StateProvinceID, PostalCode
+FROM Person.Person as pp
+LEFT JOIN Person.BusinessEntityAddress as pb ON pp.BusinessEntityID = pb.BusinessEntityID 
+LEFT JOIN Person.Address as pa ON pa.AddressID = pb.AddressID;
+
+
+-- We Will need Transition Table BusinessEntityAddress, 18798 rows
+SELECT FirstName, LastName, AddressLine1, City, ps.StateProvinceCode, PostalCode
+FROM Person.Person as pp
+LEFT JOIN Person.BusinessEntityAddress as pb ON pp.BusinessEntityID = pb.BusinessEntityID 
+LEFT JOIN Person.Address as pa ON pa.AddressID = pb.AddressID
+INNER JOIN Person.StateProvince as ps on ps.StateProvinceID = pa.StateProvinceID; -- We lost people because of Inner Join 
+
+-- We Will need Transition Table BusinessEntityAddress, 19996 because maybe people have more than one address
+SELECT FirstName, LastName, AddressLine1, City, ps.StateProvinceCode, PostalCode
+FROM Person.Person as pp
+LEFT JOIN Person.BusinessEntityAddress as pb ON pp.BusinessEntityID = pb.BusinessEntityID 
+LEFT JOIN Person.Address as pa ON pa.AddressID = pb.AddressID
+LEFT JOIN Person.StateProvince as ps on ps.StateProvinceID = pa.StateProvinceID -- We do not lose people because LEFT JOIN
+ORDER BY LastName ASC, FirstName ASC;
+
+-- Find people with Addresses in WASHINGTON State
+-- We Will need Transition Table BusinessEntityAddress, 2560 rows in result
+SELECT FirstName, LastName, AddressLine1, City, ps.StateProvinceCode, PostalCode
+FROM Person.Person as pp
+LEFT JOIN Person.BusinessEntityAddress as pb ON pp.BusinessEntityID = pb.BusinessEntityID 
+LEFT JOIN Person.Address as pa ON pa.AddressID = pb.AddressID
+LEFT JOIN Person.StateProvince as ps on ps.StateProvinceID = pa.StateProvinceID -- We do not lose people because LEFT JOIN
+WHERE ps.StateProvinceID = 79
+ORDER BY LastName ASC, FirstName ASC;
+
+-- Find people with Addresses in WASHINGTON State, Only with Street as Part of Address
+-- We Will need Transition Table BusinessEntityAddress, 96 rows result
+SELECT FirstName, LastName, AddressLine1, City, ps.StateProvinceCode, PostalCode
+FROM Person.Person as pp
+LEFT JOIN Person.BusinessEntityAddress as pb ON pp.BusinessEntityID = pb.BusinessEntityID 
+LEFT JOIN Person.Address as pa ON pa.AddressID = pb.AddressID
+LEFT JOIN Person.StateProvince as ps on ps.StateProvinceID = pa.StateProvinceID -- We do not lose people because LEFT JOIN
+WHERE ps.StateProvinceID = 79 AND (pa.AddressLine1 LIKE '%Street%' or pa.AddressID LIKE '%St.%')
+ORDER BY LastName ASC, FirstName ASC;
+
+
+-- Find people with Addresses in WASHINGTON State, Only with Street as Part of Address, Any FirstName that starts with J
+-- We Will need Transition Table BusinessEntityAddress, 15 rows result
+SELECT FirstName, LastName, AddressLine1, City, ps.StateProvinceCode, PostalCode
+FROM Person.Person as pp
+LEFT JOIN Person.BusinessEntityAddress as pb ON pp.BusinessEntityID = pb.BusinessEntityID 
+LEFT JOIN Person.Address as pa ON pa.AddressID = pb.AddressID
+LEFT JOIN Person.StateProvince as ps on ps.StateProvinceID = pa.StateProvinceID -- We do not lose people because LEFT JOIN
+WHERE ps.StateProvinceID = 79 AND (pa.AddressLine1 LIKE '%Street%') AND FirstName LIKE 'J%'
+ORDER BY LastName ASC, FirstName ASC;
+
+-- Find people with Addresses in WASHINGTON State, Only with Street as Part of Address, Any FirstName that has j + another letter at least
+-- We Will need Transition Table BusinessEntityAddress, 58 rows result
+SELECT FirstName, LastName, AddressLine1, City, ps.StateProvinceCode, PostalCode
+FROM Person.Person as pp
+LEFT JOIN Person.BusinessEntityAddress as pb ON pp.BusinessEntityID = pb.BusinessEntityID 
+LEFT JOIN Person.Address as pa ON pa.AddressID = pb.AddressID
+LEFT JOIN Person.StateProvince as ps on ps.StateProvinceID = pa.StateProvinceID -- We do not lose people because LEFT JOIN
+WHERE ps.StateProvinceID = 79 AND (pa.AddressLine1 LIKE '%Street%') AND FirstName > 'j'
+ORDER BY FirstName ASC, LastName ASC;
+
+-- Find people with Addresses in WASHINGTON State, Only with Street as Part of Address, Any FirstName that has j + another letter at least
+-- We Will need Transition Table BusinessEntityAddress, 15 rows result
+SELECT FirstName, LastName, AddressLine1, City, ps.StateProvinceCode, PostalCode
+FROM Person.Person as pp
+LEFT JOIN Person.BusinessEntityAddress as pb ON pp.BusinessEntityID = pb.BusinessEntityID 
+LEFT JOIN Person.Address as pa ON pa.AddressID = pb.AddressID
+LEFT JOIN Person.StateProvince as ps on ps.StateProvinceID = pa.StateProvinceID -- We do not lose people because LEFT JOIN
+WHERE ps.StateProvinceID = 79 AND (pa.AddressLine1 LIKE '%Street%') AND FirstName >= 'j' AND FIRSTNAME < 'k'
+ORDER BY FirstName ASC, LastName ASC;
+
+
+
+-- Find people with Addresses in WASHINGTON State, Only with Street as Part of Address, Any FirstName that has j + another letter at least
+-- We Will need Transition Table BusinessEntityAddress, Now do with subqueries, 2468 rows not equal to 15 rows
+SELECT FirstName, LastName, AddressLine1, City, ps.StateProvinceCode, PostalCode
+FROM Person.Person as pp
+LEFT JOIN Person.BusinessEntityAddress as pb ON pp.BusinessEntityID = pb.BusinessEntityID 
+LEFT JOIN 
+(
+	SELECT AddressLine1, AddressID, StateProvinceID, City, PostalCode
+	FROM PERSON.Address
+	Where AddressLine1 LIKE '%Street%' -- Where is only applying to subquery, you will have lots of nulls
+) as pa on pa.AddressID = pb.AddressID
+LEFT JOIN 
+(
+	SELECT StateProvinceID, StateProvinceCode
+	FROM Person.StateProvince
+	WHERE StateProvinceCode = 'WA'
+) as ps on ps.StateProvinceID = pa.StateProvinceID -- We do not lose people because LEFT JOIN
+WHERE FirstName >= 'j' AND FIRSTNAME < 'k'
+ORDER BY FirstName ASC, LastName ASC;
+
+
+-- Find people with Addresses in WASHINGTON State, Only with Street as Part of Address, Any FirstName that has j + another letter at least
+-- We Will need Transition Table BusinessEntityAddress, Now do with subqueries, 15 rows equal to 15 rows
+SELECT FirstName, LastName, AddressLine1, City, ps.StateProvinceCode, PostalCode
+FROM Person.Person as pp
+LEFT JOIN Person.BusinessEntityAddress as pb ON pp.BusinessEntityID = pb.BusinessEntityID 
+INNER JOIN -- Changed to Inner Join because you only want records that match the subquery, we are saving ourselves from loading 4 tables
+( -- subqueries improve performance, allow pre-filtering 
+	SELECT AddressLine1, AddressID, StateProvinceID, City, PostalCode
+	FROM PERSON.Address
+	Where AddressLine1 LIKE '%Street%' -- Where is only applying to subquery, you will have lots of nulls
+) as pa on pa.AddressID = pb.AddressID
+INNER JOIN 
+(
+	SELECT StateProvinceID, StateProvinceCode
+	FROM Person.StateProvince
+	WHERE StateProvinceCode = 'WA'
+) as ps on ps.StateProvinceID = pa.StateProvinceID -- We do not lose people because LEFT JOIN
+WHERE FirstName >= 'j' AND FIRSTNAME < 'k'
+ORDER BY AddressLine1 ASC, LastName ASC;
+
+
+-- Now we will re-write this as a Common Table Expression, CTEs are like mini-methods
+WITH addr(al1, ai, spi, c, pc) as 
+(
+	SELECT AddressLine1, AddressID, StateProvinceID, City, PostalCode
+	FROM PERSON.Address
+	Where AddressLine1 LIKE '%Street%' -- Where is only applying to subquery, you will have lots of nulls
+),
+prov(spi, spc) as
+(
+	SELECT StateProvinceID, StateProvinceCode
+	FROM Person.StateProvince
+	WHERE StateProvinceCode = 'WA'
+)
+-- Find people with Addresses in WASHINGTON State, Only with Street as Part of Address, Any FirstName that has j + another letter at least
+-- We Will need Transition Table BusinessEntityAddress, Now do with Common Table Expressions, 15 rows equal to 15 rows
+SELECT FirstName, LastName, al1, c, spc, pc
+FROM Person.Person as pp
+LEFT JOIN Person.BusinessEntityAddress as pb ON pp.BusinessEntityID = pb.BusinessEntityID 
+INNER JOIN addr on addr.ai = pb.AddressID
+INNER JOIN prov on prov.spi = addr.spi
+WHERE FirstName >= 'j' AND FIRSTNAME < 'k'
+ORDER BY al1 ASC, LastName ASC;
+
