@@ -122,14 +122,16 @@ FROM Person.Person;
 -- This is technically an error because there are so many NULL
 -- WHERE MiddleName is Not NULL AND FirstName is Not NULL and LastName is Not NULL;
 
--- the 3 most popular first names
-SELECT TOP 3 Count(*), FirstName
+-- the 3 most popular first names, Trap because it is top 3 and ties to 3rd
+SELECT TOP 6 Count(*), FirstName
 FROM Person.Person as pp
 GROUP BY FirstName
 ORDER BY Count(*) DESC;
+-- TOP is dangerous because ties are ignored, TOP3 is (Richard, Katherine, James and Marcus)
 
 -- the 3 least popular last names
-SELECT TOP 3 Count(*), LastName
+-- SELECT TOP 3 Count(*), LastName
+SELECT Count(*), LastName
 FROM Person.Person as pp
 GROUP BY LastName
 ORDER BY Count(*) ASC;
@@ -139,7 +141,22 @@ FROM Person.Person as pp
 GROUP BY LastName
 ORDER BY Count(*) ASC;
 
+
 -- INSERT
+SELECT * FROM Person.Address;
+
+-- This is called Simple Insert
+INSERT INTO Person.Address
+Values('123 main st', null, 'Tampa', 79, 98011, 0xE6100000010C61C64D8ABBD94740C460EA3FD8855EC0, '0B6B739D-8EB6-4378-8D55-FE196AF34C0B', '2018-03-21');
+
+SELECT * FROM Person.Address where City = 'Tampa';
+
+-- Enhanced Insert
+INSERT INTO Person.Address(City, AddressLine2, AddressLine1, StateProvinceID, PostalCode, ModifiedDate, rowguid, SpatialLocation)
+Values('Tampa', NULL, '334 Fastball St', 79, 22222, '2018-03-20', '0B6B739D-8EB6-4378-8D55-FE196AF34C2F', 0xE6100000010C61C64D8ABBD94740C460EA3FD8855EC0);
+
+SELECT * FROM Person.Address where City = 'Tampa';
+
 
 -- UPDATE
 
