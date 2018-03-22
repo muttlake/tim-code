@@ -61,10 +61,10 @@ SELECT * from Person.Person
 WHERE BusinessEntityID = 1;
 GO
 
-execute Person.sp_UpdateName(int(1), 'fred');
+execute Person.sp_UpdateName 1, 'Billingston';  -- Execute does not need parentheses
 
 -- Give a report of all products not sold in 2015: Got 504 rows
-SELECT product.ProductID, product.Name
+SELECT product.ProductID, product.Name -- 266 rows for 2013, 324 rows for 2014, 504 rows for 2015
 FROM Production.product as product
 Where product.ProductID not in
 (
@@ -79,22 +79,53 @@ Where product.ProductID not in
 	(
 		SELECT OrderDate, SalesOrderID
 		FROM Sales.SalesOrderHeader
-		WHERE OrderDate >= '2015-01-01' AND OrderDate < '2016-01-01'
+		WHERE year(OrderDate) = 2013
 	) as salesheader ON salesdetail.SalesOrderID = salesheader.SalesOrderID
 );
 
 
-SELECT DISTINCT product.ProductID, product.Name -- No Products Sold in 2015
+SELECT DISTINCT product.ProductID, product.Name -- No Products Sold in 2015, there are 504 total products
 FROM Production.product as product;
 
 
 
+SELECT DISTINCT product.ProductID, product.Name -- 238  rows for 2013, 180 rows in 2014, 0 rows in 2015
+FROM Production.Product as product
+INNER JOIN
+(
+	SELECT *
+	FROM Sales.SalesOrderDetail
+) as salesdetail ON product.ProductID = salesdetail.ProductID
+INNER JOIN
+(
+	SELECT OrderDate, SalesOrderID
+	FROM Sales.SalesOrderHeader
+	WHERE year(OrderDate) = 2015
+) as salesheader ON salesdetail.SalesOrderID = salesheader.SalesOrderID;
 
 
+SELECT 180 + 324;
+
+-- You can also do this with except
+SELECT product.ProductID, product.Name -- 266 rows for 2013, 324 rows for 2014, 504 rows for 2015
+FROM Production.product as product
+
+except 
 
 
-
-
+SELECT product.ProductID, product.Name
+FROM Production.Product as product
+INNER JOIN
+(
+	SELECT *
+	FROM Sales.SalesOrderDetail
+) as salesdetail ON product.ProductID = salesdetail.ProductID
+INNER JOIN
+(
+	SELECT OrderDate, SalesOrderID
+	FROM Sales.SalesOrderHeader
+	WHERE year(OrderDate) = 2013
+) as salesheader ON salesdetail.SalesOrderID = salesheader.SalesOrderID;
 
 
 
