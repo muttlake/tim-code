@@ -179,6 +179,75 @@ INNER JOIN
 
 
 
+-- List all employees that bought a product
 
 
+SELECT (FirstName + isNull(MiddleName + ' ', '') + LastName) as Name, PersonType, product.ProductID, product.Name as ProductName, salesheader.SalesOrderID, salesdetail.SalesOrderID, salesDetail.SalesOrderDetailID
+FROM Person.Person as person
+INNER JOIN
+(
+	Select SalesOrderID, CustomerID
+	From Sales.SalesOrderHeader
+) as salesheader ON person.BusinessEntityID = salesheader.CustomerID
+LEFT JOIN
+(
+	Select SalesOrderID, SalesOrderDetailID, ProductID
+	FROM Sales.SalesOrderDetail
+) as salesdetail ON salesheader.SalesOrderID = salesdetail.SalesOrderID
+LEFT JOIN
+(
+	Select ProductID, Name
+	FROM Production.Product
+) as product ON product.ProductID = salesdetail.ProductID
+ORDER BY PersonType, Name;
 
+SELECT * From Person.Person;
+GO
+-- More Stored Procedures
+
+-- Want to Add Address if it does not exist, if it exists, change Addressline2
+alter procedure Person.sp_UpdateMiddleName(@firstName varchar(max), @lastName varchar(max), @newMiddleName varchar(max))
+as
+begin
+	declare @id int;
+	declare @currentMiddleName varchar(max)
+
+	select @id = BusinessEntityID, @currentMiddleName = MiddleName 
+	FROM Person.Person    -- We want to make sure SELECT Never fails
+	WHERE FirstName = @firstName AND LastName = @lastName
+
+	begin transaction -- makes sure everything works, both inserts in each if block, now our transaction is Acid
+		begin try -- you usually don't see a transaction without a try
+			if (@id is null) -- @ means local variable
+			begin
+				RAISERROR('There is no such person to add a middle name to.', 16, 50000) -- way to throw errors, we take 50000 up in errors
+				commit transaction
+			end
+			else if (@currentMiddleName is not null)
+			begin
+				RAISERROR('There is already a middle name for this person.', 16, 50000) -- way to throw errors, we take 50000 up in errors
+			end
+			else
+			begin -- begin and end act like brackets
+				UPDATE Person.Person
+				SET MiddleName = @newMiddleName
+				WHERE BusinessEntityID = @id
+				commit transaction
+			end
+			end try
+		begin catch -- At this point it doesn't matter the error
+			print error_message();
+			print error_severity();
+			print error_number(); 
+			print error_state();
+			print @@trancount; -- @@ means global variable
+			print @@rowcount;
+			rollback transaction
+		end catch
+end
+go
+
+SELECT * FROM Person.Person where LastName = 'Rodriguez';
+GO
+
+execute Person.sp_UpdateMiddleName 'Alexandrs', 'Rodriguez', 'Jiffy';
