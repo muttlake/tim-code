@@ -62,6 +62,56 @@ WHERE BusinessEntityID = 1;
 GO
 
 execute Person.sp_UpdateName 1, 'Billingston';  -- Execute does not need parentheses
+GO
+-- Want to Add Address if it does not exist, if it exists, change Addressline2
+alter procedure Person.sp_AddAddress(@street1 varchar(max), @street2 varchar(max), @city varchar(max))
+as
+begin
+	declare @id int;
+
+	select @id = AddressID -- Grabs last AddressID that fits in there if there is more than one matching AddressLine1
+	FROM Person.Address    -- We want to make sure SELECT Never fails
+	WHERE AddressLine1 = @street1;
+
+	begin transaction -- makes sure everything works, both inserts in each if block, now our transaction is Acid
+		begin try -- you usually don't see a transaction without a try
+			if (@id is null) -- @ means local variable
+			begin
+				-- RAISERROR('There is no address there', 16, 50000) -- way to throw errors, we take 50000 up in errors
+				INSERT INTO Person.Address(AddressLine1, AddressLine2, City, ModifiedDate, StateProvinceID, PostalCode, rowguid)
+				VALUES(@street1, @street2, @city, GETDATE(), 79, 78787, 'E5946C78-4BCC-477F-9FA1-CC09EE16A89f') -- sometimes you have to do more than one inser to keep db consistent
+				-- inser into Person.BusinessEntityAddress  -- if first insert does not work, second insert would still happen, not good for consistency
+				commit transaction -- commit ends begin transaction
+			end
+			else
+			begin -- begin and end act like brackets
+				-- THROW 50001, 'The record does not exist.', 16;  
+				UPDATE Person.Address -- Both inserts need to work
+				SET AddressLine2 = @street2, City = @city
+				WHERE AddressID = @id
+				-- UPDATE Person.BusinessEntityAddress
+				commit transaction
+			end
+			end try
+		begin catch -- At this point it doesn't matter the error
+		    -- THROW 51000, 'The record does not exist.', 1
+			print error_message();
+			print error_severity();
+			print error_number(); 
+			print error_state();
+			print @@trancount; -- @@ means global variable
+			print @@rowcount;
+			rollback transaction
+		end catch
+end
+go
+
+
+execute Person.sp_AddAddress '332 Blinker St', 'GRANT', 'Orlando';
+GO
+
+SELECT * From Person.Address where City = 'Orlando';
+
 
 -- Give a report of all products not sold in 2015: Got 504 rows
 SELECT product.ProductID, product.Name -- 266 rows for 2013, 324 rows for 2014, 504 rows for 2015
@@ -126,6 +176,9 @@ INNER JOIN
 	FROM Sales.SalesOrderHeader
 	WHERE year(OrderDate) = 2013
 ) as salesheader ON salesdetail.SalesOrderID = salesheader.SalesOrderID;
+
+
+
 
 
 
