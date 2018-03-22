@@ -127,6 +127,7 @@ SELECT TOP 6 Count(*), FirstName
 FROM Person.Person as pp
 GROUP BY FirstName
 ORDER BY Count(*) DESC;
+
 -- TOP is dangerous because ties are ignored, TOP3 is (Richard, Katherine, James and Marcus)
 
 -- the 3 least popular last names
@@ -361,3 +362,192 @@ INNER JOIN prov on prov.spi = addr.spi
 WHERE FirstName >= 'j' AND FIRSTNAME < 'k'
 ORDER BY al1 ASC, LastName ASC;
 
+
+-- Write a scriptfor each report below
+-- 1) List all products sold in 2013
+
+select * from sys.tables;
+
+select * from Production.Product;
+select * from Sales.SalesOrderHeader;
+select * from Sales.SalesOrderDetail;
+
+-- this is mine, 56573 rows
+SELECT product.ProductID, product.Name, OrderDate, salesdetail.SalesOrderID
+FROM Production.Product as product
+INNER JOIN
+(
+	SELECT *
+	FROM Sales.SalesOrderDetail
+) as salesdetail ON product.ProductID = salesdetail.ProductID
+INNER JOIN
+(
+	SELECT OrderDate, SalesOrderID
+	FROM Sales.SalesOrderHeader
+	WHERE OrderDate >= '2013-01-01' AND OrderDate < '2014-01-01'
+) as salesheader ON salesdetail.SalesOrderID = salesheader.SalesOrderID;
+
+-- this is Fred, also 56573 rows
+select p.Name
+from Sales.SalesOrderHeader as soh
+inner join
+(
+	select *
+	from Sales.SalesOrderDetail
+) as sod on sod.SalesOrderID = soh.SalesOrderID
+left join
+(
+	select *
+	from Production.Product
+) as p on p.ProductID = sod.ProductID
+where year(OrderDate) = 2013;
+-- where OrderDate >= '2013-01-01' and OrderDate < '2014-01-01';
+-- where OrderDate between '2013-01-01' and '2013-12-31 23:59:59.999'; -- between is inclusive
+
+
+-- 2) List a person full name, email and phone
+
+Select * from Person.Person;
+Select * from Person.PersonPhone;
+Select * from Person.EmailAddress;
+
+Select FirstName + ' ' + MiddleName + ' ' + LastName, phone.PhoneNumber, email.EmailAddress
+FROM Person.Person as person
+INNER JOIN
+(
+	Select *
+	FROM Person.PersonPhone
+) as phone on person.BusinessEntityID = phone.BusinessEntityID
+INNER JOIN
+(
+	Select *
+	FROM Person.EmailAddress
+) as email on person.BusinessEntityID = email.BusinessEntityID;
+
+
+-- Is there a product name and person name the same
+
+/*
+select firstname
+from Person.Person
+
+UNION
+
+select ModifiedDate
+from Production.Product; -- doesnt work because date and string are different types */
+
+
+select firstname
+from Person.Person
+
+UNION
+
+select name
+from Production.Product; -- doesnt work because date and string are different types
+
+SELECT * from Person.Person; -- Gives 19972
+
+-- Get all first names that are also last names UNION all people who have first names that are 
+-- ME:
+SELECT *
+FROM Person.Person as person
+WHERE person.FirstName = person.LastName
+
+UNION
+
+SELECT *
+FROM Person.Person as person
+WHERE person.FirstName != person.LastName;
+
+-- FRED:
+select firstname
+from Person.Person
+
+intersect
+
+select lastname
+from Person.Person;
+
+select firstname
+from Person.Person
+
+except 
+
+select lastname
+from Person.Person;
+
+-- This gives the unique names: 1018 rows
+select firstname
+from Person.Person
+
+union
+
+select firstname
+from Person.Person;
+
+-- unique first names: 1018 rows
+SELECT distinct Firstname
+FROM Person.Person;
+
+
+
+
+-- How do we deal with NULLs
+
+Select FirstName + ' ' + MiddleName + ' ' + LastName -- shows up as a bunch of NULLS for people with no MiddleName
+FROM Person.Person;
+
+Select FirstName + ' ' + isnull(MiddleName + ' ', '') + LastName -- Fixes Nulls
+FROM Person.Person;
+
+Select FirstName + ' ' + coalesce(NULL, NULL, MiddleName + ' ', '') + LastName -- Fixes Nulls
+FROM Person.Person;
+
+Select FirstName + ' ' + coalesce(NULL, NULL, MiddleName + ' ') + LastName -- Will not fix Nulls
+FROM Person.Person;
+
+
+-- How do we deal with NULL inside the Where clause
+-- You will only get people without Middle Names
+Select FirstName + ' ' + isnull(MiddleName + ' ', '') + LastName -- Fixes Nulls
+FROM Person.Person
+WHERE MiddleName is not NULL; -- use is NULL to compare NULL
+
+Select FirstName + ' ' + isnull(MiddleName + ' ', '') + LastName -- Fixes Nulls
+FROM Person.Person
+WHERE MiddleName in ('a', 'b', 'c'); -- This Gets Middle Names that are A B or C
+-- ('a', 'b', 'c') is a set or list
+
+-- Fred wants from b-t Middle names
+-- Me:
+Select FirstName + ' ' + isnull(MiddleName + ' ', '') + LastName -- Fixes Nulls
+FROM Person.Person
+WHERE MiddleName LIKE '[b-t]';
+
+-- Fred:
+Select FirstName + ' ' + isnull(MiddleName + ' ', '') + LastName -- Fixes Nulls
+FROM Person.Person
+WHERE MiddleName in
+(
+	select MiddleName
+	from Person.Person
+	Where MiddleName < 't'
+); -- Can have list as long as you want
+
+
+
+-- FRED:
+-- Full name of everyone 
+Select FirstName + ' ' + isnull(MiddleName + ' ', '') + LastName -- Fixes Nulls
+FROM Person.Person
+WHERE FirstName in
+(
+	select firstname -- this is every first name that is also somebody's last name
+	from Person.Person
+
+	intersect
+
+	select lastname
+	from Person.Person
+);
+  
