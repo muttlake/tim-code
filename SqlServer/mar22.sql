@@ -155,9 +155,17 @@ alter table PizzaStore.PizzaCheese
 GO			  
 
 
+create table PizzaStore.Topping
+(
+	ToppingID int not null primary key identity(1,1)
+	, Topping varchar(10) not null check(Topping in ('Pepperoni', 'Onion', 'GreenPepper', 'Meatball'))
+	, ModifiedDate datetime2(3) not null
+	, Active bit not null default(1)
+);
 
-
-
+create table PizzaStore.PizzaTopping
+(
+);
 
 
 /*
