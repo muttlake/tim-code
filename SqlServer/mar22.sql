@@ -158,14 +158,27 @@ GO
 create table PizzaStore.Topping
 (
 	ToppingID int not null primary key identity(1,1)
-	, Topping varchar(10) not null check(Topping in ('Pepperoni', 'Onion', 'GreenPepper', 'Meatball'))
+	, Topping varchar(10) not null check(Topping in ('Pepperoni', 'Onion', 'GreenPepper', 'Meatball', 'Mushroom'))
 	, ModifiedDate datetime2(3) not null
 	, Active bit not null default(1)
 );
 
 create table PizzaStore.PizzaTopping
 (
+	PizzaToppingID int not null primary key identity(1,1)
+	, PizzaID int not null
+	, ToppingID int not null
 );
+
+alter table PizzaStore.PizzaTopping
+	add constraint FK_PizzaTopping_Pizza foreign key (PizzaID) references PizzaStore.Pizza(PizzaID)
+	on update cascade;
+
+alter table PizzaStore.PizzaTopping
+	add constraint FK_PizzaTopping_Topping foreign key (ToppingID) references PizzaStore.Topping(ToppingID)
+	on update cascade;
+GO			  
+
 
 
 /*
