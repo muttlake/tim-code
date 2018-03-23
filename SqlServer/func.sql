@@ -206,7 +206,10 @@ GO
 -- More Stored Procedures
 
 -- Want to Add Address if it does not exist, if it exists, change Addressline2
-alter procedure Person.sp_UpdateMiddleName(@firstName varchar(max), @lastName varchar(max), @newMiddleName varchar(max))
+alter procedure Person.sp_UpdateMiddleName
+@firstName varchar(max), 
+@lastName varchar(max), 
+@newMiddleName varchar(max)
 as
 begin
 	declare @id int;
@@ -250,4 +253,42 @@ go
 SELECT * FROM Person.Person where LastName = 'Rodriguez';
 GO
 
-execute Person.sp_UpdateMiddleName 'Alexandrs', 'Rodriguez', 'Jiffy';
+execute Person.sp_UpdateMiddleName 'Bobby', 'Rodriguez', 'Huffy';
+
+
+-- DDL Stuff
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
