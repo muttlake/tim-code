@@ -27,6 +27,11 @@ namespace AdventureWorks.Client
                 Console.WriteLine(person);
             }
 
+            if(adodata.Insert())
+                Console.WriteLine("Inserted");
+            else
+                Console.WriteLine("Failed to insert");
+
 
         }
     }

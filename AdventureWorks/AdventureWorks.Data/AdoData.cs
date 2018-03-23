@@ -118,7 +118,7 @@ namespace AdventureWorks.Data
             using(SqlConnection c = new SqlConnection(dbconnect)) // use using so connection closes itself
             {
                 c.Open();
-                sc.Parameters(sp);
+                //sc.Parameters(sp);
                 sc.Connection = c;
 
                 dr = sc.ExecuteReader();
@@ -136,9 +136,10 @@ namespace AdventureWorks.Data
 
         public bool Insert() // always disconnected because you can only use sqladapter
         {
-            using(var c = new SqlConnection());
+            using(SqlConnection c = new SqlConnection(dbconnect))
             {
-                var sc = new SqlCommand("INSERT INTO Person.Address(City, AddressLine2, AddressLine1, StateProvinceID, PostalCode, ModifiedDate, rowguid, SpatialLocation) Values('TampLa', NULL, '334 EEEtball St', 79, 22222, '2018-03-20', '0B6B739D-8EB6-4378-8D55-FE196BF34C2F', 0xE6100000010C61C64D8ABBD94740C460EA3FD8855FC0);");
+                c.Open();
+                var sc = new SqlCommand("INSERT INTO Person.Address(AddressLine1, City, StateProvinceID, PostalCode, rowguid) VALUES('2222 Rockefeller Center', 'New Yorkers', 79, 78787, 'E5946C78-4BCC-477F-9FA1-CC09DE26A981');");
                 sc.Connection = c;
                 return sc.ExecuteNonQuery() == 1; // It is ok to return inside using
 
@@ -154,7 +155,6 @@ namespace AdventureWorks.Data
                 // da.Fill(ds);            
             }
         }
-
         // You can do same thing for delete and same thing for update
     }
 }

@@ -180,6 +180,23 @@ alter table PizzaStore.PizzaTopping
 GO			  
 
 
+create table PizzaStore.Location
+(
+	LocationID int not null primary key identity(1,1)
+	, AddressID int not null
+);
+
+create table PizzaStore.Address
+(
+	AddressID int not null primary key identity(1,1)
+	, Street varchar(150)
+	, City varchar(100)
+	, State varchar(2)
+	, ZipCode varchar(5)
+);
+
+
+
 
 /*
 Create Trigger Pizza.tr_AddPizzaCheese ON Pizza.PizzaCheese
