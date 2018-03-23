@@ -11,6 +11,9 @@ GO
 create schema Contact; -- Database and Schema just containers
 GO
 
+select * from person.person;
+
+
 -- Create Table
 create table Contact.Person
 (

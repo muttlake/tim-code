@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AdventureWorks.Library\AdventureWorks.Library.csproj" />
+    <ProjectReference Include="..\AdventureWorks.Data\AdventureWorks.Data.csproj" />
   </ItemGroup>
 
 </Project>
