@@ -11,8 +11,6 @@ namespace AdventureWorks.Library.Models
         public Person(string first, string last)
         {
             Name = new Name(first, last);
-
-
         }
 
         public override string ToString()

@@ -15,7 +15,7 @@ GO
 
 
 select *
-FROM Person.vw_FullName;
+FROM Persons;
 GO
 
 -- Tabular and scalar functions
@@ -195,7 +195,9 @@ create table PizzaStore.Address
 	, ZipCode varchar(5)
 );
 
-
+alter table PizzaStore.Location
+	add constraint FK_PizzaTopping_Pizza foreign key (PizzaID) references PizzaStore.Pizza(PizzaID)
+	on update cascade;
 
 
 /*
