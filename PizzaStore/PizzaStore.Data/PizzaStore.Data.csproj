@@ -1,7 +1,25 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
+  <ItemGroup>
+    <ProjectReference Include="..\PizzaStore.Library\PizzaStore.Library.csproj" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="microsoft.entityframeworkcore.design" Version="2.0.2" />
+    <PackageReference Include="microsoft.entityframeworkcore.sqlserver" Version="2.0.2" />
+    <PackageReference Include="microsoft.entityframeworkcore.tools" Version="2.0.2" />
+    <PackageReference Include="microsoft.extensions.configuration" Version="2.0.1" />
+    <PackageReference Include="microsoft.extensions.configuration.json" Version="2.0.1" />
+    <PackageReference Include="system.data.sqlclient" Version="4.4.3" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
+  </ItemGroup>
 
 </Project>
