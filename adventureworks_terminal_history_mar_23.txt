@@ -1,0 +1,210 @@
+    1  ls -lrt
+    2  cd projects
+    3  ls -lrt
+    4  cd Casting
+    5  ls -lrt
+    6  git --version
+    7  git config --global user.name "muttlake"
+    8  git config --global user.name
+    9  git config --global user.email "shepbop@gmail.com"
+   10  git config --global user.email
+   11  git config --global list
+   12  git config --global --list
+   13  ls -lrt
+   14  git init
+   15  git remote add casting https://github.com/muttlake/CastingPractice.git
+   16  git commit -a *
+   17  git commit *
+   18  ls -lrt
+   19  cd Casting
+   20  ls -lrt
+   21  cd ..
+   22  ls -lrt
+   23  git commit Casting
+   24  git commit Casting/*
+   25  git add *
+   26  git commit -a -m "Adding this casting tutorial for csharp"
+   27  git push casting master
+   28  ls -lrt
+   29  git status
+   30  bc
+   31  python
+   32  pwd
+   33  cd ../
+   34  ls -lrt
+   35  cd ../
+   36  ls -lrt
+   37  cd School/
+   38  ls -lrt
+   39  cd Cosc4393/
+   40  ls -lrt
+   41  pdf
+   42  apropos pdf
+   43  cd
+   44  cd Downloads/
+   45  ls -lrt
+   46  mv 20180113_125405.jpg ../Pictures/
+   47  mv 20151128_215604.jpg ../Pictures/
+   48  python
+   49  cd
+   50  ls -lrt
+   51  cd projects/
+   52  ls -lrt
+   53  mkdir helloworldText
+   54  cd helloworldText/
+   55  ls -lrt
+   56  vi helloworld.cs
+   57  ls -lrt
+   58  csc helloworld.cs 
+   59  python
+   60  ls -lrt
+   61  cd ../boxing/
+   62  ls -lrt
+   63  vi boxing.cs 
+   64  cd 
+   65  ls -lrt
+   66  mkdir Tim_Planning
+   67  ls -lrt
+   68  cd Downloads/
+   69  ls -lrt
+   70  mv i-9.pdf ../Tim_Planning/
+   71  rm ChromeSetup.exe vs_community__215768221.1520404570.exe Git-2.16.2-64-bit.exe Anaconda3-5.1.0-Windows-x86_64.exe pycharm-community-2017.3.4.exe 
+   72  ls -lrt
+   73  cd ../Tim_Planning/
+   74  ls -lrt
+   75  top
+   76  cd ../pr
+   77  cd
+   78  ls -lrt
+   79  cd projects/
+   80  ls -lrt
+   81  pwd
+   82  cd ../../Git
+   83  cd ../../
+   84  dir
+   85  cd Program\ Files
+   86  pwd
+   87  dir
+   88  cd Git
+   89  cd bin
+   90  ls -lrt
+   91  pwd
+   92  cd ../../
+   93  dir
+   94  mkdir Revature
+   95  dir
+   96  cd Revature/
+   97  ls -lrt
+   98  mkdir HelloWorld
+   99  cd HelloWorld
+  100  cd ../
+  101  mkdir TESTTEST
+  102  cd TESTTEST
+  103  cd ../
+  104  mkdir FizzBuzz
+  105  ls -lrt
+  106  mkdir ShapeWorld
+  107  mkdir ShapeWorld2
+  108  cd AdventureWorks/AdventureWorks.Client/
+  109  dotnet ef micrations add FirstCommit
+  110  dotnet ef migrations add FirstCommit
+  111  dotnet build AdventureWorks.Client.csproj 
+  112  dotnet build AdventureWorks.Client.csproj 
+  113  dotnet restore
+  114  dotnet build AdventureWorks.Client.csproj 
+  115  dotnet ef migrations add FirstCommit
+  116  dotnet ef
+  117  dotnet ef migrations add FirstCommit
+  118  dotnet build AdventureWorks.Client.csproj 
+  119  dotnet ef migrations add FirstCommit
+  120  dotnet ef migrations add FirstCommit
+  121  dotnet build 
+  122  dotnet build 
+  123  dotnet ef migrations add FirstCommitb
+  124  dotnet ef database update
+  125  dotnet build 
+  126  dotnet ef migrations add FirstCommitc
+  127  dotnet run
+  128  dotnet build 
+  129  dotnet run
+  130  dotnet build 
+  131  dotnet ef migrations add FirstCommitg
+  132  dotnet ef database update
+  133  dotnet build 
+  134  dotnet ef migrations 
+  135  dotnet ef migrations list
+  136  dotnet ef dbcontext scaffold "server=adventureworksdb.cxkf3wzoieaw.us-east-2.rds.amazonaws.com; database=adventureworksdb;user id=sqladmin; password=password123" Microsoft.EntityFrameworkCore.SqlServer --context AWContext --project ../AdventureWorks.Data/AdventureWorks.Data.csproj 
+  137  dotnet run
+  138  dotnet restore
+  139  dotnet build
+  140  dotnet restore
+  141  dotnet build
+  142  dotnet build
+  143  dotnet build 
+  144  dotnet build 
+  145  dotnet build 
+  146  dotnet build 
+  147  dotnet add package microsoft.extensions.configuration
+  148  dotnet build 
+  149  dotnet run
+  150  dotnet restore
+  151  dotnet build
+  152  dotnet restore
+  153  dotnet build
+  154  using Microsoft.Extensions.Configuration;
+  155  cp appsettings.dev.json appsettings.json
+  156  cd ../AdventureWorks.Data/
+  157  dotnet add package microsoftusing Microsoft.Extensions.Configuration;
+  158  dotnet add package microsoft.extensions.configuration
+  159  dotnet restore
+  160  cp ../AdventureWorks.Client/PersonContext.cs .
+  161  cd ../AdventureWorks.Client/
+  162  dotnet add package microsoft.extensions.configuration.json
+  163  dotnet restore
+  164  dotnet build
+  165  cd ../AdventureWorks.Data/
+  166  dotnet add package microsoft.extensions.configuration.json
+  167  dotnet restore
+  168  cd ../
+  169  cd AdventureWorks.Client/
+  170  dotnet build
+  171  dotnet run 
+  172  dotnet restore
+  173  dotnet build
+  174  dotnet run
+  175  dotnet restore
+  176  dotnet build
+  177  dotnet run
+  178  dotnet restore
+  179  dotnet build
+  180  dotnet build
+  181  dotnet run
+  182  dotnet restore
+  183  dotnet build
+  184  dotnet run
+  185  dotnet run
+  186  dotnet restore
+  187  dotnet build
+  188  dotnet run
+  189  dotnet restore
+  190  dotnet build
+  191  dotnet run
+  192  dotnet run
+  193  dotnet restore
+  194  dotnet build
+  195  dotnet restore
+  196  dotnet build
+  197  dotnet build
+  198  dotnet build
+  199  dotnet run
+  200  history
+  201  dotnet build
+  202  dotnet build
+  203  dotnet restore
+  204  dotnet build
+  205  dotnet run
+  206  dotnet restore
+  207  dotnet build
+  208  dotnet run
+  209  history
+  210  history > ../../adventureworks_terminal_history_mar_23.txt
