@@ -97,11 +97,10 @@ namespace AdventureWorks.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                //            Configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.dev.json").Build();
-
-                //optionsBuilder.UseSqlServer(@"server=adventureworksdb.cxkf3wzoieaw.us-east-2.rds.amazonaws.com; database=adventureworksdb;user id=sqladmin; password");
-                IConfigurationRoot configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.dev.json").Build();
-                optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+                //This works
+                IConfiguration Configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.dev.json").Build();
+                System.Console.WriteLine("AWContext connection string: " + Configuration.GetConnectionString("DefaultConnection"));
+                optionsBuilder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
 
             }
         }

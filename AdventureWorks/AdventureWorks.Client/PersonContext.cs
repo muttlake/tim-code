@@ -19,8 +19,10 @@ namespace AdventureWorks.Client
         public DbSet<Person> Persons { get; set; } // like a table of persons
         protected override void OnConfiguring(DbContextOptionsBuilder builder)
         {
-            builder.UseSqlServer(Configuration.GetSection("connectionstring").Value);
-            
+            //This works
+            System.Console.WriteLine("Person Context connection string: " + Configuration.GetConnectionString("DefaultConnection"));
+            builder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+
         }
     }
 }
