@@ -7,13 +7,39 @@ namespace PizzaStore.Client
     {
         static void Main(string[] args)
         {
+            PrintPizzaItems();
+        }
+
+        static void PrintPizzaItems()
+        {
             var ed = new EfData();
 
-            foreach (var item in ed.ReadPizzas())
+            Console.WriteLine("Crusts: ");
+            foreach (var crust in ed.ReadCrusts())
             {
-                System.Console.Write("{0} {1} {2} ", item.PizzaId, item.CrustId, item.SauceId);
-                System.Console.Write("{0} {1} {2} ", item.TotalPizzaCost, item.OrderId, item.ModifiedDate);
-                System.Console.Write("{0}\n", item.Active);
+                System.Console.Write("{0} {1} {2} ", crust.CrustId, crust.Crust1, crust.CrustCost);
+                System.Console.Write("{0} {1}\n", crust.ModifiedDate, crust.Active);
+            }
+
+            Console.WriteLine("Sauces: ");
+            foreach (var sauce in ed.ReadSauces())
+            {
+                System.Console.Write("{0} {1} {2} ", sauce.SauceId, sauce.Sauce1, sauce.SauceCost);
+                System.Console.Write("{0} {1}\n", sauce.ModifiedDate, sauce.Active);
+            }
+
+            Console.WriteLine("Cheeses: ");
+            foreach (var cheese in ed.ReadCheeses())
+            {
+                System.Console.Write("{0} {1} {2} ", cheese.CheeseId, cheese.Cheese1, cheese.CheeseCost);
+                System.Console.Write("{0} {1}\n", cheese.ModifiedDate, cheese.Active);
+            }
+
+            Console.WriteLine("Toppings: ");
+            foreach (var topping in ed.ReadToppings())
+            {
+                System.Console.Write("{0} {1} {2} ", topping.ToppingId, topping.Topping1, topping.ToppingCost);
+                System.Console.Write("{0} {1}\n", topping.ModifiedDate, topping.Active);
             }
         }
     }

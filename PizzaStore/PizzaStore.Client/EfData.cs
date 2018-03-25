@@ -15,5 +15,25 @@ namespace PizzaStore.Client
         {
             return db.Pizza.ToList();
         }
+
+        public List<Crust> ReadCrusts()
+        {
+            return db.Crust.ToList();
+        }
+
+        public List<Sauce> ReadSauces()
+        {
+            return db.Sauce.ToList();
+        }
+
+        public List<Cheese> ReadCheeses()
+        {
+            return db.Cheese.ToList();
+        }
+
+        public List<Topping> ReadToppings()
+        {
+            return db.Topping.ToList();
+        }
     }
 }

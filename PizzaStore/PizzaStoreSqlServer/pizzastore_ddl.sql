@@ -53,13 +53,16 @@ create table PizzaStore.Customer
 	, Active bit not null default(1)
 );
 
-
+--alter table PizzaStore.[Address]
+	--drop column [State];
+--alter table PizzaStore.[Address]
+	--add StateID int;
 create table PizzaStore.[Address]
 (
 	AddressID int not null primary key identity(1,1)
 	, Street nvarchar(150)
 	, City nvarchar(100)
-	, State nvarchar(2)
+	, State nvarchar(2) -- StateID FK references State
 	, ZipCode nvarchar(5)
 	, ModifiedDate datetime2(3) not null
 	, Active bit not null default(1)
@@ -152,6 +155,12 @@ create table PizzaStore.Inventory
 	, Topping_Mushroom_Count int not null
 );
 
+create table PizzaStore.[State]
+(
+	StateID int not null primary key identity(1,1),
+	StateAbb nvarchar(2) not null
+);
+
 ----------------------------------------------------------------------------------
 
 
@@ -178,6 +187,11 @@ alter table PizzaStore.[Location]
 -- Foreign keys for customer table
 alter table PizzaStore.Customer
 	add constraint FK_Customer_Address foreign key (AddressID) references PizzaStore.[Address](AddressID)
+	on update no action;
+
+-- Foreign keys for address table
+alter table PizzaStore.[Address]
+	add constraint FK_Address_State foreign key (StateID) references PizzaStore.[State](StateID)
 	on update no action;
 
 -- Foreign keys for pizza table
