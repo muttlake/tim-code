@@ -130,5 +130,30 @@ values
 
 select * from PizzaStore.[Address];
 
+-- Make Inventories
+
+insert into PizzaStore.Inventory(Crust_Thin_Count, Crust_HandTossed_Count, Crust_Thick_Count, Sauce_Tomato_Count, Sauce_Pesto_Count, Cheese_Mozzarella_Count, Cheese_Cheddar_Count, Cheese_Colby_Count, Topping_Pepperoni_Count, Topping_Onion_Count, Topping_GreenPepper_Count, Topping_Meatball_Count, Topping_Mushroom_Count)
+values
+(1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000),
+(1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000),
+(1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000);
+
+select * from PizzaStore.Inventory;
+
+-- Make Locations
+insert into PizzaStore.[Location](AddressID, InventoryID, ModifiedDate)
+values
+(1, 1, getdate()),
+(2, 2, getdate()),
+(3, 3, getdate());
+
+select * from PizzaStore.[Location];
+
+select * from PizzaStore.[Address];
+
+
+
+
+
 
 

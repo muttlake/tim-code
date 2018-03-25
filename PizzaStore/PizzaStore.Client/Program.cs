@@ -8,7 +8,7 @@ namespace PizzaStore.Client
         static void Main(string[] args)
         {
             PrintPizzaItems();
-            PrintStateItems();
+            PrintLocationItems();
         }
 
         static void PrintPizzaItems()
@@ -43,15 +43,15 @@ namespace PizzaStore.Client
                 System.Console.Write("{0} {1}\n", topping.ModifiedDate, topping.Active);
             }
         }
-        static void PrintStateItems()
+        static void PrintLocationItems()
         {
             var ed = new EfData();
 
-            Console.WriteLine("States: ");
-            foreach (var state in ed.ReadStates())
-            {
-                System.Console.Write("{0} {1}\n", state.StateId, state.StateAbb);
-            }
+            // Console.WriteLine("States: ");
+            // foreach (var state in ed.ReadStates())
+            // {
+            //     System.Console.Write("{0} {1}\n", state.StateId, state.StateAbb);
+            // }
 
             Console.WriteLine("Addresses: ");
             foreach (var address in ed.ReadAddresses())
@@ -60,6 +60,17 @@ namespace PizzaStore.Client
                 System.Console.Write("{0} {1} {2} ", address.ZipCode, address.ModifiedDate, address.Active);
                 System.Console.Write("{0} {1} {2}\n", address.StateId, address.State.StateId, address.State.StateAbb);
             }
+
+            Console.WriteLine("Locations: ");
+            foreach (var location in ed.ReadLocations())
+            {
+                System.Console.Write("{0} {1} {2} {3} {4}\n", location.LocationId, location.AddressId, location.InventoryId, location.ModifiedDate, location.Active);
+                System.Console.Write("\t{0}\n", location.Address);
+                // System.Console.Write("\t{0} {1} {2} ", location.Address.AddressId, location.Address.Street, location.Address.City);
+                // System.Console.Write("{0} {1} {2} ", location.Address.ZipCode, location.Address.ModifiedDate, location.Address.Active);
+                // System.Console.Write("{0} {1} {2}\n", location.Address.StateId, location.Address.State.StateId, location.Address.State.StateAbb);
+            }
         }
+
     }
 }

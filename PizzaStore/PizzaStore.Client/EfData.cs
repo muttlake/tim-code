@@ -44,5 +44,10 @@ namespace PizzaStore.Client
         {
             return db.Address.ToList();
         }
+
+        public List<Location> ReadLocations()
+        {
+            return db.Location.ToList();
+        }
     }
 }

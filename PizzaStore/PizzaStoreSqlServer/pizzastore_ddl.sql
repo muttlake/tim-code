@@ -139,7 +139,7 @@ create table PizzaStore.PizzaHasTopping
 create table PizzaStore.Inventory
 (
 	InventoryID int not null primary key identity(1,1)
-	, LocationID int not null -- FK references Location
+	--, LocationID int not null -- FK references Location
 	, Crust_Thin_Count int not null
 	, Crust_HandTossed_Count int not null
 	, Crust_Thick_Count int not null
