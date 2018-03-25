@@ -9,45 +9,55 @@ namespace PizzaStore.Client
     public class EfData
     {
         // Something else is managing connection
-        private PizzaStoreContext db = new PizzaStoreContext();
+        private PizzaStoreContext dbContext = new PizzaStoreContext();
 
         public List<Pizza> ReadPizzas()
         {
-            return db.Pizza.ToList();
+            return dbContext.Pizza.ToList();
         }
 
         public List<Crust> ReadCrusts()
         {
-            return db.Crust.ToList();
+            return dbContext.Crust.ToList();
         }
 
         public List<Sauce> ReadSauces()
         {
-            return db.Sauce.ToList();
+            return dbContext.Sauce.ToList();
         }
 
         public List<Cheese> ReadCheeses()
         {
-            return db.Cheese.ToList();
+            return dbContext.Cheese.ToList();
         }
 
         public List<Topping> ReadToppings()
         {
-            return db.Topping.ToList();
+            return dbContext.Topping.ToList();
         }
         public List<State> ReadStates()
         {
-            return db.State.ToList();
+            return dbContext.State.ToList();
         }
 
         public List<Address> ReadAddresses()
         {
-            return db.Address.ToList();
+            return dbContext.Address.ToList();
         }
 
         public List<Location> ReadLocations()
         {
-            return db.Location.ToList();
+            return dbContext.Location.ToList();
+        }
+
+        public void InsertCrust()
+        {
+            Crust crust = new Crust();
+            crust.Crust1 = "Fake";
+            crust.CrustCost = 9.00;
+            crust.ModifiedDate = System.DateTime.Now;
+            dbContext.Crust.Add(crust);
+            dbContext.SaveChanges();
         }
     }
 }

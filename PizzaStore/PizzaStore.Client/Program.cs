@@ -9,6 +9,7 @@ namespace PizzaStore.Client
         {
             PrintPizzaItems();
             PrintLocationItems();
+            InsertTest();
         }
 
         static void PrintPizzaItems()
@@ -86,5 +87,25 @@ namespace PizzaStore.Client
             }
         }
 
+        static void InsertTest()
+        {
+            var ed = new EfData();
+
+            Console.WriteLine("Crusts: ");
+            foreach (var crust in ed.ReadCrusts())
+            {
+                System.Console.Write("{0} {1} {2} ", crust.CrustId, crust.Crust1, crust.CrustCost);
+                System.Console.Write("{0} {1}\n", crust.ModifiedDate, crust.Active);
+            }
+
+            ed.InsertCrust();
+
+            Console.WriteLine("Crusts: ");
+            foreach (var crust in ed.ReadCrusts())
+            {
+                System.Console.Write("{0} {1} {2} ", crust.CrustId, crust.Crust1, crust.CrustCost);
+                System.Console.Write("{0} {1}\n", crust.ModifiedDate, crust.Active);
+            }
+        }
     }
 }
