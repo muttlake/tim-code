@@ -1,8 +1,6 @@
 ﻿using System;
-using System.IO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.Extensions.Configuration;
 
 namespace PizzaStore.Library
 {
@@ -19,17 +17,15 @@ namespace PizzaStore.Library
         public virtual DbSet<PizzaHasCheese> PizzaHasCheese { get; set; }
         public virtual DbSet<PizzaHasTopping> PizzaHasTopping { get; set; }
         public virtual DbSet<Sauce> Sauce { get; set; }
+        public virtual DbSet<State> State { get; set; }
         public virtual DbSet<Topping> Topping { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                //optionsBuilder.UseSqlServer(@"server=adventureworksdb.cxkf3wzoieaw.us-east-2.rds.amazonaws.com; database=adventureworksdb;user id=sqladmin; password=");
-                IConfiguration Configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.dev.json").Build();
-                //System.Console.WriteLine("AWContext connection string: " + Configuration.GetConnectionString("DefaultConnection"));
-                optionsBuilder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer(@"server=adventureworksdb.cxkf3wzoieaw.us-east-2.rds.amazonaws.com; database=adventureworksdb;user id=sqladmin; password=password123");
             }
         }
 
@@ -47,11 +43,16 @@ namespace PizzaStore.Library
 
                 entity.Property(e => e.ModifiedDate).HasColumnType("datetime2(3)");
 
-                entity.Property(e => e.State).HasMaxLength(2);
+                entity.Property(e => e.StateId).HasColumnName("StateID");
 
                 entity.Property(e => e.Street).HasMaxLength(150);
 
                 entity.Property(e => e.ZipCode).HasMaxLength(5);
+
+                entity.HasOne(d => d.State)
+                    .WithMany(p => p.Address)
+                    .HasForeignKey(d => d.StateId)
+                    .HasConstraintName("FK_Address_State");
             });
 
             modelBuilder.Entity<Cheese>(entity =>
@@ -300,6 +301,17 @@ namespace PizzaStore.Library
                     .IsUnicode(false);
             });
 
+            modelBuilder.Entity<State>(entity =>
+            {
+                entity.ToTable("State", "PizzaStore");
+
+                entity.Property(e => e.StateId).HasColumnName("StateID");
+
+                entity.Property(e => e.StateAbb)
+                    .IsRequired()
+                    .HasMaxLength(2);
+            });
+
             modelBuilder.Entity<Topping>(entity =>
             {
                 entity.ToTable("Topping", "PizzaStore");
@@ -311,10 +323,8 @@ namespace PizzaStore.Library
                 entity.Property(e => e.ModifiedDate).HasColumnType("datetime2(3)");
 
                 entity.Property(e => e.Topping1)
-                    .IsRequired()
                     .HasColumnName("Topping")
-                    .HasMaxLength(10)
-                    .IsUnicode(false);
+                    .HasMaxLength(50);
             });
         }
     }
