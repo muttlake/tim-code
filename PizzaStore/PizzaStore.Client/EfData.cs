@@ -35,5 +35,10 @@ namespace PizzaStore.Client
         {
             return db.Topping.ToList();
         }
+        public List<State> ReadStates()
+        {
+            return db.State.ToList();
+        }
+
     }
 }

@@ -6,30 +6,47 @@ GO
 
 
 -- Make Crusts
+delete PizzaStore.Crust;
 INSERT INTO PizzaStore.Crust(Crust, CrustCost, ModifiedDate)
-VALUES('Thick', 9.00, getdate());
+VALUES
+('Thin', 9.00, getdate()),
+('HandTossed', 9.00, getdate()),
+('Thick', 9.00, getdate());
 GO
 
 select * from PizzaStore.Crust;
 
 -- Make Cheeses
+delete PizzaStore.Cheese;
 INSERT INTO PizzaStore.Cheese(Cheese, CheeseCost, ModifiedDate)
-VALUES('Cheddar', 1.00, getdate());
+VALUES
+('Mozzarella', 1.00, getdate()),
+('Colby', 1.00, getdate()),
+('Cheddar', 1.00, getdate());
 GO
 
 select * from PizzaStore.Cheese;
 GO
 
 -- Make Toppings
+delete PizzaStore.Topping;
 INSERT INTO PizzaStore.Topping(Topping, ToppingCost, ModifiedDate)
-VALUES('Mushroom', 1.00, getdate());
+VALUES
+('Pepperoni', 1.00, getdate()),
+('Green Pepper', 1.00, getdate()),
+('Onion', 1.00, getdate()),
+('Meatball', 1.00, getdate()),
+('Mushroom', 1.00, getdate());
 GO
 
 select * from PizzaStore.Topping;
 
 -- Make Sauces
+delete PizzaStore.Sauce;
 INSERT INTO PizzaStore.Sauce(Sauce, SauceCost, ModifiedDate)
-VALUES('Pesto', 1.00, getdate());
+VALUES
+('Tomato', 1.00, getdate()),
+('Pesto', 1.00, getdate());
 GO
 
 select * from PizzaStore.[State];
@@ -91,6 +108,12 @@ VALUES
 ('PR'),
 ('VI');
 -- FL is number 9
+
+/*
+delete PizzaStore.[State]
+where StateID > 53;
+select * from PizzaStore.[State];
+*/
 
 
 -- Make Addresses

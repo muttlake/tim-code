@@ -8,6 +8,7 @@ namespace PizzaStore.Client
         static void Main(string[] args)
         {
             PrintPizzaItems();
+            PrintStateItems();
         }
 
         static void PrintPizzaItems()
@@ -40,6 +41,16 @@ namespace PizzaStore.Client
             {
                 System.Console.Write("{0} {1} {2} ", topping.ToppingId, topping.Topping1, topping.ToppingCost);
                 System.Console.Write("{0} {1}\n", topping.ModifiedDate, topping.Active);
+            }
+        }
+        static void PrintStateItems()
+        {
+            var ed = new EfData();
+
+            Console.WriteLine("States: ");
+            foreach (var state in ed.ReadStates())
+            {
+                System.Console.Write("{0} {1}\n", state.StateId, state.StateAbb);
             }
         }
     }
