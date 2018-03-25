@@ -58,17 +58,31 @@ namespace PizzaStore.Client
             {
                 System.Console.Write("{0} {1} {2} ", address.AddressId, address.Street, address.City);
                 System.Console.Write("{0} {1} {2} ", address.ZipCode, address.ModifiedDate, address.Active);
-                System.Console.Write("{0} {1} {2}\n", address.StateId, address.State.StateId, address.State.StateAbb);
+                System.Console.Write("{0}", address.StateId);
+                //System.Console.Write(" {0} {1}\n" , address.State.StateId, address.State.StateAbb);
+                if(address.State != null)
+                    System.Console.Write(" {0} {1}\n" , address.State.StateId, address.State.StateAbb);
+                else
+                    System.Console.Write("Null State\n");
             }
 
             Console.WriteLine("Locations: ");
             foreach (var location in ed.ReadLocations())
             {
                 System.Console.Write("{0} {1} {2} {3} {4}\n", location.LocationId, location.AddressId, location.InventoryId, location.ModifiedDate, location.Active);
-                System.Console.Write("\t{0}\n", location.Address);
-                // System.Console.Write("\t{0} {1} {2} ", location.Address.AddressId, location.Address.Street, location.Address.City);
-                // System.Console.Write("{0} {1} {2} ", location.Address.ZipCode, location.Address.ModifiedDate, location.Address.Active);
-                // System.Console.Write("{0} {1} {2}\n", location.Address.StateId, location.Address.State.StateId, location.Address.State.StateAbb);
+                if(location.Address != null)
+                {
+                    System.Console.Write("\t{0} {1} {2} ", location.Address.AddressId, location.Address.Street, location.Address.City);
+                    System.Console.Write("{0} {1} {2} ", location.Address.ZipCode, location.Address.ModifiedDate, location.Address.Active);
+                    System.Console.Write("{0}", location.Address.StateId);
+                    if(location.Address.State != null)
+                        System.Console.Write(" {0} {1}\n", location.Address.State.StateId, location.Address.State.StateAbb);
+                    else
+                        System.Console.Write("\t{0}\n", " Null State"); 
+
+                }
+                else
+                   System.Console.Write("\t{0}\n", "Null Address"); 
             }
         }
 
