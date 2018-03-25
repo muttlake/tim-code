@@ -52,6 +52,14 @@ namespace PizzaStore.Client
             {
                 System.Console.Write("{0} {1}\n", state.StateId, state.StateAbb);
             }
+
+            Console.WriteLine("Addresses: ");
+            foreach (var address in ed.ReadAddresses())
+            {
+                System.Console.Write("{0} {1} {2} ", address.AddressId, address.Street, address.City);
+                System.Console.Write("{0} {1} {2} ", address.ZipCode, address.ModifiedDate, address.Active);
+                System.Console.Write("{0} {1} {2}\n", address.StateId, address.State.StateId, address.State.StateAbb);
+            }
         }
     }
 }

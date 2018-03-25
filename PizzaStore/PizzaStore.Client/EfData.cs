@@ -40,5 +40,9 @@ namespace PizzaStore.Client
             return db.State.ToList();
         }
 
+        public List<Address> ReadAddresses()
+        {
+            return db.Address.ToList();
+        }
     }
 }
