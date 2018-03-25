@@ -2,6 +2,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using PizzaStore.Library;
 
 namespace PizzaStore.Client
@@ -42,12 +43,18 @@ namespace PizzaStore.Client
 
         public List<Address> ReadAddresses()
         {
-            return dbContext.Address.ToList();
+            var addresses = dbContext.Address
+                            .Include(p => p.State);
+            return addresses.ToList();
         }
 
         public List<Location> ReadLocations()
         {
-            return dbContext.Location.ToList();
+            var locations = dbContext.Location
+                            .Include(p => p.Address)
+                            .Include(p => p.Address.State)
+                            .Include(p => p.Inventory);
+            return locations.ToList();
         }
 
         public void InsertCrust()
