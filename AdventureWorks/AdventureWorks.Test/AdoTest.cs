@@ -1,4 +1,4 @@
-
+/*
 
 using AdventureWorks.Data;
 using Xunit;
@@ -52,3 +52,5 @@ namespace AdventureWorks.Test
         }
     }
 }
+
+*/
