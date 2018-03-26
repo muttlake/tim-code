@@ -101,15 +101,53 @@ GO
 
 INSERT INTO Employee.EmpDetails(EmployeeID, Salary, AdressLine1, City, [State], Country, ModifiedDate)
 VALUES
-(1, 40000, '222 Bleeker St', 'Tampa', 'FL', 'United States', getdate());
+(10, 40000, '222 Bleeker St', 'Tampa', 'FL', 'United States', getdate());
 GO
 
 
 -- add department Marketing
+INSERT INTO Employee.Department([Name], [Location], ModifiedDate)
+VALUES
+('Marketing2', '4220 E Fowler Ave, Tampa, FL 33620', getdate());
+
+
 -- list all employees in Marketing
+select FirstName, LastName, SSN, dep.[Name], dep.[Location]
+FROM Employee.Employee as emp
+inner join Employee.Department as dep
+on emp.DeptID = dep.DepartmentID
+where dep.[Name] = 'Marketing';
+GO
+
 -- report total salary of Marketing
+select SUM(Salary) as 'Total Salary Marketing'
+FROM Employee.Employee as emp
+left join 
+(
+	select EmployeeID, Salary
+	From Employee.EmpDetails
+) as det on emp.EmployeeID = det.EmployeeID
+inner join
+(
+	select DepartmentID, [Name]
+	from Employee.Department
+	where [Name] = 'Marketing'
+) as dep on emp.DeptID = dep.DepartmentID;
+
+
 -- report total employees by department
+select Count(dep.[Name]) as 'Number of Employees', dep.[Name] as 'Department Name'
+FROM Employee.Employee as emp
+inner join 
+(
+	select DepartmentID, [Name]
+	from Employee.Department
+) as dep on emp.DeptID = dep.DepartmentID
+group by dep.[Name];
+
+
 -- increase salary of Tina Smith to $90,000
+select * from Employee.EmpDetails;
 
 
 
