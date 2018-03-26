@@ -147,7 +147,9 @@ group by dep.[Name];
 
 
 -- increase salary of Tina Smith to $90,000
-select * from Employee.EmpDetails;
+select EmployeeID from Employee.Employee where FirstName = 'Tina' and LastName = 'Smith';
 
-
+Update Employee.EmpDetails
+Set Salary = 90000
+Where EmpDetails.EmployeeID = 10;
 
