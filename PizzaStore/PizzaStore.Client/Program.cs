@@ -59,6 +59,15 @@ namespace PizzaStore.Client
             else
                 Console.WriteLine("Customer is not valid.");
 
+            Console.WriteLine("Create a new order.");
+
+            ed.NewOrder(locationEntered, customerEntered);
+
+        }
+
+        static void AddPizzaToOrder()
+        {
+            
         }
 
         static void PrintPizzaItems()

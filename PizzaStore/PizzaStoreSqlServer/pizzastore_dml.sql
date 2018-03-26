@@ -161,8 +161,11 @@ values
 ('LeBron', 'James', 6, '2222222222', 'lj@email.com', getdate()),
 ('Stephen', 'Curry', 7, '2222222222', 'sc@email.com', getdate());\
 
+select * from PizzaStore.Customer;
 
 
+-- Making Orders from C#
+select * from PizzaStore.[Order];
 
 
 

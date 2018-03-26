@@ -92,5 +92,33 @@ namespace PizzaStore.Client
             dbContext.Crust.Add(crust);
             dbContext.SaveChanges();
         }
+
+        public List<Order> ReadOrders()
+        {
+            var orders = dbContext.Order
+                            .Include(p => p.Location)
+                            .Include(p => p.Customer)
+                            .Include(p => p.Pizza);
+            return orders.ToList();
+        }
+
+        public void NewOrder(int locationId, int customerID)
+        {
+            if(!CheckCustomer(customerID) || !CheckLocation(locationId))
+                System.Console.WriteLine("Bad order parameters");
+            else
+            {
+                Order order = new Order();
+                order.LocationId = locationId;
+                order.CustomerId = customerID;
+                order.TotalValue = 0.00;
+                order.OrderTime = System.DateTime.Now;
+                order.ModifiedDate = System.DateTime.Now;
+                dbContext.Order.Add(order);
+                dbContext.SaveChanges();
+                System.Console.WriteLine("Successfully created empty order.");
+            }
+
+        }
     }
 }
