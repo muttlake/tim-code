@@ -59,3 +59,57 @@ alter table Employee.EmpDetails
 	add constraint FK_EmpDetails_EmployeeID foreign key (EmployeeID) references Employee.Employee(EmployeeID)
 	on update cascade;
 
+-- add at least 3 records into each table
+INSERT INTO Employee.Department([Name], [Location], ModifiedDate)
+VALUES
+('Accounting', '4202 E Fowler Ave, Tampa, FL 33620', getdate()),
+('Marketing', '4203 E Fowler Ave, Tampa, FL 33620', getdate()),
+('Sales', '4204 E Fowler Ave, Tampa, FL 33620', getdate());
+GO
+
+INSERT INTO Employee.Employee(FirstName, LastName, SSN, DeptID, ModifiedDate)
+VALUES
+('Jimmy', 'John', 222222221, 1, getdate()),
+('Allison', 'Arnold', 222222222, 1, getdate()),
+('Miguel', 'Angel', 222222223, 1, getdate()),
+('Susan', 'Price', 222222224, 2, getdate()),
+('Cotrik', 'Xu', 222222225, 2, getdate()),
+('Peter', 'Goodman', 222222226, 2, getdate()),
+('Levi', 'Price', 222222227, 3, getdate()),
+('Emily', 'Xu', 222222228, 3, getdate()),
+('Daryl', 'Goodman', 222222229, 3, getdate());
+GO
+
+INSERT INTO Employee.EmpDetails(EmployeeID, Salary, AdressLine1, City, [State], Country, ModifiedDate)
+VALUES
+(1, 40000, '222 Bleeker St', 'Tampa', 'FL', 'United States', getdate()),
+(2, 45000, '222 Bleeker St', 'Tampa', 'FL', 'United States', getdate()),
+(3, 30000, '222 Bleeker St', 'Tampa', 'FL', 'United States', getdate()),
+(4, 40000, '222 Bleeker St', 'Tampa', 'FL', 'United States', getdate()),
+(5, 60000, '222 Bleeker St', 'Tampa', 'FL', 'United States', getdate()),
+(6, 47000, '222 Bleeker St', 'Tampa', 'FL', 'United States', getdate()),
+(7, 80000, '222 Bleeker St', 'Tampa', 'FL', 'United States', getdate()),
+(8, 100000, '222 Bleeker St', 'Tampa', 'FL', 'United States', getdate()),
+(9, 41000, '222 Bleeker St', 'Tampa', 'FL', 'United States', getdate());
+GO
+
+-- add employee Tina Smith
+INSERT INTO Employee.Employee(FirstName, LastName, SSN, DeptID, ModifiedDate)
+VALUES
+('Tina', 'Smith', 322222221, 2, getdate());
+GO
+
+INSERT INTO Employee.EmpDetails(EmployeeID, Salary, AdressLine1, City, [State], Country, ModifiedDate)
+VALUES
+(1, 40000, '222 Bleeker St', 'Tampa', 'FL', 'United States', getdate());
+GO
+
+
+-- add department Marketing
+-- list all employees in Marketing
+-- report total salary of Marketing
+-- report total employees by department
+-- increase salary of Tina Smith to $90,000
+
+
+
