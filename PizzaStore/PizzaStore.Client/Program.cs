@@ -44,6 +44,7 @@ namespace PizzaStore.Client
                 System.Console.Write("{0} {1}\n", topping.ModifiedDate, topping.Active);
             }
         }
+        
         static void PrintLocationItems()
         {
             var ed = new EfData();
