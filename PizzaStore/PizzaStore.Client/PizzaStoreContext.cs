@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
 
+
 namespace PizzaStore.Library
 {
     public partial class PizzaStoreContext : DbContext
@@ -31,7 +32,7 @@ namespace PizzaStore.Library
                 IConfiguration Configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.dev.json").Build();
                 //System.Console.WriteLine("AWContext connection string: " + Configuration.GetConnectionString("DefaultConnection"));
                 optionsBuilder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));   
-            }
+             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -107,6 +108,10 @@ namespace PizzaStore.Library
                 entity.Property(e => e.Email)
                     .IsRequired()
                     .HasMaxLength(100);
+
+                entity.Property(e => e.FirstName).HasMaxLength(150);
+
+                entity.Property(e => e.LastName).HasMaxLength(150);
 
                 entity.Property(e => e.ModifiedDate).HasColumnType("datetime2(3)");
 

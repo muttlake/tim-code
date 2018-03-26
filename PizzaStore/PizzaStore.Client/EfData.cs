@@ -57,6 +57,32 @@ namespace PizzaStore.Client
             return locations.ToList();
         }
 
+        public bool CheckLocation(int loc)
+        {
+            List<int> locationIDs = new List<int>();
+            foreach (var location in ReadLocations())
+                locationIDs.Add(location.LocationId);
+            return locationIDs.Contains(loc);
+        }
+
+        
+        public bool CheckCustomer(int cust)
+        {
+            List<int> customerIDs = new List<int>();
+            foreach (var customer in ReadCustomers())
+                customerIDs.Add(customer.CustomerId);
+            return customerIDs.Contains(cust);
+        }
+
+
+        public List<Customer> ReadCustomers()
+        {
+            var customers = dbContext.Customer
+                            .Include(p => p.Address)
+                            .Include(p => p.Address.State);
+            return customers.ToList();
+        }
+
         public void InsertCrust()
         {
             Crust crust = new Crust();

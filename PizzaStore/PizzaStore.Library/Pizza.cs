@@ -24,7 +24,5 @@ namespace PizzaStore.Library
         public Sauce Sauce { get; set; }
         public ICollection<PizzaHasCheese> PizzaHasCheese { get; set; }
         public ICollection<PizzaHasTopping> PizzaHasTopping { get; set; }
-        // public PizzaHelper<PizzaHasCheese> PizzaHasCheese { get; set; }
-        // public PizzaHelper<PizzaHasTopping> PizzaHasTopping { get; set; }
     }
 }

@@ -52,6 +52,11 @@ create table PizzaStore.Customer
 	, ModifiedDate datetime2(3) not null
 	, Active bit not null default(1)
 );
+alter table PizzaStore.Customer
+	add FirstName nvarchar(150);
+alter table PizzaStore.Customer
+	add LastName nvarchar(150);
+
 
 --alter table PizzaStore.[Address]
 	--drop column [State];

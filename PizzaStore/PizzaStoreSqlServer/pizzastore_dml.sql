@@ -153,6 +153,16 @@ select * from PizzaStore.[Address];
 
 
 
+-- Make Customers
+insert into PizzaStore.Customer(FirstName, LastName, AddressID, Phone, Email, ModifiedDate)
+values
+('Jerry', 'West', 4, '2222222222', 'jerrywest@email.com', getdate()),
+('Michael', 'Jordan', 5, '2222222222', 'mj@email.com', getdate()),
+('LeBron', 'James', 6, '2222222222', 'lj@email.com', getdate()),
+('Stephen', 'Curry', 7, '2222222222', 'sc@email.com', getdate());\
+
+
+
 
 
 
