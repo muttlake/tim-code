@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using PizzaStore.Library.Interfaces;
 
 namespace PizzaStore.Library
 {
-    public partial class PizzaHasCheese : IPizzaHas
+    public partial class PizzaHasCheese
     {
         public int PizzaHasCheeseId { get; set; }
         public int PizzaId { get; set; }
