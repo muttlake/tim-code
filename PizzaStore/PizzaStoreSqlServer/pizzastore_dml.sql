@@ -4,9 +4,9 @@
 USE adventureworksdb;
 GO
 
-
 -- Make Crusts
-delete PizzaStore.Crust;
+-- delete PizzaStore.Crust;
+delete PizzaStore.Crust where Crust = 'Fake';
 INSERT INTO PizzaStore.Crust(Crust, CrustCost, ModifiedDate)
 VALUES
 ('Thin', 9.00, getdate()),
