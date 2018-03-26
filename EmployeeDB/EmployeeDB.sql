@@ -151,5 +151,8 @@ select EmployeeID from Employee.Employee where FirstName = 'Tina' and LastName =
 
 Update Employee.EmpDetails
 Set Salary = 90000
-Where EmpDetails.EmployeeID = 10;
+Where EmpDetails.EmployeeID in
+(
+	select EmployeeID from Employee.Employee where FirstName = 'Tina' and LastName = 'Smith'
+);
 
