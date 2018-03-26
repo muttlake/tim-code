@@ -120,5 +120,51 @@ namespace PizzaStore.Client
             }
 
         }
+
+        
+        public void AddPizza(int orderID, int crustID, int sauceID)
+        {
+            if(!CheckOrder(orderID) || !CheckCrust(crustID) || !CheckSauce(sauceID))
+                System.Console.WriteLine("Bad pizza parameters");
+            else
+            {
+                Pizza pizza = new Pizza();
+                pizza.CrustId = crustID;
+                pizza.SauceId = sauceID;
+                pizza.OrderId = orderID;
+                pizza.ModifiedDate = System.DateTime.Now;
+                double pizzaValue = dbContext.Crust.Where(p => p.CrustId == crustID).FirstOrDefault().CrustCost;
+                pizzaValue += dbContext.Sauce.Where(p => p.SauceId == sauceID).FirstOrDefault().SauceCost;
+                pizza.TotalPizzaCost = pizzaValue;
+                dbContext.Pizza.Add(pizza);
+                dbContext.SaveChanges();
+                System.Console.WriteLine("Successfully created empty pizza.");
+            }
+        }
+
+        public bool CheckOrder(int orderNum)
+        {
+            List<int> orderIDs = new List<int>();
+            foreach (var order in ReadOrders())
+                orderIDs.Add(order.OrderId);
+            return orderIDs.Contains(orderNum);
+        }
+
+        public bool CheckCrust(int crustNum)
+        {
+            List<int> crustIDs = new List<int>();
+            foreach (var crust in ReadCrusts())
+                crustIDs.Add(crust.CrustId);
+            return crustIDs.Contains(crustNum);
+        }
+
+
+        public bool CheckSauce(int sauceNum)
+        {
+            List<int> sauceIDs = new List<int>();
+            foreach (var sauce in ReadSauces())
+                sauceIDs.Add(sauce.SauceId);
+            return sauceIDs.Contains(sauceNum);
+        }
     }
 }

@@ -166,6 +166,43 @@ select * from PizzaStore.Customer;
 
 -- Making Orders from C#
 select * from PizzaStore.[Order];
+select * from PizzaStore.Pizza;
+
+select * from PizzaStore.Sauce;
+
+
+select FirstName, LastName, OrderID
+from PizzaStore.[Order] as ord
+inner join
+(
+	select CustomerID, FirstName, LastName
+	From PizzaStore.Customer
+) as cust on cust.CustomerID = ord.CustomerID;
+
+
+Select FirstName, LastName, Email, ord.OrderId, pizza.TotalPizzaCost, ord.OrderTime, Loc.LocationID, addr.Street, addr.City, addr.ZipCode
+from PizzaStore.Pizza as pizza
+inner join
+(
+	select *
+	from PizzaStore.[Order]
+) as ord on pizza.OrderID = ord.OrderID
+inner join
+(
+	select *
+	from PizzaStore.Customer
+) as cust on ord.CustomerID = cust.CustomerID
+inner join
+(
+	select *
+	from PizzaStore.[Location]
+) as loc on loc.LocationID = ord.LocationID
+inner join
+(
+	select *
+	from PizzaStore.[Address]
+) as addr on addr.AddressID = loc.AddressID;
+
 
 
 
