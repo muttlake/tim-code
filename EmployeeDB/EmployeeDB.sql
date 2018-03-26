@@ -1,159 +1,61 @@
 
--- Pizza Store Definition
-
+-- Employee Database
 USE adventureworksdb;
 GO
 
--- Make Crusts
--- delete PizzaStore.Crust;
-delete PizzaStore.Crust where Crust = 'Fake';
-INSERT INTO PizzaStore.Crust(Crust, CrustCost, ModifiedDate)
-VALUES
-('Thin', 9.00, getdate()),
-('HandTossed', 9.00, getdate()),
-('Thick', 9.00, getdate());
+-- Create Database
+-- create database EmployeeDB;
 GO
 
-select * from PizzaStore.Crust;
-
--- Make Cheeses
-delete PizzaStore.Cheese;
-INSERT INTO PizzaStore.Cheese(Cheese, CheeseCost, ModifiedDate)
-VALUES
-('Mozzarella', 1.00, getdate()),
-('Colby', 1.00, getdate()),
-('Cheddar', 1.00, getdate());
+-- Create Schema
+create schema Employee;
 GO
 
-select * from PizzaStore.Cheese;
-GO
+-- Create Tables
 
--- Make Toppings
-delete PizzaStore.Topping;
-INSERT INTO PizzaStore.Topping(Topping, ToppingCost, ModifiedDate)
-VALUES
-('Pepperoni', 1.00, getdate()),
-('Green Pepper', 1.00, getdate()),
-('Onion', 1.00, getdate()),
-('Meatball', 1.00, getdate()),
-('Mushroom', 1.00, getdate());
-GO
+create table Employee.Department
+(
+	DepartmentID int not null primary key identity(1,1)
+	, [Name] nvarchar(150) not null
+	, [Location] nvarchar(300)
+	, ModifiedDate datetime2(3) not null
+	, Active bit not null default(1)
+);
 
-select * from PizzaStore.Topping;
+create table Employee.Employee
+(
+	EmployeeID int not null primary key identity(1,1)
+	, FirstName nvarchar(150) not null
+	, LastName nvarchar(150) not null
+	, SSN int not null
+	, DeptID int -- FK references Department
+	, ModifiedDate datetime2(3) not null
+	, Active bit not null default(1)
+);
 
--- Make Sauces
-delete PizzaStore.Sauce;
-INSERT INTO PizzaStore.Sauce(Sauce, SauceCost, ModifiedDate)
-VALUES
-('Tomato', 1.00, getdate()),
-('Pesto', 1.00, getdate());
-GO
+create table Employee.EmpDetails
+(
+	EmpDetailsID int not null primary key identity(1,1)
+	, EmployeeID int -- FK references Employee
+	, Salary float
+	, AdressLine1 nvarchar(300)
+	, AdressLine2 nvarchar(300)
+	, City nvarchar(100)
+	, [State] nvarchar(2)
+	, Country nvarchar(100)
+	, ModifiedDate datetime2(3) not null
+	, Active bit not null default(1)
+);
 
-select * from PizzaStore.[State];
+-- ALTER Foreign Keys
 
--- Make States
-INSERT INTO PizzaStore.[State](StateAbb)
-VALUES
-('AL'),
-('AK'),
-('AZ'),
-('AR'),
-('CA'),
-('CO'),
-('CT'),
-('DE'),
-('FL'),
-('GA'),
-('HI'),
-('ID'),
-('IL'),
-('IN'),
-('IA'),
-('KS'),
-('KY'),
-('LA'),
-('ME'),
-('MD'),
-('MA'),
-('MI'),
-('MN'),
-('MS'),
-('MO'),
-('MT'),
-('NE'),
-('NV'),
-('NH'),
-('NJ'),
-('NM'),
-('NY'),
-('NC'),
-('ND'),
-('OH'),
-('OK'),
-('OR'),
-('PA'),
-('RI'),
-('SC'),
-('SD'),
-('TN'),
-('TX'),
-('UT'),
-('VT'),
-('VA'),
-('WA'),
-('WV'),
-('WI'),
-('WY'),
-('GU'),
-('PR'),
-('VI');
--- FL is number 9
+-- Foreign keys for Employee table
+alter table Employee.Employee
+	add constraint FK_Employee_DeptID foreign key (DeptID) references Employee.Department(DepartmentID)
+	on update cascade;
 
-/*
-delete PizzaStore.[State]
-where StateID > 53;
-select * from PizzaStore.[State];
-*/
-
-
--- Make Addresses
-insert into PizzaStore.[Address](Street, City, StateID, ZipCode, ModifiedDate)
-values
-('17631 Bruce B Downs Blvd', 'Tampa', 9, '33647', getdate()),
-('14917 Bruce B Downs Blvd', 'Tampa', 9, '33613', getdate()),
-('9340 N Florida Ave', 'Tampa', 9, '33612', getdate()),
-('4103 Fir Street', 'Tampa', 9, '33620', getdate()),
-('3233 Cedar Circle', 'Tampa', 9, '33620', getdate()),
-('2311 Nebraska Avenue', 'Tampa', 9, '33620', getdate()),
-('143 Palm Shadow Way', 'Tampa', 9, '33620', getdate()),
-('5543 W Tampa Palms', 'Tampa', 9, '33620', getdate());
-
-select * from PizzaStore.[Address];
-
--- Make Inventories
-
-insert into PizzaStore.Inventory(Crust_Thin_Count, Crust_HandTossed_Count, Crust_Thick_Count, Sauce_Tomato_Count, Sauce_Pesto_Count, Cheese_Mozzarella_Count, Cheese_Cheddar_Count, Cheese_Colby_Count, Topping_Pepperoni_Count, Topping_Onion_Count, Topping_GreenPepper_Count, Topping_Meatball_Count, Topping_Mushroom_Count)
-values
-(1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000),
-(1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000),
-(1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000);
-
-select * from PizzaStore.Inventory;
-
--- Make Locations
-insert into PizzaStore.[Location](AddressID, InventoryID, ModifiedDate)
-values
-(1, 1, getdate()),
-(2, 2, getdate()),
-(3, 3, getdate());
-
-select * from PizzaStore.[Location];
-
-select * from PizzaStore.[Address];
-
-
-
-
-
-
+-- Foreign keys for EmpDetails table
+alter table Employee.EmpDetails
+	add constraint FK_EmpDetails_EmployeeID foreign key (EmployeeID) references Employee.Employee(EmployeeID)
+	on update cascade;
 
