@@ -25,7 +25,7 @@ namespace PizzaStore.Client
         {
             return dbContext.Sauce.ToList();
         }
-
+        
         public List<Cheese> ReadCheeses()
         {
             return dbContext.Cheese.ToList();

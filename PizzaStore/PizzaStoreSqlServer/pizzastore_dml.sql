@@ -1,7 +1,7 @@
 
 -- Pizza Store Definition
 
-USE adventureworksdb;
+USE pizzastoredb;
 GO
 
 -- Make Crusts
@@ -184,7 +184,7 @@ inner join
 ) as cust on cust.CustomerID = ord.CustomerID;
 
 
-Select FirstName, LastName, Email, ord.OrderId, pizza.TotalPizzaCost, ord.OrderTime, Loc.LocationID, addr.Street, addr.City, addr.ZipCode
+Select FirstName, LastName, Email, ord.OrderId, pizza.TotalPizzaCost, crust.Crust, sauce.Sauce, ord.OrderTime, Loc.LocationID, addr.Street, addr.City, addr.ZipCode
 from PizzaStore.Pizza as pizza
 inner join
 (
@@ -205,8 +205,17 @@ inner join
 (
 	select *
 	from PizzaStore.[Address]
-) as addr on addr.AddressID = loc.AddressID;
-
+) as addr on addr.AddressID = loc.AddressID
+left join
+(
+	select *
+	from PizzaStore.Crust
+) as crust on pizza.CrustID = crust.CrustID
+left join
+(
+	select * 
+	from PizzaStore.Sauce
+) as sauce on pizza.SauceID = sauce.SauceID;
 
 
 

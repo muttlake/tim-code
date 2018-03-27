@@ -12,7 +12,7 @@ namespace PizzaStore.Client
             // InsertTest();
             // PrintLocationItems();
             CreateAnOrder();
-            //AddPizzaToOrder();
+            AddPizzaToOrder();
         }
         
         static void CreateAnOrder()
