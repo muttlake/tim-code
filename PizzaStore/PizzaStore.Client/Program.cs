@@ -119,8 +119,34 @@ namespace PizzaStore.Client
                 Console.WriteLine("Enter SauceID: ");
                 int sauceEntered = Convert.ToInt32(Console.ReadLine());
 
-                ed.AddPizza(orderEntered, crustEntered, sauceEntered);
 
+
+                Console.WriteLine("Now add cheeses, Say OK To stop: ");
+                var cheeseStop = Console.ReadLine();
+
+                List<int> cheeseIDs = new List<int>();
+                while(!cheeseStop.Equals("Stop"))
+                {
+                    Console.WriteLine("Enter CheeseID: ");
+                    var cheeseID = Convert.ToInt32(Console.ReadLine());
+                    cheeseIDs.Add(cheeseID);
+                    Console.WriteLine("Say OK To stop adding cheeses: ");
+                    cheeseStop = Console.ReadLine();
+                }
+
+                Console.WriteLine("Now add toppings, Say OK To stop: ");
+                var toppingStop = Console.ReadLine();
+                List<int> toppingIDs = new List<int>();
+                while(!cheeseStop.Equals("Stop"))
+                {
+                    Console.WriteLine("Enter ToppingID: ");
+                    var toppingID = Convert.ToInt32(Console.ReadLine());
+                    toppingIDs.Add(toppingID);
+                    Console.WriteLine("Say OK To stop adding toppings: ");
+                    toppingStop = Console.ReadLine();
+                }
+
+                ed.AddPizza(orderEntered, crustEntered, sauceEntered, cheeseIDs, toppingIDs);
 
 
                 Console.WriteLine("Enter Stop to Stop adding pizzas to order");

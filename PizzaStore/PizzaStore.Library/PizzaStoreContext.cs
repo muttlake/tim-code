@@ -1,11 +1,11 @@
 ﻿using System;
-//using PizzaStore.Data;
+using PizzaStore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 
-namespace PizzaStore.Data
+namespace PizzaStore.Library
 {
     public partial class PizzaStoreContext : DbContext
     {

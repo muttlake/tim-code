@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using PizzaStore.Data;
+using PizzaStore.Library;
 
 namespace PizzaStore.Client
 {
@@ -25,7 +26,7 @@ namespace PizzaStore.Client
         {
             return dbContext.Sauce.ToList();
         }
-        
+
         public List<Cheese> ReadCheeses()
         {
             return dbContext.Cheese.ToList();
@@ -121,25 +122,17 @@ namespace PizzaStore.Client
         }
 
         
-        public void AddPizza(int orderID, int crustID, int sauceID)
+        public void AddPizza(int orderID, int crustID, int sauceID, List<int> cheeseIDs, List<int> toppingIDs)
         {
             if(!CheckOrder(orderID) || !CheckCrust(crustID) || !CheckSauce(sauceID))
                 System.Console.WriteLine("Bad pizza parameters");
             else
             {
-                Pizza pizza = new Pizza();
-                pizza.CrustId = crustID;
-                pizza.SauceId = sauceID;
-                pizza.OrderId = orderID;
-                pizza.ModifiedDate = System.DateTime.Now;
-                double pizzaValue = dbContext.Crust.Where(p => p.CrustId == crustID).FirstOrDefault().CrustCost;
-                pizzaValue += dbContext.Sauce.Where(p => p.SauceId == sauceID).FirstOrDefault().SauceCost;
-                pizza.TotalPizzaCost = pizzaValue;
-                dbContext.Pizza.Add(pizza);
-                dbContext.SaveChanges();
-                System.Console.WriteLine("Successfully created empty pizza.");
+                PizzaCreator pc = new PizzaCreator(orderID);
             }
         }
+
+
 
         public bool CheckOrder(int orderNum)
         {
