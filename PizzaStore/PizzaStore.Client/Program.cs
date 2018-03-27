@@ -11,7 +11,7 @@ namespace PizzaStore.Client
             PrintPizzaItems();
             // InsertTest();
             // PrintLocationItems();
-            //CreateAnOrder();
+            CreateAnOrder();
             //AddPizzaToOrder();
         }
         
@@ -21,7 +21,7 @@ namespace PizzaStore.Client
 
             Console.WriteLine("Listing all locations.");
             var ed = new EfData();
-            /*foreach (var location in ed.ReadLocations())
+            foreach (var location in ed.ReadLocations())
             {
                 System.Console.Write("LocationID: {0} AddressID: {1} InventoryID: {2} {3} {4}\n", location.LocationId, location.AddressId, location.InventoryId, location.ModifiedDate, location.Active);
                 System.Console.Write("\tAddressID: {0} Street: {1} City: {2} ", location.Address.AddressId, location.Address.Street, location.Address.City);
@@ -34,7 +34,7 @@ namespace PizzaStore.Client
                 System.Console.Write("ToppingPepperoniCount: {0} ToppingOnionCount: {1} ToppingGPCount: {2} ", location.Inventory.ToppingPepperoniCount, location.Inventory.ToppingOnionCount, location.Inventory.ToppingGreenPepperCount);
                 System.Console.Write("ToppingMeatballCount: {0} ToppingMushroomCount: {1}\n", location.Inventory.ToppingMeatballCount, location.Inventory.ToppingMushroomCount);
             }
-            */
+            
             
             Console.WriteLine("\nEnter Location: ");
             int locationEntered = Convert.ToInt32(Console.ReadLine());

@@ -8,6 +8,7 @@ namespace PizzaStore.Data
         public Address()
         {
             Customer = new HashSet<Customer>();
+            Location = new HashSet<Location>();
         }
 
         public int AddressId { get; set; }
@@ -20,5 +21,6 @@ namespace PizzaStore.Data
 
         public State State { get; set; }
         public ICollection<Customer> Customer { get; set; }
+        public ICollection<Location> Location { get; set; }
     }
 }

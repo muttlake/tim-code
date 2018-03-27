@@ -16,6 +16,7 @@ namespace PizzaStore.Data
         public DateTime ModifiedDate { get; set; }
         public bool? Active { get; set; }
 
+        public Address Address { get; set; }
         public Inventory Inventory { get; set; }
         public ICollection<Order> Order { get; set; }
     }
