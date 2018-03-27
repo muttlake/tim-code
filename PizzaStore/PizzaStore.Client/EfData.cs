@@ -1,9 +1,8 @@
-
-
+ 
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using PizzaStore.Library;
+using PizzaStore.Data;
 
 namespace PizzaStore.Client
 {
@@ -51,8 +50,8 @@ namespace PizzaStore.Client
         public List<Location> ReadLocations()
         {
             var locations = dbContext.Location
-                            .Include(p => p.Address)
-                            .Include(p => p.Address.State)
+                            //.Include(p => p.Address)
+                            //.Include(p => p.Address.State)
                             .Include(p => p.Inventory);
             return locations.ToList();
         }

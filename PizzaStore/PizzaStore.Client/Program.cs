@@ -7,20 +7,21 @@ namespace PizzaStore.Client
     {
         static void Main(string[] args)
         {
-            // PrintPizzaItems();
+            Console.WriteLine("Pizza");
+            PrintPizzaItems();
             // InsertTest();
             // PrintLocationItems();
-            CreateAnOrder();
-            AddPizzaToOrder();
+            //CreateAnOrder();
+            //AddPizzaToOrder();
         }
-
+        
         static void CreateAnOrder()
         {
             Console.WriteLine("Creating an order\n");
 
             Console.WriteLine("Listing all locations.");
             var ed = new EfData();
-            foreach (var location in ed.ReadLocations())
+            /*foreach (var location in ed.ReadLocations())
             {
                 System.Console.Write("LocationID: {0} AddressID: {1} InventoryID: {2} {3} {4}\n", location.LocationId, location.AddressId, location.InventoryId, location.ModifiedDate, location.Active);
                 System.Console.Write("\tAddressID: {0} Street: {1} City: {2} ", location.Address.AddressId, location.Address.Street, location.Address.City);
@@ -33,6 +34,7 @@ namespace PizzaStore.Client
                 System.Console.Write("ToppingPepperoniCount: {0} ToppingOnionCount: {1} ToppingGPCount: {2} ", location.Inventory.ToppingPepperoniCount, location.Inventory.ToppingOnionCount, location.Inventory.ToppingGreenPepperCount);
                 System.Console.Write("ToppingMeatballCount: {0} ToppingMushroomCount: {1}\n", location.Inventory.ToppingMeatballCount, location.Inventory.ToppingMushroomCount);
             }
+            */
             
             Console.WriteLine("\nEnter Location: ");
             int locationEntered = Convert.ToInt32(Console.ReadLine());
@@ -164,19 +166,19 @@ namespace PizzaStore.Client
             var ed = new EfData();
 
             Console.WriteLine("Locations: ");
-            foreach (var location in ed.ReadLocations())
-            {
-                System.Console.Write("{0} {1} {2} {3} {4}\n", location.LocationId, location.AddressId, location.InventoryId, location.ModifiedDate, location.Active);
-                System.Console.Write("\t{0} {1} {2} ", location.Address.AddressId, location.Address.Street, location.Address.City);
-                System.Console.Write("{0} {1} {2} ", location.Address.ZipCode, location.Address.ModifiedDate, location.Address.Active);
-                System.Console.Write("{0} {1}", location.Address.StateId, location.InventoryId);
-                System.Console.Write(" {0} {1}\n", location.Address.State.StateId, location.Address.State.StateAbb);
-                System.Console.Write("\t{0} {1} {2} ", location.Inventory.InventoryId, location.Inventory.CrustThinCount, location.Inventory.CrustHandTossedCount);
-                System.Console.Write("{0} {1} {2} ", location.Inventory.CrustThickCount, location.Inventory.SauceTomatoCount, location.Inventory.SaucePestoCount);
-                System.Console.Write("{0} {1} {2} ", location.Inventory.CheeseMozzarellaCount, location.Inventory.CheeseCheddarCount, location.Inventory.CheeseColbyCount);
-                System.Console.Write("{0} {1} {2} ", location.Inventory.ToppingPepperoniCount, location.Inventory.ToppingOnionCount, location.Inventory.ToppingGreenPepperCount);
-                System.Console.Write("{0} {1}\n", location.Inventory.ToppingMeatballCount, location.Inventory.ToppingMushroomCount);
-            }
+            // foreach (var location in ed.ReadLocations())
+            // {
+            //     System.Console.Write("{0} {1} {2} {3} {4}\n", location.LocationId, location.AddressId, location.InventoryId, location.ModifiedDate, location.Active);
+            //     System.Console.Write("\t{0} {1} {2} ", location.Address.AddressId, location.Address.Street, location.Address.City);
+            //     System.Console.Write("{0} {1} {2} ", location.Address.ZipCode, location.Address.ModifiedDate, location.Address.Active);
+            //     System.Console.Write("{0} {1}", location.Address.StateId, location.InventoryId);
+            //     System.Console.Write(" {0} {1}\n", location.Address.State.StateId, location.Address.State.StateAbb);
+            //     System.Console.Write("\t{0} {1} {2} ", location.Inventory.InventoryId, location.Inventory.CrustThinCount, location.Inventory.CrustHandTossedCount);
+            //     System.Console.Write("{0} {1} {2} ", location.Inventory.CrustThickCount, location.Inventory.SauceTomatoCount, location.Inventory.SaucePestoCount);
+            //     System.Console.Write("{0} {1} {2} ", location.Inventory.CheeseMozzarellaCount, location.Inventory.CheeseCheddarCount, location.Inventory.CheeseColbyCount);
+            //     System.Console.Write("{0} {1} {2} ", location.Inventory.ToppingPepperoniCount, location.Inventory.ToppingOnionCount, location.Inventory.ToppingGreenPepperCount);
+            //     System.Console.Write("{0} {1}\n", location.Inventory.ToppingMeatballCount, location.Inventory.ToppingMushroomCount);
+            // }
         }
 
         static void InsertTest()

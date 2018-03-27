@@ -30,6 +30,10 @@ GO
 
 -- Make Toppings
 delete PizzaStore.Topping;
+alter table pizzastore.topping
+	drop column topping;
+alter table pizzastore.topping
+	add Topping nvarchar(120);
 INSERT INTO PizzaStore.Topping(Topping, ToppingCost, ModifiedDate)
 VALUES
 ('Pepperoni', 1.00, getdate()),
@@ -159,7 +163,7 @@ values
 ('Jerry', 'West', 4, '2222222222', 'jerrywest@email.com', getdate()),
 ('Michael', 'Jordan', 5, '2222222222', 'mj@email.com', getdate()),
 ('LeBron', 'James', 6, '2222222222', 'lj@email.com', getdate()),
-('Stephen', 'Curry', 7, '2222222222', 'sc@email.com', getdate());\
+('Stephen', 'Curry', 7, '2222222222', 'sc@email.com', getdate());
 
 select * from PizzaStore.Customer;
 
