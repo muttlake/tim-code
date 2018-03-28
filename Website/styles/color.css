@@ -1,0 +1,15 @@
+body {
+    background-color: whitesmoke;
+}
+
+header {
+    background-color: #a1a1a1;
+}
+
+body {
+    background-color: rgb(200,200,200);
+}
+
+body {
+    background-color: hsl(200, 100%, 25%);
+}

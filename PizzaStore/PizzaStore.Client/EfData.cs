@@ -128,7 +128,7 @@ namespace PizzaStore.Client
                 System.Console.WriteLine("Bad pizza parameters");
             else
             {
-                PizzaCreator pc = new PizzaCreator(orderID);
+                //PizzaCreator pc = new PizzaCreator(orderID);
             }
         }
 
