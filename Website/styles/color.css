@@ -1,15 +1,17 @@
 body {
-    background-color: whitesmoke;
+    background-color: purple; /* web colors, you pick a name, like grayish white */
 }
 
 header {
-    background-color: #a1a1a1;
+    background-color: #a1a1a1; /*hexadecimal color, 0 to f for three groups, ffffff, represents rgb  ff is 8 bits*/
 }
 
-body {
-    background-color: rgb(200,200,200);
+main {
+    /* background-color: rgb(200,200,200); 0 to 255 same as hex representation but put in decimal */
+    background-color: rgba(200,200,200, 1.0);
 }
 
-body {
-    background-color: hsl(200, 100%, 25%);
+footer {
+    /* background-color: hsl(200, 100%, 25%); hue saturation lightness, based on color wheel */
+    background-color: hsla(200, 100%, 25%, 1.0);
 }
