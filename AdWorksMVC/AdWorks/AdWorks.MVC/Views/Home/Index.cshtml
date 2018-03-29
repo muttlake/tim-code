@@ -1,6 +1,18 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    //Layout = "X";
 }
+
+@*@//HtmlHelper();
+
+@{ 
+
+}*@
+
+@*@section "Head" {
+
+}*@
+
 
 <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
     <ol class="carousel-indicators">
@@ -102,5 +114,11 @@
             <li><a href="https://go.microsoft.com/fwlink/?LinkID=517853">Run tools such as EF migrations and more</a></li>
             <li><a href="https://go.microsoft.com/fwlink/?LinkID=398609">Publish to Microsoft Azure Web Apps</a></li>
         </ul>
+    </div>
+
+    <div>
+        @ViewBag.Message
+        @ViewData["Message"]
+        @TempData["Message"]
     </div>
 </div>

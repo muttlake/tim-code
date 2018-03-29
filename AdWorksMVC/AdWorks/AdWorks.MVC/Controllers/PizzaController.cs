@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AdWorks.MVC.Controllers
 {
-    public class PersonController : Controller //suffix contoller allows parser to know it's a controller
+    public class PizzaController : Controller
     {
-        public IActionResult Index() //as user when you request something you want us to act on it
+        public IActionResult Index()
         {
             return View();
         }

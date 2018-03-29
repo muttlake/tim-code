@@ -1,0 +1,45 @@
+﻿@model AdWorks.MVC.Models.PizzaViewModel
+@* this is a strongly typed view, view is tied to a view model *@
+
+
+@{
+
+}
+
+@using (@Html.BeginForm())
+{
+    @Html.TextBoxFor(m => m.Name)
+
+    PizzaViewModel pizzaView = new PizzaViewModel();
+
+    foreach (var item in pizzaView.Size)
+    {
+        @Html.RadioButtonFor(m => item, item.Text);
+    }
+
+    //Model model = new Model();
+    //for(int i = 0; i < Model.Size.Count; i++)
+    //{
+    //    @Html.RadioButtonFor(m => Model.Size[i].Value, Model.Size[i].Text) //internal tag
+    //}
+
+
+
+    @*@Html.CheckBoxFor(m => false, m.Toppings) //*@
+
+    @*foreach(var item in Model.Size)
+    {
+        @Html.RadioButtonFor(item, "size")
+        }*@
+
+    <button type="submit"> Submit Your Order </button>
+
+
+}
+
+@*@{
+        ViewData["Title"] = "View";
+    }*@
+
+@*<h2>View</h2>*@
+
