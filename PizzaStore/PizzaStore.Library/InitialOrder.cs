@@ -82,6 +82,7 @@ namespace PizzaStore.Library
                 else
                 {
                     dbContext.Order.Where(p => p.OrderId == Order.OrderId).FirstOrDefault().Active = false; //Deactivate Order
+                    dbContext.SaveChanges();
                     Console.WriteLine("Invalid Pizza.");
                     return false;
                 }

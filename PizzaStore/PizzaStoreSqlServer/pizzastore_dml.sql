@@ -228,7 +228,7 @@ inner join
 ) as cheese on pizzaCheese.CheeseID = cheese.CheeseID;
 
 
-select * from PizzaStore.PizzaHasTopping;
+select * from PizzaStore.[Order];
 
 
 
