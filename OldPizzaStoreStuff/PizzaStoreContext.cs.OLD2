@@ -1,10 +1,11 @@
 ﻿using System;
-using System.IO;
+//using PizzaStore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
+using System.IO;
 
-namespace PizzaStore.Library
+namespace PizzaStore.Data
 {
     public partial class PizzaStoreContext : DbContext
     {
@@ -27,7 +28,7 @@ namespace PizzaStore.Library
             if (!optionsBuilder.IsConfigured)
             {
                 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                //optionsBuilder.UseSqlServer(@"server=adventureworksdb.cxkf3wzoieaw.us-east-2.rds.amazonaws.com; database=adventureworksdb;user id=sqladmin; password=");
+                //optionsBuilder.UseSqlServer(@"server=pizzastoredb.cxkf3wzoieaw.us-east-2.rds.amazonaws.com; database=pizzastoredb; user id=sqladmin; password=");
                 IConfiguration Configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.dev.json").Build();
                 //System.Console.WriteLine("AWContext connection string: " + Configuration.GetConnectionString("DefaultConnection"));
                 optionsBuilder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));   
@@ -57,7 +58,8 @@ namespace PizzaStore.Library
                 entity.HasOne(d => d.State)
                     .WithMany(p => p.Address)
                     .HasForeignKey(d => d.StateId)
-                    .HasConstraintName("FK_Address_State");
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Address_StateID");
             });
 
             modelBuilder.Entity<Cheese>(entity =>
@@ -108,6 +110,14 @@ namespace PizzaStore.Library
                     .IsRequired()
                     .HasMaxLength(100);
 
+                entity.Property(e => e.FirstName)
+                    .IsRequired()
+                    .HasMaxLength(150);
+
+                entity.Property(e => e.LastName)
+                    .IsRequired()
+                    .HasMaxLength(150);
+
                 entity.Property(e => e.ModifiedDate).HasColumnType("datetime2(3)");
 
                 entity.Property(e => e.Phone).HasMaxLength(10);
@@ -116,7 +126,7 @@ namespace PizzaStore.Library
                     .WithMany(p => p.Customer)
                     .HasForeignKey(d => d.AddressId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Customer_Address");
+                    .HasConstraintName("FK_Customer_AddressID");
             });
 
             modelBuilder.Entity<Inventory>(entity =>
@@ -166,17 +176,11 @@ namespace PizzaStore.Library
 
                 entity.Property(e => e.ModifiedDate).HasColumnType("datetime2(3)");
 
-                entity.HasOne(d => d.Address)
-                    .WithMany(p => p.Location)
-                    .HasForeignKey(d => d.AddressId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Location_Address");
-
                 entity.HasOne(d => d.Inventory)
                     .WithMany(p => p.Location)
                     .HasForeignKey(d => d.InventoryId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Location_Inventory");
+                    .HasConstraintName("FK_Location_InventoryID");
             });
 
             modelBuilder.Entity<Order>(entity =>
@@ -199,13 +203,13 @@ namespace PizzaStore.Library
                     .WithMany(p => p.Order)
                     .HasForeignKey(d => d.CustomerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Order_Customer");
+                    .HasConstraintName("FK_Order_CustomerID");
 
                 entity.HasOne(d => d.Location)
                     .WithMany(p => p.Order)
                     .HasForeignKey(d => d.LocationId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Order_Location");
+                    .HasConstraintName("FK_Order_LocationID");
             });
 
             modelBuilder.Entity<Pizza>(entity =>
@@ -228,19 +232,19 @@ namespace PizzaStore.Library
                     .WithMany(p => p.Pizza)
                     .HasForeignKey(d => d.CrustId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Pizza_Crust");
+                    .HasConstraintName("FK_Pizza_CrustID");
 
                 entity.HasOne(d => d.Order)
                     .WithMany(p => p.Pizza)
                     .HasForeignKey(d => d.OrderId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Pizza_Order");
+                    .HasConstraintName("FK_Pizza_OrderID");
 
                 entity.HasOne(d => d.Sauce)
                     .WithMany(p => p.Pizza)
                     .HasForeignKey(d => d.SauceId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Pizza_Sauce");
+                    .HasConstraintName("FK_Pizza_SauceID");
             });
 
             modelBuilder.Entity<PizzaHasCheese>(entity =>
@@ -257,13 +261,13 @@ namespace PizzaStore.Library
                     .WithMany(p => p.PizzaHasCheese)
                     .HasForeignKey(d => d.CheeseId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_PizzaHasCheese_Cheese");
+                    .HasConstraintName("FK_PizzaHasCheese_CheeseID");
 
                 entity.HasOne(d => d.Pizza)
                     .WithMany(p => p.PizzaHasCheese)
                     .HasForeignKey(d => d.PizzaId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_PizzaHasCheese_Pizza");
+                    .HasConstraintName("FK_PizzaHasCheese_PizzaID");
             });
 
             modelBuilder.Entity<PizzaHasTopping>(entity =>
@@ -280,13 +284,13 @@ namespace PizzaStore.Library
                     .WithMany(p => p.PizzaHasTopping)
                     .HasForeignKey(d => d.PizzaId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_PizzaHasTopping_Pizza");
+                    .HasConstraintName("FK_PizzaHasTopping_PizzaID");
 
                 entity.HasOne(d => d.Topping)
                     .WithMany(p => p.PizzaHasTopping)
                     .HasForeignKey(d => d.ToppingId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_PizzaHasTopping_Topping");
+                    .HasConstraintName("FK_PizzaHasTopping_ToppingID");
             });
 
             modelBuilder.Entity<Sauce>(entity =>
@@ -329,7 +333,7 @@ namespace PizzaStore.Library
 
                 entity.Property(e => e.Topping1)
                     .HasColumnName("Topping")
-                    .HasMaxLength(50);
+                    .HasMaxLength(120);
             });
         }
     }

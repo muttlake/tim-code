@@ -1,0 +1,167 @@
+<!DOCTYPE html> <!-- tells parser how to read the document, use latest html for parser -->
+<html lang = "en"> <!-- use emmet , language is used for idiom, money, dates, special characters -->
+    <head>
+        <meta charset="utf-8"> <!-- our page has to be unicode compliant-->
+        <meta name="viewport" content="width=devide-width, initial-scale=1.0"> <!-- viewport scale based on device, scale to your size, not to my size-->
+        <meta http-equiv="X-UA-Compatible" content="ie=edge"> <!-- we only have this line for ie, use latest version of internet explorer you can -->
+        <meta name="author" content="timothy shepard">
+        <meta name="keywords" content="dotnet, html, css, js"> <!-- earliest form of seo, not that important these daya, -->
+        <meta name="description" content="hello html"> <!-- earliest form of seo -->
+        <link rel="stylesheet" href="styles/main.css"> <!-- wire documents to html -->
+        <!-- <script></script> can be any language, but now javascript powerful enough to do anything -->
+        <script src = "" defer></script> <!-- if browser supports defer parser will delay running script, only some browser support it-->
+        <!-- <script src = "" async></script> as you are running the page, run the script, not all browser support this -->
+    </head>
+    <body class="container jumbotron"> <!-- fixed container = container, fluid container = container-fluid -->
+        <!-- almost always see this structure in body -->
+
+        <!-- <div id="header"></div> <! we no longer do it this way anymore -->
+        <!-- <div id="top-navigation"></div> -->
+        <!-- <div id="content"></div> -->
+        <!-- <div id="ad-section"></div> this is like early html 4 -->
+        <!-- <div id="footer"></div>  this is how we used to write html, but before that we used tables. div means division -->
+
+        <header class="row"> <!-- this is the new way, it is semantic web, screen reader can read it -->
+            <hgroup class="col-md-4"> <!-- couple of headings to be understood as 1 heading -->
+                <h1>PizzaStore</h1>
+                <h2>a man's best food</h2>
+            </hgroup>
+
+            <nav class="col-md-8" > <!-- we have the menu, the things that we offer -->
+                <ul class="nav nav-pills">
+                    <li> <a href="">Pizza</a> </li>
+                    <li> <a href="">Drink</a> </li>
+                    <li> <a href="">Dessert</a> </li>
+                </ul> 
+            </nav>
+        </header>
+
+        <main class="row">
+            <section class="row"> <!-- section reccommended to always start with a header -->
+                <header class="col-md-12">
+                    <h3>Featured Pizzas</h3>
+                </header>
+                <article class="col-md-4">
+                    <header>
+                        <h4>BBQ Chicken</h4>
+                    </header>
+                    <figure> <!-- like a painting in a museum, note about painting, who drew it, other information -->
+                        <img src="images/american-1238698_640.jpg" alt="A picture of a Brick Fired american bbq pizza" class="img-responsive">
+                        <figcaption>Farm raised chicken breast with wild Australian BBQ sauce</figcaption>
+                    </figure>
+                </article>
+                <article class="col-md-4">
+                    <header>
+                        <h4>Vegan</h4>
+                    </header>
+                    <figure> <!-- like a painting in a museum, note about painting, who drew it, other information -->
+                        <img src="images/pizza-2776188_640.jpg" alt="A picture of a delicious vegan pizza"  class="img-responsive" >
+                        <figcaption>Vegan food is better for you</figcaption>
+                    </figure>
+                </article>
+                <article class="col-md-4">
+                    <header>
+                        <h4>Hawaiian</h4>
+                    </header>
+                    <figure> <!-- like a painting in a museum, note about painting, who drew it, other information -->
+                        <img src="images/american-1238698_640.jpg" alt="A picture of a good Hawaiian pizza"  class="img-responsive">
+                        <figcaption>Hawaiian pizza is for something different</figcaption>
+                    </figure>
+                </article>
+            </section>
+
+
+            <section class="row">
+                <header class="col-md-12">
+                    <h3>Order</h3>
+                </header>
+                <div class="col-md-12">
+                    <form action="" method="POST">  <!-- redirects back to the page you are on -->
+                        <div class ="form-group">
+                            <h4>Name</h4>
+                            <label for="personname">Name</label> <!-- linking name to input name selects textbox for accessibility -->
+                            <input type="text" name="personname" id="personname"> <!-- now we can take in information, name is like property name,  -->
+                        </div>
+    
+                        <div class ="form-group">
+                            <h4>Size</h4>
+                            <label for="smallsize">Small</label>
+                            <input type="radio" name="pizzasize" id="smallsize" value="small" checked> <!-- checked makes default small -->
+                            <label for="mediumsize">Medium</label>
+                            <input type="radio" name="pizzasize" id="mediumsize" value="medium">
+                            <label for="largesize">Large</label>
+                            <input type="radio" name="pizzasize" id="largesize" value="large">
+                        </div>
+    
+    
+                        <div class ="form-group">
+                            <h4>Crust</h4>
+                            <label for="thin">Thin</label>
+                            <input type="radio" name="pizzacrust" id="thin" value="thin" checked> <!-- checked makes default small -->
+                            <label for="handtossed">HandTossed</label>
+                            <input type="radio" name="pizzacrust" id="handtossed" value="handtossed">
+                            <label for="thick">Thick</label>
+                            <input type="radio" name="pizzacrust" id="thick" value="thick">
+                        </div>
+    
+                        <div class ="form-group">
+                            <h4>Toppings</h4> <!-- this property will come back as a list -->
+                            <label for="topping1">Cheese</label>
+                            <input type="checkbox" name="pizzatoppings" id="topping1" value="cheese">
+                            <label for="topping2">Pepperoni</label>
+                            <input type="checkbox" name="pizzatoppings" id="topping2" value="pepperoni">
+                            <label for="topping3">Green Pepper</label>
+                            <input type="checkbox" name="pizzatoppings" id="topping3" value="greenpepper">
+                            <label for="topping4">Onion</label>
+                            <input type="checkbox" name="pizzatoppings" id="topping4" value="onion">
+                            <label for="topping5">Meatball</label>
+                            <input type="checkbox" name="pizzatoppings" id="topping5" value="meatball">
+                        </div>
+    
+                        <div class ="form-group">
+                            <h4>Sauces</h4> <!-- this property will come back as a list -->
+                            <select name="pizzasauce" id="pizzasauce">
+                                <option value="tomato">Tomato</option>
+                                <option value="pesto">Pesto</option>
+                            </select>
+                        </div>
+    
+                        <div class ="form-group">
+                            <h4>Quantity</h4>
+                            <label for="pizzaquantity">Quantity</label> <!-- linking name to input name selects textbox for accessibility -->
+                            <input type="text" name="pizzaquantity" id="pizzaquantity"> <!-- now we can take in information, name is like property name,  -->
+                        </div>
+
+                        <!-- <label for=""><input type="text"></label> --> <!-- not as good as more verbose form of label -->
+                        <button type="submit"> <i class="fas fa-shopping-cart"></i> Submit Your Order</button>
+                        <!-- <input type="button" value""> rarely use this -->
+                    </form>
+                </div>
+                
+            </section>
+
+        </main>
+        <aside></aside>
+        <footer class="row">
+            <!-- <hgroup> <! couple of headings to be understood as 1 heading -->
+                <!-- <h1>PizzaStore</h1>
+                <h2>a man's best food</h2>
+                <h3>Copyright @2018</h3>
+            </hgroup> -->
+
+            <nav> <!-- we have the menu, the things that we offer -->
+                <ul>
+                    <li> <a href="">Blog</a> </li>
+                    <li> <a href="">About</a> </li>
+                    <li> <a href="">Sitemap</a> </li>
+                </ul> 
+            </nav>
+            <small>
+                Copyright &copy; 2018 timothy shepard, all rights reserved
+            </small>
+
+        </footer>
+
+        <script></script> <!-- we put script in body often so body will be shown, then behavior will come. put it at end of body-->
+    </body>
+</html>

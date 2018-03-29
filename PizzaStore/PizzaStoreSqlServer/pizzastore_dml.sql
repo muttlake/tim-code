@@ -1,7 +1,7 @@
 
 -- Pizza Store Definition
 
-USE adventureworksdb;
+USE pizzastoredb;
 GO
 
 -- Make Crusts
@@ -30,6 +30,10 @@ GO
 
 -- Make Toppings
 delete PizzaStore.Topping;
+alter table pizzastore.topping
+	drop column topping;
+alter table pizzastore.topping
+	add Topping nvarchar(120);
 INSERT INTO PizzaStore.Topping(Topping, ToppingCost, ModifiedDate)
 VALUES
 ('Pepperoni', 1.00, getdate()),
@@ -150,6 +154,69 @@ values
 select * from PizzaStore.[Location];
 
 select * from PizzaStore.[Address];
+
+
+
+-- Make Customers
+insert into PizzaStore.Customer(FirstName, LastName, AddressID, Phone, Email, ModifiedDate)
+values
+('Jerry', 'West', 4, '2222222222', 'jerrywest@email.com', getdate()),
+('Michael', 'Jordan', 5, '2222222222', 'mj@email.com', getdate()),
+('LeBron', 'James', 6, '2222222222', 'lj@email.com', getdate()),
+('Stephen', 'Curry', 7, '2222222222', 'sc@email.com', getdate());
+
+select * from PizzaStore.Customer;
+
+
+-- Making Orders from C#
+select * from PizzaStore.[Order];
+select * from PizzaStore.Pizza;
+
+select * from PizzaStore.Sauce;
+
+
+select FirstName, LastName, OrderID
+from PizzaStore.[Order] as ord
+inner join
+(
+	select CustomerID, FirstName, LastName
+	From PizzaStore.Customer
+) as cust on cust.CustomerID = ord.CustomerID;
+
+
+Select FirstName, LastName, Email, ord.OrderId, pizza.TotalPizzaCost, crust.Crust, sauce.Sauce, ord.OrderTime, Loc.LocationID, addr.Street, addr.City, addr.ZipCode
+from PizzaStore.Pizza as pizza
+inner join
+(
+	select *
+	from PizzaStore.[Order]
+) as ord on pizza.OrderID = ord.OrderID
+inner join
+(
+	select *
+	from PizzaStore.Customer
+) as cust on ord.CustomerID = cust.CustomerID
+inner join
+(
+	select *
+	from PizzaStore.[Location]
+) as loc on loc.LocationID = ord.LocationID
+inner join
+(
+	select *
+	from PizzaStore.[Address]
+) as addr on addr.AddressID = loc.AddressID
+left join
+(
+	select *
+	from PizzaStore.Crust
+) as crust on pizza.CrustID = crust.CrustID
+left join
+(
+	select * 
+	from PizzaStore.Sauce
+) as sauce on pizza.SauceID = sauce.SauceID;
+
 
 
 

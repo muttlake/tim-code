@@ -145,7 +145,6 @@ inner join
 ) as dep on emp.DeptID = dep.DepartmentID
 group by dep.[Name];
 
-
 -- increase salary of Tina Smith to $90,000
 select EmployeeID from Employee.Employee where FirstName = 'Tina' and LastName = 'Smith';
 

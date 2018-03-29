@@ -1,7 +1,7 @@
 
 -- Pizza Store Definition
 
-USE adventureworksdb;
+create database pizzastoredb;
 GO
 
 /*
@@ -14,6 +14,9 @@ drop table PizzaStore.Topping;
 drop table PizzaStore.Pizza;
 drop schema PizzaStore;*/
 GO
+
+Use pizzastoredb;
+Go
 
 -- Create Schema
 create schema PizzaStore;
@@ -47,11 +50,14 @@ create table PizzaStore.Customer
 (
 	CustomerID int not null primary key identity(1,1)
 	, AddressID int not null -- FK references Address
+	, FirstName nvarchar(150) not null
+	, LastName nvarchar(150) not null
 	, Phone nvarchar(10)
 	, Email nvarchar(100) not null
 	, ModifiedDate datetime2(3) not null
 	, Active bit not null default(1)
 );
+
 
 --alter table PizzaStore.[Address]
 	--drop column [State];
@@ -62,7 +68,7 @@ create table PizzaStore.[Address]
 	AddressID int not null primary key identity(1,1)
 	, Street nvarchar(150)
 	, City nvarchar(100)
-	, State nvarchar(2) -- StateID FK references State
+	, StateID int not null -- FK references State
 	, ZipCode nvarchar(5)
 	, ModifiedDate datetime2(3) not null
 	, Active bit not null default(1)
@@ -168,62 +174,62 @@ create table PizzaStore.[State]
 
 -- Foreign keys for order table
 alter table PizzaStore.[Order]
-	add constraint FK_Order_Location foreign key (LocationID) references PizzaStore.[Location](LocationID)
+	add constraint FK_Order_LocationID foreign key (LocationID) references PizzaStore.[Location](LocationID)
 	on update cascade;
 
 alter table PizzaStore.[Order]
-	add constraint FK_Order_Customer foreign key (CustomerID) references PizzaStore.Customer(CustomerID)
+	add constraint FK_Order_CustomerID foreign key (CustomerID) references PizzaStore.Customer(CustomerID)
 	on update cascade;
 
 -- Foreign keys for location table
 alter table PizzaStore.[Location]
-	add constraint FK_Location_Address foreign key (AddressID) references PizzaStore.[Address](AddressID)
-	on update cascade;
+	add constraint FK_Location_AddressID foreign key (AddressID) references PizzaStore.[Address](AddressID)
+	on update no action;
 
 alter table PizzaStore.[Location]
-	add constraint FK_Location_Inventory foreign key (InventoryID) references PizzaStore.Inventory(InventoryID)
+	add constraint FK_Location_InventoryID foreign key (InventoryID) references PizzaStore.Inventory(InventoryID)
 	on update cascade;
 
 -- Foreign keys for customer table
 alter table PizzaStore.Customer
-	add constraint FK_Customer_Address foreign key (AddressID) references PizzaStore.[Address](AddressID)
-	on update no action;
+	add constraint FK_Customer_AddressID foreign key (AddressID) references PizzaStore.[Address](AddressID)
+	on update cascade;
 
 -- Foreign keys for address table
 alter table PizzaStore.[Address]
-	add constraint FK_Address_State foreign key (StateID) references PizzaStore.[State](StateID)
-	on update no action;
+	add constraint FK_Address_StateID foreign key (StateID) references PizzaStore.[State](StateID)
+	on update cascade;
 
 -- Foreign keys for pizza table
 alter table PizzaStore.Pizza
-	add constraint FK_Pizza_Crust foreign key (CrustID) references PizzaStore.Crust(CrustID)
-	on update no action;
+	add constraint FK_Pizza_CrustID foreign key (CrustID) references PizzaStore.Crust(CrustID)
+	on update cascade;
 
 alter table PizzaStore.Pizza
-	add constraint FK_Pizza_Sauce foreign key (SauceID) references PizzaStore.Sauce(SauceID)
-	on update no action;
+	add constraint FK_Pizza_SauceID foreign key (SauceID) references PizzaStore.Sauce(SauceID)
+	on update cascade;
 
 alter table PizzaStore.Pizza
-	add constraint FK_Pizza_Order foreign key (OrderID) references PizzaStore.[Order](OrderID)
-	on update no action;
+	add constraint FK_Pizza_OrderID foreign key (OrderID) references PizzaStore.[Order](OrderID)
+	on update cascade;
 
 -- Foreign keys for PizzaHasCheese table
 alter table PizzaStore.PizzaHasCheese
-	add constraint FK_PizzaHasCheese_Pizza foreign key (PizzaID) references PizzaStore.Pizza(PizzaID)
-	on update no action;
+	add constraint FK_PizzaHasCheese_PizzaID foreign key (PizzaID) references PizzaStore.Pizza(PizzaID)
+	on update cascade;
 
 alter table PizzaStore.PizzaHasCheese
-	add constraint FK_PizzaHasCheese_Cheese foreign key (CheeseID) references PizzaStore.Cheese(CheeseID)
-	on update no action;
+	add constraint FK_PizzaHasCheese_CheeseID foreign key (CheeseID) references PizzaStore.Cheese(CheeseID)
+	on update cascade;
 
 -- Foreign keys for PizzaHasCheese table
 alter table PizzaStore.PizzaHasTopping
-	add constraint FK_PizzaHasTopping_Pizza foreign key (PizzaID) references PizzaStore.Pizza(PizzaID)
-	on update no action;
+	add constraint FK_PizzaHasTopping_PizzaID foreign key (PizzaID) references PizzaStore.Pizza(PizzaID)
+	on update cascade;
 
 alter table PizzaStore.PizzaHasTopping
-	add constraint FK_PizzaHasTopping_Topping foreign key (ToppingID) references PizzaStore.Topping(ToppingID)
-	on update no action;
+	add constraint FK_PizzaHasTopping_ToppingID foreign key (ToppingID) references PizzaStore.Topping(ToppingID)
+	on update cascade;
 
 /*
 alter table PizzaStore.Inventory
