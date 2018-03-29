@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AdWorks.MVC.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdWorks.MVC.Controllers
@@ -10,7 +11,7 @@ namespace AdWorks.MVC.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            return View(new PizzaViewModel());
         }
     }
 }

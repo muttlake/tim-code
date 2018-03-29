@@ -14,12 +14,33 @@ namespace AdWorks.MVC.Models
             set;
         }
 
-        public List<SelectListItem> Size
+        public string Size { get; set; }
+
+        public Size Sizes
         {
             get;
             set;
         }
-        public List<Topping> Toppings
+
+        public List<SelectListItem> Crust
+        {
+            get;
+            set;
+        }
+
+        public List<string> Sizes2
+        {
+            get;
+            set;
+        }
+
+        public Topping Toppings
+        {
+            get;
+            set;
+        }
+
+        public List<string> ToppingList
         {
             get;
             set;
@@ -27,19 +48,10 @@ namespace AdWorks.MVC.Models
 
         public PizzaViewModel()
         {
-            Size = new List<SelectListItem>()
-            {
-                new SelectListItem {Text = "Small", Value = "S", Selected = true},
-                new SelectListItem { Text = "Medium", Value = "M" },
-                new SelectListItem { Text = "Large", Value = "L" }
-            };
+            Sizes = new Size();
+            Toppings = new Topping();
 
-            Toppings = new List<Topping>()
-            {
-                new Topping {Name = "BBQ"},
-                new Topping {Name = "Pineapple"}, 
-                new Topping {Name = "Pepperoni"}
-            };
+            Sizes2 = new List<string>() { "Small", "Medium", "Large" };
         }
     }
 }

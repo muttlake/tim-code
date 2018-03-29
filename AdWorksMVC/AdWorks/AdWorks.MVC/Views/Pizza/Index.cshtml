@@ -6,40 +6,74 @@
 
 }
 
-@using (@Html.BeginForm())
+@*@using (@Html.BeginForm())
 {
     @Html.TextBoxFor(m => m.Name)
 
-    PizzaViewModel pizzaView = new PizzaViewModel();
 
     foreach (var item in pizzaView.Size)
     {
         @Html.RadioButtonFor(m => item, item.Text);
     }
-
-    //Model model = new Model();
-    //for(int i = 0; i < Model.Size.Count; i++)
-    //{
-    //    @Html.RadioButtonFor(m => Model.Size[i].Value, Model.Size[i].Text) //internal tag
-    //}
+}*@
 
 
+<header class="col-md-12">
+    <h3>Order</h3>
+</header>
+<div class="col-md-12">
+    <h4>Name</h4>
+    <div class="form-group">
+        @Html.TextBoxFor(m => m.Name, "Person Name:")
+    </div>
+    <h4>Sizes</h4> <!-- this property will come back as a list -->
+    <div class="form-group">
+        @using (@Html.BeginForm())
+        {
+            @Html.LabelFor(m => m.Sizes.Small); //We were calling metadata of model
+            @Html.RadioButtonFor(m => m.Sizes.Small, "Size");
+            @Html.LabelFor(m => m.Sizes.Medium);
+            @Html.RadioButtonFor(m => m.Sizes.Medium, "Size");
+            @Html.LabelFor(m => m.Sizes.Large);
+            @Html.RadioButtonFor(m => m.Sizes.Large, "Size");
 
-    @*@Html.CheckBoxFor(m => false, m.Toppings) //*@
+            foreach (var @size in Model.Sizes2)
+            {
+                <label>@size  Whats upppppp</label> //@Model needs a new Model
+                <input type="radio" name="size" id="" value=@size />
+            }
+        }
+    </div>
+    <h4>Crusts</h4> <!-- this property will come back as a list -->
+    <div class="form-group">
+        @Html.RadioButtonFor(m => Model.Crust, "Crust")
+    </div>
+    <h4>Toppings</h4> <!-- this property will come back as a list -->
+    <div class="form-group">
+        @using (@Html.BeginForm())
+        {
+            Html.LabelFor(m => m.Toppings.Pineapple); //Html is grabbing definition of Pineapple
+            Html.CheckBoxFor(m => m.Toppings.Pineapple, "ToppingList");
+            Html.LabelFor(m => m.Toppings.Pepperoni);
+            Html.CheckBoxFor(m => m.Toppings.Pepperoni, "ToppingList");
+            Html.LabelFor(m => m.Toppings.Vegan);
+            Html.CheckBoxFor(m => m.Toppings.Vegan, "ToppingList");
 
-    @*foreach(var item in Model.Size)
-    {
-        @Html.RadioButtonFor(item, "size")
-        }*@
+            <!-- This Model below must be an instance -->
+            <label>@Model.Sizes.Small</label> //@Model needs a new Model
+            <input type="radio" name="Size" id="" value="@Model.Sizes.Small" />
+            <label>@Model.Sizes.Medium</label>
+            <input type="radio" name="Size" id="" value="@Model.Sizes.Medium" />
+            <label>@Model.Sizes.Large</label>
+            <input type="radio" name="Size" id="" value="@Model.Sizes.Large" />
 
-    <button type="submit"> Submit Your Order </button>
+            //foreach(var item in List)
+            //@item
+            <label ></label>
+            <input asp-for="Sizes.Small" type="radio" value="Sizes.Small"/>
+            <button type="submit">Submit your Order</button>
+        }
+    </div>
+</div>
 
-
-}
-
-@*@{
-        ViewData["Title"] = "View";
-    }*@
-
-@*<h2>View</h2>*@
 

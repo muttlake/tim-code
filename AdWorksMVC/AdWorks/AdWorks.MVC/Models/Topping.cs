@@ -2,6 +2,8 @@
 {
     public class Topping
     {
-        public string Name { get; set; }
+        public bool Pepperoni { get; set; }
+        public bool Pineapple { get; set; }
+        public bool Vegan { get; set; }
     }
 }
