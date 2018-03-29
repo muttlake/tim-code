@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace HelloWorld.MVC.Controllers
 {
     [Route("/home")]
+    //[Route("/[controller]/[action]")]
     //[Route("[controller]/[action = index]")]
     public class HomeController : Controller
     {

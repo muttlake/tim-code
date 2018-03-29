@@ -216,12 +216,12 @@ left join
 	select * 
 	from PizzaStore.Sauce
 ) as sauce on pizza.SauceID = sauce.SauceID
-inner join
+left join
 (
 	select *
 	from PizzaStore.PizzaHasCheese
 ) as pizzaCheese on pizzaCheese.PizzaID = pizza.PizzaID
-inner join
+left join
 (
 	select *
 	from PizzaStore.Cheese
