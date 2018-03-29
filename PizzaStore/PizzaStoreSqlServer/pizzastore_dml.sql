@@ -169,7 +169,7 @@ select * from PizzaStore.Customer;
 
 
 -- Making Orders from C#
-select * from PizzaStore.[Order];
+select * from PizzaStore.Cheese;
 select * from PizzaStore.Pizza;
 
 select * from PizzaStore.Sauce;
@@ -184,7 +184,7 @@ inner join
 ) as cust on cust.CustomerID = ord.CustomerID;
 
 
-Select FirstName, LastName, Email, ord.OrderId, pizza.TotalPizzaCost, crust.Crust, sauce.Sauce, ord.OrderTime, Loc.LocationID, addr.Street, addr.City, addr.ZipCode
+Select FirstName, LastName, Email, ord.OrderId, pizza.TotalPizzaCost, crust.Crust, sauce.Sauce, ord.OrderTime, Loc.LocationID, addr.Street, addr.City, addr.ZipCode, cheese.Cheese
 from PizzaStore.Pizza as pizza
 inner join
 (
@@ -215,10 +215,20 @@ left join
 (
 	select * 
 	from PizzaStore.Sauce
-) as sauce on pizza.SauceID = sauce.SauceID;
+) as sauce on pizza.SauceID = sauce.SauceID
+inner join
+(
+	select *
+	from PizzaStore.PizzaHasCheese
+) as pizzaCheese on pizzaCheese.PizzaID = pizza.PizzaID
+inner join
+(
+	select *
+	from PizzaStore.Cheese
+) as cheese on pizzaCheese.CheeseID = cheese.CheeseID;
 
 
-
+select * from PizzaStore.PizzaHasTopping;
 
 
 
