@@ -8,50 +8,18 @@ namespace AdWorks.MVC.Models
 {
     public class PizzaViewModel
     {
-        public string Name
-        {
-            get;
-            set;
-        }
-
         public string Size { get; set; }
 
-        public Size Sizes
-        {
-            get;
-            set;
-        }
+        public string Crust { get; set; }
 
-        public List<SelectListItem> Crust
-        {
-            get;
-            set;
-        }
+        public List<string> Sizes { get; set; }
 
-        public List<string> Sizes2
-        {
-            get;
-            set;
-        }
-
-        public Topping Toppings
-        {
-            get;
-            set;
-        }
-
-        public List<string> ToppingList
-        {
-            get;
-            set;
-        }
+        public List<string> Crusts { get; set; }
 
         public PizzaViewModel()
         {
-            Sizes = new Size();
-            Toppings = new Topping();
-
-            Sizes2 = new List<string>() { "Small", "Medium", "Large" };
+            Sizes = new List<string>() { "Small", "Medium", "Large" };
+            Crusts = new List<string>() { "Thin", "HandTossed", "Thick" };
         }
     }
 }
