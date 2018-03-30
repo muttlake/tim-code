@@ -243,3 +243,4 @@ inner join
 
 
 
+select * from PizzaStore.Topping;

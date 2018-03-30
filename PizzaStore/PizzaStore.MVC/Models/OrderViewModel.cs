@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
-namespace AdWorks.MVC.Models
+namespace PizzaStore.MVC.Models
 {
     public class OrderViewModel
     {

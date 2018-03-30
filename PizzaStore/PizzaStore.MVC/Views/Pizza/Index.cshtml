@@ -3,7 +3,7 @@
 }
 
 
-@model AdWorks.MVC.Models.PizzaViewModel
+@model PizzaStore.MVC.Models.PizzaViewModel
 
 <header class="col-md-12">
     <h3>Add a Pizza to Your Order</h3>
@@ -77,6 +77,7 @@
         @using (@Html.BeginForm())
         {*@
 @*@Html.LabelFor(m => m.Sizes.Small); //We were calling metadata of model
+    @Html.ValidationMessageFor(m => m.Name);
     @Html.RadioButtonFor(m => m.Sizes.Small, "Size");
     @Html.LabelFor(m => m.Sizes.Medium);
     @Html.RadioButtonFor(m => m.Sizes.Medium, "Size");

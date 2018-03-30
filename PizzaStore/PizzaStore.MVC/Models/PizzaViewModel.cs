@@ -5,14 +5,18 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
-namespace AdWorks.MVC.Models
+namespace PizzaStore.MVC.Models
 {
     public class PizzaViewModel
     {
-        [Required]
+        //[Required(Message = "the message")]
+        // [Message="sample message"]
+        //[DataType(DataType.int)]
+        //[StLength]
         public int CrustID { get; set; }
 
         [Required]
+        //[NameValidator(ErrorMessage = "bad name")]
         public int SauceID { get; set; }
 
         [Required]
