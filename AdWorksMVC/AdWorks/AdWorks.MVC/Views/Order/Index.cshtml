@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Order Page";
+}
+
+@model AdWorks.MVC.Models.OrderViewModel
+
+<header class="col-md-12">
+    <h3>Order</h3>
+</header>
+<div class="col-md-12">
+    <form asp-controller="Order" method="post">
+        <h4>Customer Name</h4>
+        <div class="form-group">
+            <label>Name: </label>
+            <input asp-for="CustomerName" />
+        </div>
+        <h4>Locations</h4>
+        <div class="form-group">
+            @foreach (KeyValuePair<int, string> location in Model.ValidLocations)
+            {
+                <div>
+                    <label>@location.Value</label>
+                    <input asp-for="LocationID" type="radio" id="" value=@location.Key />
+                </div>
+            }
+        </div>
+        <button type="submit">Choose a Pizza</button>
+    </form>
+</div>
+
+

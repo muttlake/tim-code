@@ -27,8 +27,5 @@ namespace AdWorks.MVC.Controllers
             Console.WriteLine(model.Size);
             return View();
         }
-
-
-        //How do we get information back from View
     }
 }

@@ -9,7 +9,6 @@ namespace AdWorks.MVC.Models
     public class PizzaViewModel
     {
         public string Size { get; set; }
-
         public string Crust { get; set; }
 
         public List<string> Sizes { get; set; }

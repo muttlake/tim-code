@@ -12,7 +12,7 @@ namespace PizzaStore.Client
             //PrintPizzaItems();
             // InsertTest();
             // PrintLocationItems();
-            //CreateAnOrder();
+            CreateAnOrder();
             //AddPizzaToOrder();
             NewOrderMaker();
         }
@@ -22,7 +22,7 @@ namespace PizzaStore.Client
             var initialOrder = new InitialOrder();
             List<int> cheeseIds = new List<int>() {1, 3};
             List<int> toppingIds = new List<int>() {7, 10, 11};
-            return initialOrder.CreateNewOrderWithSinglePizza(2, 4, 4, 1, cheeseIds, toppingIds);
+            return initialOrder.CreateNewOrderWithSinglePizza(2, 2, 4, 1, cheeseIds, toppingIds);
         }
         
         static void CreateAnOrder()

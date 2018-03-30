@@ -2,12 +2,21 @@
     ViewData["Title"] = "About";
 }
 <h2>@ViewData["Title"]</h2>
-<h3>@ViewData["Message"]</h3>
+@*<h3>@ViewData["Message"]</h3>*@
 
-<p>Use this area to provide additional information.</p>
+<div class="row">
 
-<div>
+    <div class="col-md-3">
+        <h3> This Pizza Store was just created by me!</h3>
+    </div>
+
+    @*<form asp-controller="Home" method="post">
+            <button type="submit">Make a New Order</button>
+        </form>*@
+</div>
+
+@*<div>
     @ViewBag.Message
     @ViewData["Message"]
     @TempData["Message"]
-</div>
+</div>*@

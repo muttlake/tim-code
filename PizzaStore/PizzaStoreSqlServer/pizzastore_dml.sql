@@ -231,6 +231,15 @@ left join
 select * from PizzaStore.[Order];
 
 
+select * 
+from PizzaStore.[Location] as loc
+inner join
+(
+	select *
+	from PizzaStore.[Address]
+) as addr on Loc.AddressID = addr.AddressID;
+
+
 
 
 

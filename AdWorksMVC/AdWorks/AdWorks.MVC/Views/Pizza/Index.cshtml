@@ -50,28 +50,7 @@
     </div>*@
     <h4>Toppings</h4> <!-- this property will come back as a list -->
     <div class="form-group">
-        @*@using (@Html.BeginForm())
-        {
-            Html.LabelFor(m => m.Toppings.Pineapple); //Html is grabbing definition of Pineapple
-            Html.CheckBoxFor(m => m.Toppings.Pineapple, "ToppingList");
-            Html.LabelFor(m => m.Toppings.Pepperoni);
-            Html.CheckBoxFor(m => m.Toppings.Pepperoni, "ToppingList");
-            Html.LabelFor(m => m.Toppings.Vegan);
-            Html.CheckBoxFor(m => m.Toppings.Vegan, "ToppingList");*@
-
-        <!-- This Model below must be an instance -->
-        @*<label>@Model.Sizes.Small</label> //@Model needs a new Model
-        <input type="radio" name="Size" id="" value="@Model.Sizes.Small" />
-        <label>@Model.Sizes.Medium</label>
-        <input type="radio" name="Size" id="" value="@Model.Sizes.Medium" />
-        <label>@Model.Sizes.Large</label>
-        <input type="radio" name="Size" id="" value="@Model.Sizes.Large" />*@
-
-        @*//foreach(var item in List)
-        //@item*@
         <label></label>
-        @*<input asp-for="size" type="radio" value="Sizes.Small"/>*@
-
         <form asp-controller="Pizza" method="post">
             <h4>Sizes</h4> <!-- this property will come back as a list -->
             <div class="form-group">
