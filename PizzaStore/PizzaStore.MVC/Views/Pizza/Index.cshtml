@@ -7,6 +7,7 @@
 
 <header class="col-md-12">
     <h3>Add a Pizza to Your Order</h3>
+    <h2>@ViewBag.CheeseOrToppingProblem</h2>
 </header>
 <div class="col-md-12">
     <form asp-controller="Pizza" method="post">
@@ -30,22 +31,43 @@
                 </div>
             }
         </div>
-        <h4>Cheeses</h4>
+        <h4>Cheeses (at most 2)</h4>
         <div class="form-group">
             <div class="container">
-                @foreach (KeyValuePair<int, string> cheese in Model.Cheeses)
+                @foreach (var item in Model.AvailableCheeses)
                 {
                     <div class="checkbox">
                         <label>
                             <input type="checkbox"
-                                    name="Cheeses"
-                                    value="@cheese.Value" /> @cheese.Key
+                                   name="SelectedCheeses"
+                                   value="@item.Value" /> @item.Text
+                            </label>
+                        </div>
+                }
+            </div>
+        </div>
+        <h4>Toppings (at most 3)</h4>
+        <div class="form-group">
+            <div class="container">
+                @foreach (var item in Model.AvailableToppings)
+                {
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox"
+                                   name="SelectedToppings"
+                                   value="@item.Value" /> @item.Text
                         </label>
                     </div>
                 }
             </div>
         </div>
-        <button type="submit">Choose a Pizza</button>
+        <h4>How many of this pizza do you want?</h4>
+        <div class="form-group">
+            <div class="container">
+                
+            </div>
+        </div>
+        <button type="submit">Add Pizza(s) to Order</button>
     </form>
 </div>
 

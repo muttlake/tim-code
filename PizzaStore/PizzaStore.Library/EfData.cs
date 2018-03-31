@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using PizzaStore.Data;
 using PizzaStore.Library;
 
-namespace PizzaStore.Client
+namespace PizzaStore.Library
 {
     public class EfData
     {
@@ -36,6 +36,7 @@ namespace PizzaStore.Client
         {
             return dbContext.Topping.ToList();
         }
+
         public List<State> ReadStates()
         {
             return dbContext.State.ToList();
@@ -65,7 +66,11 @@ namespace PizzaStore.Client
             return locationIDs.Contains(loc);
         }
 
-        
+        //public List<Customer> R()
+        //{
+        //    return dbContext.Customer.ToList();
+        //}
+
         public bool CheckCustomer(int cust)
         {
             List<int> customerIDs = new List<int>();
@@ -77,10 +82,7 @@ namespace PizzaStore.Client
 
         public List<Customer> ReadCustomers()
         {
-            var customers = dbContext.Customer
-                            .Include(p => p.Address)
-                            .Include(p => p.Address.State);
-            return customers.ToList();
+            return dbContext.Customer.ToList();
         }
 
         public void InsertCrust()

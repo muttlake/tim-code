@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "Customer Page";
+}
+
+@model PizzaStore.MVC.Models.CustomerViewModel
+
+<header class="col-md-12">
+    <h3>Order</h3>
+</header>
+<div class="col-md-12">
+    <form asp-controller="Order" method="post">
+        <h4>Customer Name</h4>
+        <div class="form-group">
+            <label>Name: </label>
+            <input asp-for="CustomerName" />
+        </div>
+        <button type="submit">Choose a Pizza</button>
+    </form>
+</div>
+
+

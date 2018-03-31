@@ -243,4 +243,7 @@ inner join
 
 
 
+select * from PizzaStore.Cheese;
+select * from PizzaStore.Crust;
+select * from PizzaStore.Sauce;
 select * from PizzaStore.Topping;

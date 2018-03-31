@@ -19,9 +19,21 @@ namespace PizzaStore.MVC.Controllers
         [HttpPost]
         public IActionResult Index(OrderViewModel model)
         {
-            Console.WriteLine(model.CustomerName);
             Console.WriteLine(model.LocationID);
             return RedirectToAction("Index", "Pizza");
         }
+
+        [HttpGet]
+        public IActionResult CompleteOrder()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CompleteOrder(int i)
+        {
+            return View();
+        }
+
     }
 }
