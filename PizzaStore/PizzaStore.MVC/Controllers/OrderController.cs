@@ -13,12 +13,14 @@ namespace PizzaStore.MVC.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            Console.WriteLine("Order Get Index");
             return View(new OrderViewModel());
         }
 
         [HttpPost]
         public IActionResult Index(OrderViewModel model)
         {
+            Console.WriteLine("Order Post Index");
             Console.WriteLine(model.LocationID);
             return RedirectToAction("Index", "Pizza");
         }
