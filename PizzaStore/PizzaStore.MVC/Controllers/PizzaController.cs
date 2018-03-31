@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using PizzaStore.MVC.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 
 namespace PizzaStore.MVC.Controllers
 {
@@ -43,11 +44,16 @@ namespace PizzaStore.MVC.Controllers
             }
             //Session["Key"] = "Value"; // if you want data to survive entire session, weakly typed data collection
 
+            Console.WriteLine("Session Test: {0}", HttpContext.Session.GetString("Test"));
+
             TempData["crustID"] = model.CrustID;
             TempData["sauceID"] = model.SauceID;
+            //HttpContext.Session.Set("crustID", model.CrustID as Object);
             TempData["cheeseIDList"] = model.GetCheeseIDs();
             TempData["toppingIDList"] = model.GetToppingIDs();
             TempData["pizzaQuantity"] = pizzaQuantity;
+            TempData.Keep();
+
 
             Console.WriteLine("The TempData customerID is: {0}", TempData["customerID"]);
             Console.WriteLine("The TempData locationID is: {0}", TempData["locationID"]);
@@ -57,8 +63,11 @@ namespace PizzaStore.MVC.Controllers
                 Console.WriteLine("The TempData cheeseIDList includes: {0}", cheese);
             foreach (var topping in TempData["toppingIDList"] as List<int>)
                 Console.WriteLine("The TempData toppingIDList includes: {0}", topping);
+            Console.WriteLine("The TempData quantity is: {0}", TempData["pizzaQuantity"]);
+            TempData.Keep();
 
-            return RedirectToAction("CompleteOrder", "Order");
+
+            return RedirectToAction("Index", "CompleteOrder");
         }
     }
 }

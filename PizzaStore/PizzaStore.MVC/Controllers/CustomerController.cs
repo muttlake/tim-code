@@ -26,6 +26,8 @@ namespace PizzaStore.MVC.Controllers
             //System.Web.HttpContext.Current.Session["customerID"] = model.GetCustomerId();
             if (model.GetCustomerId() > 0)
             {
+                HttpContext.Session.SetString("Test", "Ben Rules!");
+                
                 TempData["customerID"] = model.GetCustomerId();
                 Console.WriteLine("The customerID is: {0}", TempData["customerID"]);
                 return RedirectToAction("Index", "Order");

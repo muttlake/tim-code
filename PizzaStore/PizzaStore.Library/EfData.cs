@@ -32,6 +32,64 @@ namespace PizzaStore.Library
             return dbContext.Cheese.ToList();
         }
 
+        public string GetCustomerNameByID(int id)
+        {
+            if (dbContext.Customer.Where(p => p.CustomerId == id).Count() == 0)
+                return "";
+            string fullName = dbContext.Customer.Where(p => p.CustomerId == id).FirstOrDefault().FirstName;
+            fullName += " " + dbContext.Customer.Where(p => p.CustomerId == id).FirstOrDefault().LastName;
+            return fullName;
+        }
+
+        public string GetLocationByID(int id)
+        {
+            if (dbContext.Location.Where(p => p.LocationId == id).Count() == 0)
+                return "";
+            int AddressID = dbContext.Location.Where(p => p.LocationId == id).FirstOrDefault().AddressId;
+            Address address = dbContext.Address.Where(p => p.AddressId == AddressID).FirstOrDefault();
+            int StateID = dbContext.Address.Where(p => p.AddressId == address.AddressId).FirstOrDefault().StateId;
+            State state = dbContext.State.Where(p => p.StateId == StateID).FirstOrDefault();
+
+            string locationAddress = address.Street;
+            locationAddress += ", " + address.City;
+            locationAddress += ", " + state.StateAbb;
+            locationAddress += ", " + address.ZipCode;
+            return locationAddress;
+        }
+
+        public string GetCrustByID(int id)
+        {
+            if (dbContext.Crust.Where(p => p.CrustId == id).Count() == 0)
+                return "";
+            else
+                return dbContext.Crust.Where(p => p.CrustId == id).FirstOrDefault().Crust1;
+        }
+
+        public string GetSauceByID(int id)
+        {
+            if (dbContext.Sauce.Where(p => p.SauceId == id).Count() == 0)
+                return "";
+            else
+                return dbContext.Sauce.Where(p => p.SauceId == id).FirstOrDefault().Sauce1;
+        }
+
+        public string GetCheeseByID(int id)
+        {
+            if (dbContext.Cheese.Where(p => p.CheeseId == id).Count() == 0)
+                return "";
+            else
+                return dbContext.Cheese.Where(p => p.CheeseId == id).FirstOrDefault().Cheese1;
+        }
+
+        public string GetToppingByID(int id)
+        {
+            if (dbContext.Topping.Where(p => p.ToppingId == id).Count() == 0)
+                return "";
+            else
+                return dbContext.Topping.Where(p => p.ToppingId == id).FirstOrDefault().Topping1;
+        }
+
+
         public int ConvertNameToCustomerID(string fullName)
         {
             string[] names = fullName.Split(' ');
