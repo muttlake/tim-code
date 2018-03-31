@@ -7,7 +7,7 @@
 
 <header class="col-md-12">
     <h3>Add a Pizza to Your Order</h3>
-    <h2>@ViewBag.CheeseOrToppingProblem</h2>
+    <h2>@ViewBag.PizzaProblem</h2>
 </header>
 <div class="col-md-12">
     <form asp-controller="Pizza" method="post">
@@ -64,7 +64,8 @@
         <h4>How many of this pizza do you want?</h4>
         <div class="form-group">
             <div class="container">
-                
+                <label>Quantity of this Pizza: </label>
+                <input asp-for="PizzaQuantity" value="1" />
             </div>
         </div>
         <button type="submit">Add Pizza(s) to Order</button>

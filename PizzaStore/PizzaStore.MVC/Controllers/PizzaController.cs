@@ -12,7 +12,7 @@ namespace PizzaStore.MVC.Controllers
         [HttpGet] //This Action only supports Get Requests
         public IActionResult Index() //Any Action you Create you can respond to all http verbs
         {
-            ViewBag.CheeseOrToppingProblem = "";
+            ViewBag.PizzaProblem = "";
             return View(new PizzaViewModel());
         }
 
@@ -25,21 +25,39 @@ namespace PizzaStore.MVC.Controllers
         [HttpPost] //This does not work because client does not know which single parameter method to use
         public IActionResult Index(PizzaViewModel model) //actually only has to be an object that has the correct properties
         {
-            if(ModelState.IsValid) // does same check as client side using [Required] annotations, this time they can't bypass it
+            int pizzaQuantity = 0;
+            bool validQuantity = Int32.TryParse(model.PizzaQuantity, out pizzaQuantity);
+            if (ModelState.IsValid) // does same check as client side using [Required] annotations, this time they can't bypass it
             {
-                if(model.SelectedCheeses.Count > 2 || model.SelectedToppings.Count > 3)
+                if (model.SelectedCheeses.Count > 2 || model.SelectedToppings.Count > 3 || !validQuantity)
                 {
                     if (model.SelectedCheeses.Count > 2)
-                        ViewBag.CheeseOrToppingProblem = "You can only have 2 cheeses";
+                        ViewBag.PizzaProblem = "You can only have 2 cheeses";
+                    else if (model.SelectedToppings.Count > 3)
+                        ViewBag.PizzaProblem = "You can only have 3 Toppings";
                     else
-                        ViewBag.CheeseOrToppingProblem = "You can only have 3 Toppings";
+                        ViewBag.PizzaProblem = "Invalid Pizza Quantity";
 
                     return View(new PizzaViewModel());
                 }
             }
             //Session["Key"] = "Value"; // if you want data to survive entire session, weakly typed data collection
-            Console.WriteLine(model.CrustID);
-            //return View();
+
+            TempData["crustID"] = model.CrustID;
+            TempData["sauceID"] = model.SauceID;
+            TempData["cheeseIDList"] = model.GetCheeseIDs();
+            TempData["toppingIDList"] = model.GetToppingIDs();
+            TempData["pizzaQuantity"] = pizzaQuantity;
+
+            Console.WriteLine("The TempData customerID is: {0}", TempData["customerID"]);
+            Console.WriteLine("The TempData locationID is: {0}", TempData["locationID"]);
+            Console.WriteLine("The TempData crustID is: {0}", TempData["crustID"]);
+            Console.WriteLine("The TempData sauceID is: {0}", TempData["sauceID"]);
+            foreach(var cheese in TempData["cheeseIDList"] as List<int>)
+                Console.WriteLine("The TempData cheeseIDList includes: {0}", cheese);
+            foreach (var topping in TempData["toppingIDList"] as List<int>)
+                Console.WriteLine("The TempData toppingIDList includes: {0}", topping);
+
             return RedirectToAction("CompleteOrder", "Order");
         }
     }

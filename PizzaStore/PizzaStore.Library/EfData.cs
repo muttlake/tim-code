@@ -32,6 +32,19 @@ namespace PizzaStore.Library
             return dbContext.Cheese.ToList();
         }
 
+        public int ConvertNameToCustomerID(string fullName)
+        {
+            string[] names = fullName.Split(' ');
+            if (names.Length != 2)
+                return -999;
+            string firstName = names[0];
+            string lastName = names[1];
+            if (dbContext.Customer.Where(c => c.FirstName == firstName && c.LastName == lastName).Count() == 0)
+                return -999;
+            else
+                return dbContext.Customer.Where(c => c.FirstName == firstName && c.LastName == lastName).FirstOrDefault().CustomerId;
+        }
+
         public List<Topping> ReadToppings()
         {
             return dbContext.Topping.ToList();

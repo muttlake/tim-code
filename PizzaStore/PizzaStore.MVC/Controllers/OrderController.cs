@@ -14,6 +14,8 @@ namespace PizzaStore.MVC.Controllers
         public IActionResult Index()
         {
             Console.WriteLine("Order Get Index");
+            //int customerID = System.Web.HttpContext.Current.Session["customerID"];
+            //Console.WriteLine("Customer Id is: {0}", System.Web.HttpContext.Current.Session["customerID"]);
             return View(new OrderViewModel());
         }
 
@@ -22,6 +24,9 @@ namespace PizzaStore.MVC.Controllers
         {
             Console.WriteLine("Order Post Index");
             Console.WriteLine(model.LocationID);
+            TempData["locationID"] = model.LocationID;
+            Console.WriteLine("The TempData customerID is: {0}", TempData["customerID"]);
+            Console.WriteLine("The TempData locationID is: {0}", TempData["locationID"]);
             return RedirectToAction("Index", "Pizza");
         }
 

@@ -31,10 +31,11 @@ namespace PizzaStore.MVC.Models
         public IList<string> SelectedToppings { get; set; }
         public IList<SelectListItem> AvailableToppings { get; set; }
 
+        [Required]
+        public string PizzaQuantity { get; set; }
+
         public PizzaViewModel()
         {
-
-
             Crusts = GetCrusts();
             Sauces = GetSauces();
             foreach(KeyValuePair<int, string> entry in Crusts)
@@ -86,6 +87,21 @@ namespace PizzaStore.MVC.Models
             return cheeseSelectList;
         }
 
+        public List<int> GetCheeseIDs()
+        {
+            List<int> cheeseIDs = new List<int>();
+            foreach(var selectItem in SelectedCheeses)
+                cheeseIDs.Add(Convert.ToInt32(selectItem));
+            return cheeseIDs;
+        }
+
+        public List<int> GetToppingIDs()
+        {
+            List<int> toppingIDs = new List<int>();
+            foreach (var selectItem in SelectedToppings)
+                toppingIDs.Add(Convert.ToInt32(selectItem));
+            return toppingIDs;
+        }
 
         private IList<SelectListItem> GetToppings()
         {

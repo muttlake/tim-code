@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PizzaStore.MVC.Models;
+using System.Web;
+
 
 namespace PizzaStore.MVC.Controllers
 {
@@ -13,6 +15,7 @@ namespace PizzaStore.MVC.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            ViewBag.CustomerNameProblem = "";
             return View(new CustomerViewModel());
         }
 
@@ -20,10 +23,19 @@ namespace PizzaStore.MVC.Controllers
         public IActionResult Index(CustomerViewModel model)
         {
             Console.WriteLine(model.CustomerName);
-            //ControllerContext.HttpContext.Session["{name}"]
-            //HttpContext.Session.Set("customer name", model.CustomerName)
-            //return RedirectToAction("Order");
-            return RedirectToAction("Index", "Order");
+            //System.Web.HttpContext.Current.Session["customerID"] = model.GetCustomerId();
+            if (model.GetCustomerId() > 0)
+            {
+                TempData["customerID"] = model.GetCustomerId();
+                Console.WriteLine("The customerID is: {0}", TempData["customerID"]);
+                return RedirectToAction("Index", "Order");
+            }
+            else
+            {
+                ViewBag.CustomerNameProblem = "Name entered not in database or Invalid";
+                return View(new CustomerViewModel());
+            }
+            
         }
     }
 }
