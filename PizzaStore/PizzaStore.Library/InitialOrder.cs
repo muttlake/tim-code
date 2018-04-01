@@ -1,5 +1,3 @@
-
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -94,6 +92,8 @@ namespace PizzaStore.Library
             }
         }
 
+
+
         public bool ValidateOrder(int orderId)
         {
             return dbContext.Order.Where(predicate: p => p.OrderId == orderId).Count() == 1;
@@ -111,20 +111,33 @@ namespace PizzaStore.Library
 
         public bool CreateNewOrderWithSinglePizza(int locID, int custID, int crustId, int sauceId, List<int> cheeseIds, List<int> toppingIds)
         {
+            double cheeseAndToppingCost = 0.00;
             if (CreateNewOrderWithBarePizza(locID, custID, crustId, sauceId))
             {
-                AddCheeses(cheeseIds);
-                AddToppings(toppingIds);
+                cheeseAndToppingCost += AddCheeses(cheeseIds);
+                cheeseAndToppingCost += AddToppings(toppingIds);
+                double currentPizzaPrice = dbContext.Pizza.Where(p => p.PizzaId == BarePizza.PizzaId).FirstOrDefault().TotalPizzaCost.Value;
+                currentPizzaPrice += cheeseAndToppingCost;
+                dbContext.Pizza.Where(p => p.PizzaId == BarePizza.PizzaId).FirstOrDefault().TotalPizzaCost = currentPizzaPrice;
+                dbContext.SaveChanges();
                 return true;
             }
             return false;
         }
 
-        public void AddCheeses(List<int> cheeseIds)
+        public int GetOrderId()
+        {
+            return Order.OrderId;
+        }
+
+        
+
+        public double AddCheeses(List<int> cheeseIds)
         {
             int numCheeses = Math.Min(cheeseIds.Count, 2); //Fix with json file should not be hardcoded
             List<int> cheesesAddedAlready = new List<int>();
             int numCheesesAdded = 0;
+            double totalCheeseCost = 0.00;
             for(int i = 0; i < numCheeses; i++)
             {
                 if(ValidateCheese(cheeseIds[i]) && !cheesesAddedAlready.Contains(cheeseIds[i]))
@@ -135,18 +148,25 @@ namespace PizzaStore.Library
                     pizzaHasCheese.PizzaId = BarePizza.PizzaId;
                     dbContext.PizzaHasCheese.Add(pizzaHasCheese);
                     dbContext.SaveChanges();
+
+                    totalCheeseCost += dbContext.Cheese.Where(p => p.CheeseId == cheeseIds[i]).FirstOrDefault().CheeseCost;
+
                     Console.WriteLine("Added PizzaHasCheese with cheese {0} for pizza {1}", pizzaHasCheese.CheeseId, pizzaHasCheese.PizzaId);
                     numCheesesAdded += 1;
                 }
             }
             Console.WriteLine("There were {0} cheeses added.", numCheesesAdded);
+            return totalCheeseCost;
         }
-        public void AddToppings(List<int> toppingIds)
+
+
+        public double AddToppings(List<int> toppingIds)
         {
             int numToppings = Math.Min(toppingIds.Count, 3); //Fix with Json file, should not be hard-coded
             List<int> toppingsAddedAlready = new List<int>();
             int numToppingsAdded = 0;
-            for(int i = 0; i < numToppings; i++)
+            double totalToppingCost = 0.00;
+            for (int i = 0; i < numToppings; i++)
             {
                 if(ValidateTopping(toppingIds[i]) && !toppingsAddedAlready.Contains(toppingIds[i]))
                 {
@@ -156,11 +176,15 @@ namespace PizzaStore.Library
                     pizzaHasTopping.PizzaId = BarePizza.PizzaId;
                     dbContext.PizzaHasTopping.Add(pizzaHasTopping);
                     dbContext.SaveChanges();
+
+                    totalToppingCost += dbContext.Topping.Where(p => p.ToppingId == toppingIds[i]).FirstOrDefault().ToppingCost;
+
                     Console.WriteLine("Added PizzaHasTopping with topping {0} for pizza {1}", pizzaHasTopping.ToppingId, pizzaHasTopping.PizzaId);
                     numToppingsAdded += 1;
                 }
             }
             Console.WriteLine("There were {0} toppings added.", numToppingsAdded);
+            return totalToppingCost;
         }
 
         public bool ValidateCheese(int cheeseID)

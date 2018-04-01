@@ -14,7 +14,7 @@
         <h5> Customer:  @Model.GetCustomerName()</h5>
     </div>
     <div>
-        <h5> Location:  @Model.GetLocationString()</h5>
+        <h5> Store Location:  @Model.GetLocationString()</h5>
     </div>
     <h3>Pizza Details</h3>
     <div>
@@ -23,17 +23,23 @@
     <div>
         <h5> Sauce:  @Model.GetSauceString()</h5>
     </div>
-    <h5>Cheeses</h5>
     <div>
-        @*<p>@Model.GetCheeseString()</p>*@
+        <h5> Cheeses: @Model.GetCheeseString()</h5>
     </div>
-    <h5>Toppings</h5>
     <div>
-        @*<p>@Model.GetToppingString()</p>*@
+        <h5> Toppings: @Model.GetToppingString()</h5>
     </div>
     <div>
         <h5> Quantity:  @Model.GetPizzaQuantity()</h5>
     </div>
-    <button type="submit">Complete Order</button>
+    <div>
+        <h5> Per Pizza Cost:  @Model.PerPizzaCost()</h5>
+    </div>
+    <div>
+        <h5> Total Order Cost:  @Model.TotalOrderCost()</h5>
+    </div>
+    <form asp-controller="CompleteOrder" method="post">
+        <button type="submit">Complete Order or Add more pizzas to this order</button>
+    </form>
 </div>
 

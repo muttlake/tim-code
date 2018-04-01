@@ -184,7 +184,7 @@ inner join
 ) as cust on cust.CustomerID = ord.CustomerID;
 
 
-Select FirstName, LastName, Email, ord.OrderId, pizza.TotalPizzaCost, crust.Crust, sauce.Sauce, ord.OrderTime, Loc.LocationID, addr.Street, addr.City, addr.ZipCode, cheese.Cheese
+Select FirstName, LastName, Email, ord.OrderId, pizza.TotalPizzaCost, crust.Crust, sauce.Sauce, ord.OrderTime, Loc.LocationID, addr.Street, addr.City, addr.ZipCode, cheese.Cheese, topping.Topping
 from PizzaStore.Pizza as pizza
 inner join
 (
@@ -225,7 +225,20 @@ left join
 (
 	select *
 	from PizzaStore.Cheese
-) as cheese on pizzaCheese.CheeseID = cheese.CheeseID;
+) as cheese on pizzaCheese.CheeseID = cheese.CheeseID
+left join
+(
+	select *
+	from PizzaStore.PizzaHasTopping
+) as pizzaTopping on pizzaTopping.PizzaID = pizza.PizzaID
+left join
+(
+	select *
+	from PizzaStore.Topping
+) as topping on topping.ToppingID = pizzaTopping.ToppingID;
+
+
+
 
 
 select * from PizzaStore.[Order];
@@ -251,4 +264,8 @@ select * from PizzaStore.Topping;
 
 
 select * from PizzaStore.Customer;
+select * from PizzaStore.[Order];
+
+
+
 

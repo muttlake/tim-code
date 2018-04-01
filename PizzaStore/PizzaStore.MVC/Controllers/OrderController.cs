@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using PizzaStore.MVC.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 
 namespace PizzaStore.MVC.Controllers
 {
@@ -22,11 +23,8 @@ namespace PizzaStore.MVC.Controllers
         [HttpPost]
         public IActionResult Index(OrderViewModel model)
         {
-            Console.WriteLine("Order Post Index");
-            Console.WriteLine(model.LocationID);
-            TempData["locationID"] = model.LocationID;
-            Console.WriteLine("The TempData customerID is: {0}", TempData["customerID"]);
-            Console.WriteLine("The TempData locationID is: {0}", TempData["locationID"]);
+            HttpContext.Session.SetInt32("LocationID", model.LocationID);
+
             return RedirectToAction("Index", "Pizza");
         }
 

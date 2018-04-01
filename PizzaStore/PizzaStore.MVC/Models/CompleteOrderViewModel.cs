@@ -19,6 +19,11 @@ namespace PizzaStore.MVC.Models
         public List<int> ToppingIDs { get; set; }
         public int PizzaQuantity { get; set; }
 
+        public CompleteOrderViewModel()
+        {
+
+        }
+
         public CompleteOrderViewModel(int cust, int loc, int crust, int sauc, List<int> cheeses, List<int> toppings, int pq)
         {
             CustomerID = cust;
@@ -29,8 +34,25 @@ namespace PizzaStore.MVC.Models
             ToppingIDs = toppings;
             PizzaQuantity = pq;
 
+        }
 
-            Console.WriteLine("CheeseIDs size: {0}", CheeseIDs.Count);
+        public double TotalOrderCost()
+        {
+            return PerPizzaCost() * PizzaQuantity;
+        }
+
+        public double PerPizzaCost()
+        {
+            EfData ef = new EfData();
+            double perPizzaCost = 0.00;
+            perPizzaCost += ef.GetCrustCost(CrustID);
+            perPizzaCost += ef.GetSauceCost(SauceID);
+            foreach(var cheeseID in CheeseIDs)
+                perPizzaCost += ef.GetCheeseCost(cheeseID);
+            foreach (var toppingID in ToppingIDs)
+                perPizzaCost += ef.GetToppingCost(toppingID);
+
+            return perPizzaCost;
         }
 
         public string GetCustomerName()
@@ -67,7 +89,8 @@ namespace PizzaStore.MVC.Models
                 if (count == 0)
                     cheeseString += ef.GetCheeseByID(cheeseID);
                 else
-                    cheeseString += "\n" + ef.GetCheeseByID(cheeseID);
+                    cheeseString += ", " + ef.GetCheeseByID(cheeseID);
+                count += 1;
             }
             return cheeseString;
         }
@@ -82,7 +105,8 @@ namespace PizzaStore.MVC.Models
                 if (count == 0)
                     toppingString += ef.GetToppingByID(toppingID);
                 else
-                    toppingString += "\n" + ef.GetToppingByID(toppingID);
+                    toppingString += ", " + ef.GetToppingByID(toppingID);
+                count += 1;
             }
             return toppingString;
         }
@@ -92,15 +116,5 @@ namespace PizzaStore.MVC.Models
             return PizzaQuantity.ToString();
         }
 
-
-        //Console.WriteLine("The TempData customerID is: {0}", TempData["customerID"]);
-        //Console.WriteLine("The TempData locationID is: {0}", TempData["locationID"]);
-        //Console.WriteLine("The TempData crustID is: {0}", TempData["crustID"]);
-        //Console.WriteLine("The TempData sauceID is: {0}", TempData["sauceID"]);
-        //foreach(var cheese in TempData["cheeseIDList"] as List<int>)
-        //    Console.WriteLine("The TempData cheeseIDList includes: {0}", cheese);
-        //foreach (var topping in TempData["toppingIDList"] as List<int>)
-        //    Console.WriteLine("The TempData toppingIDList includes: {0}", topping);
-        //Console.WriteLine("The TempData quantity is: {0}", TempData["pizzaQuantity"]);
     }
 }

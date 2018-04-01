@@ -28,11 +28,16 @@ namespace PizzaStore.MVC.Controllers
         {
             int pizzaQuantity = 0;
             bool validQuantity = Int32.TryParse(model.PizzaQuantity, out pizzaQuantity);
+            if(!(pizzaQuantity > 0)) { validQuantity = false; }
             if (ModelState.IsValid) // does same check as client side using [Required] annotations, this time they can't bypass it
             {
-                if (model.SelectedCheeses.Count > 2 || model.SelectedToppings.Count > 3 || !validQuantity)
+                if (model.SelectedCheeses.Count > 2 || model.SelectedToppings.Count > 3 || !validQuantity || model.CrustID == 0 || model.SauceID == 0)
                 {
-                    if (model.SelectedCheeses.Count > 2)
+                    if (model.CrustID == 0)
+                        ViewBag.PizzaProblem = "No Crust Chosen";
+                    else if (model.SauceID == 0)
+                        ViewBag.PizzaProblem = "No Sauce Chosen";
+                    else if (model.SelectedCheeses.Count > 2)
                         ViewBag.PizzaProblem = "You can only have 2 cheeses";
                     else if (model.SelectedToppings.Count > 3)
                         ViewBag.PizzaProblem = "You can only have 3 Toppings";
@@ -42,29 +47,22 @@ namespace PizzaStore.MVC.Controllers
                     return View(new PizzaViewModel());
                 }
             }
-            //Session["Key"] = "Value"; // if you want data to survive entire session, weakly typed data collection
 
-            Console.WriteLine("Session Test: {0}", HttpContext.Session.GetString("Test"));
-
-            TempData["crustID"] = model.CrustID;
-            TempData["sauceID"] = model.SauceID;
-            //HttpContext.Session.Set("crustID", model.CrustID as Object);
-            TempData["cheeseIDList"] = model.GetCheeseIDs();
-            TempData["toppingIDList"] = model.GetToppingIDs();
-            TempData["pizzaQuantity"] = pizzaQuantity;
-            TempData.Keep();
+            HttpContext.Session.SetInt32("CrustID", model.CrustID);
+            HttpContext.Session.SetInt32("SauceID", model.SauceID);
+            HttpContext.Session.SetInt32("PizzaQuantity", pizzaQuantity);
+            HttpContext.Session.SetString("CheeseIDs", model.GetCheeseIDString()); 
+            HttpContext.Session.SetString("ToppingIDs", model.GetToppingIDString());
 
 
-            Console.WriteLine("The TempData customerID is: {0}", TempData["customerID"]);
-            Console.WriteLine("The TempData locationID is: {0}", TempData["locationID"]);
-            Console.WriteLine("The TempData crustID is: {0}", TempData["crustID"]);
-            Console.WriteLine("The TempData sauceID is: {0}", TempData["sauceID"]);
-            foreach(var cheese in TempData["cheeseIDList"] as List<int>)
-                Console.WriteLine("The TempData cheeseIDList includes: {0}", cheese);
-            foreach (var topping in TempData["toppingIDList"] as List<int>)
-                Console.WriteLine("The TempData toppingIDList includes: {0}", topping);
-            Console.WriteLine("The TempData quantity is: {0}", TempData["pizzaQuantity"]);
-            TempData.Keep();
+            Console.WriteLine("The SessionData CustomerID is: {0}", HttpContext.Session.GetInt32("CustomerID"));
+            Console.WriteLine("The SessionData CustomerName is: {0}", HttpContext.Session.GetString("CustomerName"));
+            Console.WriteLine("The SessionData LocationID is: {0}", HttpContext.Session.GetInt32("LocationID"));
+            Console.WriteLine("The SessionData CrustID is: {0}", HttpContext.Session.GetInt32("CrustID"));
+            Console.WriteLine("The SessionData SauceID is: {0}", HttpContext.Session.GetInt32("SauceID"));
+            Console.WriteLine("The SessionData CheeseIDString is: {0}", HttpContext.Session.GetString("CheeseIDs"));
+            Console.WriteLine("The SessionData ToppingIDString is: {0}", HttpContext.Session.GetString("ToppingIDs"));
+
 
 
             return RedirectToAction("Index", "CompleteOrder");

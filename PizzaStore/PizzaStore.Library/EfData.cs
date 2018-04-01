@@ -137,10 +137,6 @@ namespace PizzaStore.Library
             return locationIDs.Contains(loc);
         }
 
-        //public List<Customer> R()
-        //{
-        //    return dbContext.Customer.ToList();
-        //}
 
         public bool CheckCustomer(int cust)
         {
@@ -155,6 +151,28 @@ namespace PizzaStore.Library
         {
             return dbContext.Customer.ToList();
         }
+
+
+        public double GetCrustCost(int id)
+        {
+            return dbContext.Crust.Where(p => p.CrustId == id).FirstOrDefault().CrustCost;
+        }
+
+        public double GetSauceCost(int id)
+        {
+            return dbContext.Sauce.Where(p => p.SauceId == id).FirstOrDefault().SauceCost;
+        }
+
+        public double GetToppingCost(int id)
+        {
+            return dbContext.Topping.Where(p => p.ToppingId == id).FirstOrDefault().ToppingCost;
+        }
+
+        public double GetCheeseCost(int id)
+        {
+            return dbContext.Cheese.Where(p => p.CheeseId == id).FirstOrDefault().CheeseCost;
+        }
+
 
         public void InsertCrust()
         {

@@ -61,6 +61,37 @@ namespace PizzaStore.MVC.Models
             return crustDict;
         }
 
+        public string GetCheeseIDString()
+        {
+            string cheeseString = "";
+            int count = 0;
+            foreach(var cheeseID in GetCheeseIDs())
+            {
+                if (count == 0)
+                    cheeseString += cheeseID.ToString();
+                else
+                    cheeseString += "," + cheeseID.ToString();
+                count += 1;
+            }
+            Console.WriteLine("CheeseString: :" + cheeseString + ":");
+            return cheeseString;
+        }
+
+        public string GetToppingIDString()
+        {
+            string toppingString = "";
+            int count = 0;
+            foreach (var toppingID in GetToppingIDs())
+            {
+                if (count == 0)
+                    toppingString += toppingID.ToString();
+                else
+                    toppingString += "," + toppingID.ToString();
+                count += 1;
+            }
+            return toppingString;
+        }
+
         private Dictionary<int, string> GetSauces()
         {
             EfData ef = new EfData();
