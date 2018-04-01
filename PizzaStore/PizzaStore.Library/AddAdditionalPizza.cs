@@ -25,6 +25,7 @@ namespace PizzaStore.Library
                 double currentPizzaPrice = dbContext.Pizza.Where(p => p.PizzaId == Pizza.PizzaId).FirstOrDefault().TotalPizzaCost.Value;
                 currentPizzaPrice += cheeseAndToppingCost;
                 dbContext.Pizza.Where(p => p.PizzaId == Pizza.PizzaId).FirstOrDefault().TotalPizzaCost = currentPizzaPrice;
+                dbContext.Order.Where(p => p.OrderId == orderId).FirstOrDefault().TotalValue += currentPizzaPrice;
                 dbContext.SaveChanges();
                 return true;
             }
