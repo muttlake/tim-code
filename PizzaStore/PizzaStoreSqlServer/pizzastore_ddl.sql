@@ -230,6 +230,52 @@ alter table PizzaStore.PizzaHasTopping
 alter table PizzaStore.PizzaHasTopping
 	add constraint FK_PizzaHasTopping_ToppingID foreign key (ToppingID) references PizzaStore.Topping(ToppingID)
 	on update cascade;
+GO
+
+
+-- Add Views and/or Stored Procedures to database
+
+
+alter VIEW PizzaStore.vw_AllOrderInformation with SCHEMABINDING -- SCHEMABINDING: COlumns from actual Tables cannot change
+AS                                                -- e.g. You Cannot Delete column MiddleName
+select ord.OrderID, ord.LocationID, ord.CustomerID, (customer.FirstName + ' ' + customer.LastName) as CustomerName,ord.OrderTime, ord.TotalValue, pizza.PizzaID, pizza.TotalPizzaCost, crust.Crust, sauce.Sauce,
+       (addr.Street + ', ' + addr.City + ', ' + stat.StateAbb + ', ' + addr.ZipCode) as [Address], cheese.Cheese, topping.Topping
+from PizzaStore.[Order] as ord
+inner join
+PizzaStore.Pizza as pizza
+on pizza.OrderID = ord.OrderID
+inner join
+PizzaStore.Customer as customer
+on customer.CustomerID = ord.CustomerID
+inner join
+PizzaStore.[Location] as loc
+on loc.LocationID = ord.LocationID
+inner join
+PizzaStore.[Address] as addr
+on addr.AddressID = loc.AddressID
+inner join
+PizzaStore.[State] as stat
+on stat.StateID = addr.StateID
+inner join 
+PizzaStore.Crust as crust
+on crust.CrustID = pizza.CrustID
+inner join
+PizzaStore.Sauce as sauce
+on sauce.SauceID = pizza.SauceID
+left join
+PizzaStore.PizzaHasCheese as pizzaCheese
+on  pizzaCheese.PizzaID = pizza.PizzaID
+left join
+PizzaStore.Cheese as cheese
+on cheese.CheeseID = pizzaCheese.CheeseID
+left join
+PizzaStore.PizzaHasTopping as pizzaTopping
+on pizzaTopping.PizzaID = pizza.PizzaID
+left join
+PizzaStore.Topping as topping
+on pizzaTopping.ToppingID = topping.ToppingID;
+GO
+
 
 /*
 alter table PizzaStore.Inventory

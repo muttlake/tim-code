@@ -241,7 +241,43 @@ left join
 
 
 
-select * from PizzaStore.[Order];
+select ord.OrderID, ord.LocationID, ord.CustomerID, (customer.FirstName + ' ' + customer.LastName) as CustomerName,ord.OrderTime, ord.TotalValue, pizza.PizzaID, pizza.TotalPizzaCost, crust.Crust, sauce.Sauce,
+       (addr.Street + ', ' + addr.City + ', ' + stat.StateAbb + ', ' + addr.ZipCode) as [Address], cheese.Cheese, topping.Topping
+from PizzaStore.[Order] as ord
+inner join
+PizzaStore.Pizza as pizza
+on pizza.OrderID = ord.OrderID
+inner join 
+PizzaStore.Crust as crust
+on crust.CrustID = pizza.CrustID
+inner join
+PizzaStore.Sauce as sauce
+on sauce.SauceID = pizza.SauceID
+inner join
+PizzaStore.[Location] as loc
+on loc.LocationID = ord.LocationID
+inner join
+PizzaStore.[Address] as addr
+on addr.AddressID = loc.AddressID
+inner join
+PizzaStore.[State] as stat
+on stat.StateID = addr.StateID
+inner join
+PizzaStore.PizzaHasCheese as pizzaCheese
+on  pizzaCheese.PizzaID = pizza.PizzaID
+inner join
+PizzaStore.Cheese as cheese
+on cheese.CheeseID = pizzaCheese.CheeseID
+inner join
+PizzaStore.PizzaHasTopping as pizzaTopping
+on pizzaTopping.PizzaID = pizza.PizzaID
+inner join
+PizzaStore.Topping as topping
+on pizzaTopping.ToppingID = topping.ToppingID
+inner join
+PizzaStore.Customer as customer
+on customer.CustomerID = ord.CustomerID
+where ord.OrderID = 23;
 
 
 select * 
@@ -267,5 +303,8 @@ select * from PizzaStore.Customer;
 select * from PizzaStore.[Order];
 
 
+
+select *
+from PizzaStore.vw_AllOrderInformation;
 
 
