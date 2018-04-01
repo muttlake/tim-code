@@ -27,9 +27,71 @@ namespace PizzaStore.Library
             return dbContext.Sauce.ToList();
         }
 
+        public List<int> GetAllPizzaIDsForOrder(int orderId)
+        {
+            return dbContext.Pizza.Where(p => p.OrderId == orderId).Select(p => p.PizzaId).ToList();
+        }
+
+        public string GetPizzaStringByPizzaID(int pizzaID)
+        {
+            Pizza pizza = dbContext.Pizza.Where(p => p.PizzaId == pizzaID).FirstOrDefault();
+            Crust crust = dbContext.Crust.Where(c => c.CrustId == pizza.CrustId).FirstOrDefault();
+            Sauce sauce = dbContext.Sauce.Where(s => s.SauceId == pizza.SauceId).FirstOrDefault();
+            List<Cheese> cheeses = GetListCheesesByPizzaID(pizzaID);
+            List<Topping> toppings = GetListToppingsByPizzaID(pizzaID);
+
+            string pizzaString = "";
+
+            pizzaString += "$" + pizza.TotalPizzaCost + " " + crust.Crust1 + ", " + sauce.Sauce1;
+            foreach (var c in cheeses)
+                pizzaString += ", " + c.Cheese1;
+            foreach (var t in toppings)
+                pizzaString += ", " + t.Topping1;
+
+            return pizzaString;
+        }
+
+        public List<Cheese> GetListCheesesByPizzaID(int pid)
+        {
+            List<PizzaHasCheese> phc = dbContext.PizzaHasCheese.Where(p => p.PizzaId == pid).ToList();
+            List<Cheese> cheesesOnPizza = new List<Cheese>();
+            foreach (var pizzaCheese in phc)
+                cheesesOnPizza.Add(dbContext.Cheese.Where(p => p.CheeseId == pizzaCheese.CheeseId).FirstOrDefault());
+            return cheesesOnPizza;
+        }
+
+        public List<Topping> GetListToppingsByPizzaID(int pid)
+        {
+            List<PizzaHasTopping> pht = dbContext.PizzaHasTopping.Where(p => p.PizzaId == pid).ToList();
+            List<Topping> toppingsOnPizza = new List<Topping>();
+            foreach (var pizzaTopping in pht)
+                toppingsOnPizza.Add(dbContext.Topping.Where(p => p.ToppingId == pizzaTopping.ToppingId).FirstOrDefault());
+            return toppingsOnPizza;
+        }
+
+        public Order GetMostRecentOrderForCustomer(int custId)
+        {
+            return dbContext.Order.Where(p => p.CustomerId == custId).Last();
+        }
+
         public List<Cheese> ReadCheeses()
         {
             return dbContext.Cheese.ToList();
+        }
+
+        public Order GetOrderById(int id)
+        {
+            return dbContext.Order.Where(p => p.OrderId == id).FirstOrDefault();
+        }
+
+        public int GetLocationIDForOrder(int orderId)
+        {
+            return dbContext.Order.Where(p => p.OrderId == orderId).FirstOrDefault().LocationId;
+        }
+
+        public double GetCostForOrder(int orderId)
+        {
+            return dbContext.Order.Where(p => p.OrderId == orderId).FirstOrDefault().TotalValue.Value;
         }
 
         public string GetCustomerNameByID(int id)
@@ -152,6 +214,15 @@ namespace PizzaStore.Library
             return dbContext.Customer.ToList();
         }
 
+        public List<Order> GetOrdersForCustomer(int custId)
+        {
+            return dbContext.Order.Where(p => p.CustomerId == custId && p.Active == true).ToList();
+        }
+
+        public List<int> GetOrderIdsForCustomer(int custId)
+        {
+            return dbContext.Order.Where(p => p.CustomerId == custId && p.Active == true).Select(p => p.OrderId).ToList();
+        }
 
         public double GetCrustCost(int id)
         {
@@ -221,6 +292,11 @@ namespace PizzaStore.Library
             {
                 //PizzaCreator pc = new PizzaCreator(orderID);
             }
+        }
+
+        public List<Pizza> GetPizzasForOrder(int orderID)
+        {
+            return dbContext.Pizza.Where(p => p.OrderId == orderID && p.Active == true).ToList();
         }
 
 

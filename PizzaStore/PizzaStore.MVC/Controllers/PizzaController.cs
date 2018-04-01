@@ -14,6 +14,7 @@ namespace PizzaStore.MVC.Controllers
         public IActionResult Index() //Any Action you Create you can respond to all http verbs
         {
             ViewBag.PizzaProblem = "";
+            HttpContext.Session.SetString("NewOrder", "true");
             return View(new PizzaViewModel());
         }
 

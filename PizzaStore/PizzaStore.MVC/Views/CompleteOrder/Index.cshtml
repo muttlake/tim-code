@@ -33,13 +33,13 @@
         <h5> Quantity:  @Model.GetPizzaQuantity()</h5>
     </div>
     <div>
-        <h5> Per Pizza Cost:  @Model.PerPizzaCost()</h5>
+        <h5> Per Pizza Cost:  $@Model.PerPizzaCost()</h5>
     </div>
     <div>
-        <h5> Total Order Cost:  @Model.TotalOrderCost()</h5>
+        <h5> Total Order Cost:  $@Model.TotalOrderCost()</h5>
     </div>
     <form asp-controller="CompleteOrder" method="post">
-        <button type="submit">Complete Order or Add more pizzas to this order</button>
+        <button type="submit">Review Order</button>
     </form>
 </div>
 

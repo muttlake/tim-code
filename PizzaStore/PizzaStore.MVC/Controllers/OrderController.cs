@@ -14,17 +14,24 @@ namespace PizzaStore.MVC.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            ViewBag.BadLocation = "";
             Console.WriteLine("Order Get Index");
-            //int customerID = System.Web.HttpContext.Current.Session["customerID"];
-            //Console.WriteLine("Customer Id is: {0}", System.Web.HttpContext.Current.Session["customerID"]);
-            return View(new OrderViewModel());
+            int custID = HttpContext.Session.GetInt32("CustomerID").Value;
+            var orderViewModel = new OrderViewModel(custID);
+            HttpContext.Session.SetString("NewOrder", "false");
+            return View(orderViewModel);
         }
 
         [HttpPost]
         public IActionResult Index(OrderViewModel model)
         {
+            if (model.LocationID == -999)
+            {
+                ViewBag.BadLocation = "Please choose a Location.";
+                int custID = HttpContext.Session.GetInt32("CustomerID").Value;
+                return View(new OrderViewModel(custID));
+            }
             HttpContext.Session.SetInt32("LocationID", model.LocationID);
-
             return RedirectToAction("Index", "Pizza");
         }
 

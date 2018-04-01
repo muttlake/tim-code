@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PizzaStore.Data;
 using PizzaStore.Library;
 using PizzaStore.MVC.Models;
 
@@ -14,7 +15,6 @@ namespace PizzaStore.MVC.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-
             Console.WriteLine("CO SessionData CustomerID is: {0}", HttpContext.Session.GetInt32("CustomerID"));
             Console.WriteLine("CO SessionData CustomerName is: {0}", HttpContext.Session.GetString("CustomerName"));
             Console.WriteLine("CO SessionData LocationID is: {0}", HttpContext.Session.GetInt32("LocationID"));
@@ -31,7 +31,7 @@ namespace PizzaStore.MVC.Controllers
             int pq = HttpContext.Session.GetInt32("PizzaQuantity").Value;
             List<int> cheeseIDs = ConvertSessionStringToList("CheeseIDs");
             List<int> toppingIDs = ConvertSessionStringToList("ToppingIDs");
-
+            
 
 
 
@@ -60,6 +60,9 @@ namespace PizzaStore.MVC.Controllers
             List<int> cheeseIDs = ConvertSessionStringToList("CheeseIDs");
             List<int> toppingIDs = ConvertSessionStringToList("ToppingIDs");
 
+            //Check inventory availability here
+
+
             InitialOrder initialOrder = new InitialOrder();
             Console.WriteLine("Adding Initial Order...");
             initialOrder.CreateNewOrderWithSinglePizza(locID, custID, crustID, sauceID,
@@ -79,7 +82,7 @@ namespace PizzaStore.MVC.Controllers
                 }
             }
 
-            return RedirectToAction("Index", "Customer");
+            return RedirectToAction("Index", "ReviewOrder");
         }
 
         private List<int> ConvertSessionStringToList(string s)

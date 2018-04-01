@@ -300,11 +300,22 @@ select * from PizzaStore.Topping;
 
 
 select * from PizzaStore.Customer;
-select * from PizzaStore.[Order];
+select * from PizzaStore.[Order]
+where OrderID = 14;
+
 
 
 
 select *
 from PizzaStore.vw_AllOrderInformation;
 
+select *
+from PizzaStore.vw_AllOrderInformation
+where CustomerId = 2;
 
+
+select * from PizzaStore.Crust;
+
+update PizzaStore.[Order]
+set Active = 0
+Where TotalValue = 0;

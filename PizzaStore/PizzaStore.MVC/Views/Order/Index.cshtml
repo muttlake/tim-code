@@ -5,11 +5,12 @@
 @model PizzaStore.MVC.Models.OrderViewModel
 
 <header class="col-md-12">
-    <h3>Order</h3>
+    <h3>Make a new Order or Choose a Reccommended Order</h3>
+    <h4>@ViewBag.BadLocation</h4>
 </header>
 <div class="col-md-12">
     <form asp-controller="Order" method="post">
-        <h4>Locations</h4>
+        <h4>Choose a Location for your new order</h4>
         <div class="form-group">
             @foreach (KeyValuePair<int, string> location in Model.ValidLocations)
             {
@@ -19,8 +20,39 @@
                 </div>
             }
         </div>
-        <button type="submit">Choose a Pizza</button>
+        <button type="submit">Make a New Order and Choose Pizza</button>
     </form>
+    <form asp-controller="CompleteOrder" method="get">
+        <h4>Choose your reccommended Order</h4>
+        @if (Model.HasPreviousOrders())
+        {
+            <h5>Order: @Model.GetMostRecentOrder().OrderID, Total Cost: $@Model.GetMostRecentOrder().OrderValue, Order Time: @Model.GetMostRecentOrder().OrderTime</h5>
+            <h5>Location: @Model.GetMostRecentOrder().LocationString</h5>
+            @foreach (var pstring in Model.GetMostRecentOrder().PizzaStrings)
+            {
+                <h5>@pstring</h5>
+            }
+            <button type="submit">Redo most recent Order</button>
+        }
+    </form>
+    <h4>Your order history</h4>
+    <div class="form-group">
+        @if (Model.HasPreviousOrders())
+        {
+            @foreach (var po in Model.GetPreviousOrders())
+            {
+                <div>
+                    <h5>----------------------------------------------------</h5>
+                    <h5>Order: @po.OrderID, Total Cost: $@po.OrderValue, Order Time: @po.OrderTime</h5>
+                    <h5>Location: @po.LocationString</h5>
+                    @foreach (var pstring in po.PizzaStrings)
+                    {
+                        <h5>@pstring</h5>
+                    }
+                </div>
+            }
+        }
+    </div>
 </div>
 
 

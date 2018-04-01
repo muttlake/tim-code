@@ -9,15 +9,40 @@ using PizzaStore.Data;
 
 namespace PizzaStore.MVC.Models
 {
+    public struct PizzaOrder
+    {
+        public int OrderID { get; set; }
+        public string CustomerName { get; set; }
+        public string LocationString { get; set; }
+        public double OrderValue { get; set; }
+        public DateTime OrderTime { get; set; }
+        public List<string> PizzaStrings { get; set; }
+    }
+
+
     public class OrderViewModel
     {
 
         public int LocationID { get; set; }
+        public int CustomerID { get; set; }
+        public string CustomerName { get; set; }
+        public List<PizzaOrder> AllPizzaOrders { get; set; }
+
         public Dictionary<int, string> ValidLocations { get; set; }
 
         public OrderViewModel()
         {
+            LocationID = -999;
             ValidLocations = GetLocations();
+            SetPizzaOrders();
+        }
+
+        public OrderViewModel(int id)
+        {
+            LocationID = -999;
+            ValidLocations = GetLocations();
+            CustomerID = id;
+            SetPizzaOrders();
         }
 
         private Dictionary<int, string> GetLocations()
@@ -34,6 +59,63 @@ namespace PizzaStore.MVC.Models
                 locationDict[location.LocationId] = locString;
             }
             return locationDict;
+        }
+
+        public bool HasPreviousOrders()
+        {
+            return AllPizzaOrders.Count > 0;
+        }
+
+        public PizzaOrder GetMostRecentOrder()
+        {
+            return AllPizzaOrders.ElementAt(AllPizzaOrders.Count - 1);
+        }
+
+        public List<PizzaOrder> GetPreviousOrders()
+        {
+            return AllPizzaOrders;
+        }
+
+        public void SetPizzaOrders()
+        {
+            var ef = new EfData();
+            AllPizzaOrders = new List<PizzaOrder>();
+
+            List<int> orderIDs = ef.GetOrderIdsForCustomer(CustomerID);
+            foreach(int orderID in orderIDs)
+            {
+                PizzaOrder po = new PizzaOrder();
+                po.OrderID = orderID;
+                Order order = ef.GetOrderById(orderID);
+                po.CustomerName = ef.GetCustomerNameByID(CustomerID);
+                po.OrderValue = order.TotalValue.Value;
+                po.OrderTime = order.OrderTime;
+                po.LocationString = ef.GetLocationByID(ef.GetLocationIDForOrder(orderID));
+
+                po.PizzaStrings = new List<string>();
+                List<int> pizzaIDs = ef.GetAllPizzaIDsForOrder(orderID);
+                int count = 0;
+                string lastPizzaString = ef.GetPizzaStringByPizzaID(pizzaIDs.ElementAt(0));
+
+                for(int i = 0; i < pizzaIDs.Count; i++)
+                {
+                    string newPizzaString = ef.GetPizzaStringByPizzaID(pizzaIDs.ElementAt(i));
+                    if (!newPizzaString.Equals(lastPizzaString))
+                    {
+                        po.PizzaStrings.Add(lastPizzaString + string.Format(", Quantity: {0}", count));
+                        lastPizzaString = newPizzaString;
+                        count = 1;
+                    }
+                    else
+                        count += 1;
+
+                    if (i == pizzaIDs.Count - 1)
+                        po.PizzaStrings.Add(newPizzaString + string.Format(", Quantity: {0}", count));
+                }
+
+                AllPizzaOrders.Add(po);
+
+            }
         }
     }
 }
