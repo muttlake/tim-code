@@ -331,4 +331,4 @@ GO
 
 insert into PizzaStore.Customer(FirstName, LastName, AddressID, Phone, Email, ModifiedDate)
 values
-('Tim', 'S', 4, '2222222222', 'ts@email.com', getdate());
+('Mina', 'Kimes', 5, '2222222222', 'mk@email.com', getdate());
