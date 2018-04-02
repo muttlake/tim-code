@@ -16,7 +16,7 @@ namespace PizzaStore.MVC.Models
         public int CustomerID { get; set; }
         public string CustomerName { get; set; }
         public PizzaOrder PreviousOrder { get; set; }
-        public List<int> PizzaQuantities { get; set; }
+        private Order prevOrder { get; set; }
 
         public Dictionary<int, string> ValidLocations { get; set; }
 
@@ -24,49 +24,90 @@ namespace PizzaStore.MVC.Models
         {
             CustomerID = id;
             LocationID = -999;
-            SetPizzaOrders();
+
+            var ef = new EfData();
+            prevOrder = ef.GetMostRecentOrderForCustomer(CustomerID);
+            LocationID = prevOrder.LocationId;
+            SetPizzaOrder();
         }
 
-        public PizzaOrder GetPreviousOrder()
+        public int GetPQ()
         {
-            return PreviousOrder;
+            var ef = new EfData();
+            return ef.GetAllPizzaIDsForOrder(prevOrder.OrderId).Count;
         }
 
-        public void SetPizzaOrders()
+        public int GetSauceID()
+        {
+            var ef = new EfData();
+            return ef.GetPizzasForOrder(prevOrder.OrderId).FirstOrDefault().SauceId;
+        }
+
+        public int GetCrustID()
+        {
+            var ef = new EfData();
+            return ef.GetPizzasForOrder(prevOrder.OrderId).FirstOrDefault().CrustId;
+        }
+
+        public List<int> GetCheeseIDs()
+        {
+            var ef = new EfData();
+            int firstPizza = ef.GetAllPizzaIDsForOrder(prevOrder.OrderId).FirstOrDefault();
+            return ef.GetListCheesesByPizzaID(firstPizza).Select(p => p.CheeseId).ToList();
+        }
+
+        public string GetCheeseIDString()
+        {
+            string cheeseString = "";
+            int count = 0;
+            foreach (var cheeseID in GetCheeseIDs())
+            {
+                if (count == 0)
+                    cheeseString += cheeseID.ToString();
+                else
+                    cheeseString += "," + cheeseID.ToString();
+                count += 1;
+            }
+            Console.WriteLine("CheeseString: :" + cheeseString + ":");
+            return cheeseString;
+        }
+
+        public string GetToppingIDString()
+        {
+            string toppingString = "";
+            int count = 0;
+            foreach (var toppingID in GetToppingIDs())
+            {
+                if (count == 0)
+                    toppingString += toppingID.ToString();
+                else
+                    toppingString += "," + toppingID.ToString();
+                count += 1;
+            }
+            return toppingString;
+        }
+
+        public List<int> GetToppingIDs()
+        {
+            var ef = new EfData();
+            int firstPizza = ef.GetAllPizzaIDsForOrder(prevOrder.OrderId).FirstOrDefault();
+            return ef.GetListToppingsByPizzaID(firstPizza).Select(p => p.ToppingId).ToList();
+        }
+
+        public void SetPizzaOrder()
         {
             var ef = new EfData();
             PizzaOrder po = new PizzaOrder();
-            Order order = ef.GetMostRecentOrderForCustomer(CustomerID);
-            po.OrderID = order.OrderId;
+            po.OrderID = prevOrder.OrderId;
 
             po.CustomerName = ef.GetCustomerNameByID(CustomerID);
-            po.OrderValue = order.TotalValue.Value;
-            po.OrderTime = order.OrderTime;
+            po.OrderValue = prevOrder.TotalValue.Value;
+            po.OrderTime = prevOrder.OrderTime;
             po.LocationString = ef.GetLocationByID(ef.GetLocationIDForOrder(po.OrderID));
+            int firstPizzaID = ef.GetAllPizzaIDsForOrder(po.OrderID).FirstOrDefault();
+            po.PizzaString = ef.GetPizzaStringByPizzaID(firstPizzaID);
+            po.PizzaString += string.Format(", Quantity: {0}", ef.GetAllPizzaIDsForOrder(po.OrderID).Count);
 
-            //po.PizzaStrings = new List<string>();
-            //List<int> pizzaIDs = ef.GetAllPizzaIDsForOrder(po.OrderID);
-            //int count = 0;
-            //string lastPizzaString = ef.GetPizzaStringByPizzaID(pizzaIDs.ElementAt(0));
-
-            //PizzaQuantities = new List<int>();
-
-            //for (int i = 0; i < pizzaIDs.Count; i++)
-            //{
-            //    string newPizzaString = ef.GetPizzaStringByPizzaID(pizzaIDs.ElementAt(i));
-            //    if (!newPizzaString.Equals(lastPizzaString))
-            //    {
-            //        po.PizzaStrings.Add(lastPizzaString + string.Format(", Quantity: {0}", count));
-            //        lastPizzaString = newPizzaString;
-            //        count = 1;
-            //    }
-            //    else
-            //        count += 1;
-
-            //    if (i == pizzaIDs.Count - 1)
-            //        po.PizzaStrings.Add(newPizzaString + string.Format(", Quantity: {0}", count));
-            //    PizzaQuantities.Add(count);
-            //}
             PreviousOrder = po;
         }
     }

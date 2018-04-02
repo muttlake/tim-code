@@ -16,13 +16,21 @@ namespace PizzaStore.MVC.Controllers
         public IActionResult Index()
         {
             var raovm = new ReDoAnOrderViewModel(HttpContext.Session.GetInt32("CustomerID").Value);
+
+            HttpContext.Session.SetInt32("LocationID", raovm.LocationID);
+            HttpContext.Session.SetInt32("CrustID", raovm.GetCrustID());
+            HttpContext.Session.SetInt32("SauceID", raovm.GetSauceID());
+            HttpContext.Session.SetInt32("PizzaQuantity", raovm.GetPQ());
+            HttpContext.Session.SetString("CheeseIDs", raovm.GetCheeseIDString());
+            HttpContext.Session.SetString("ToppingIDs", raovm.GetToppingIDString());
+
             return View(raovm);
         }
 
         [HttpPost]
         public IActionResult Index(ReDoAnOrderViewModel model)
         {
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "CompleteOrder");
         }
     }
 }
