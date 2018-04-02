@@ -40,9 +40,32 @@ namespace PizzaStore.MVC.Models
         public OrderViewModel(int id)
         {
             LocationID = -999;
-            ValidLocations = GetLocations();
             CustomerID = id;
+            TwoHourChecker thc = new TwoHourChecker(CustomerID);
+            if (thc.OrderedWithinTwoHours())
+                ValidLocations = GetLocations(thc.GetLastLocation());
+            else
+                ValidLocations = GetLocations();
             SetPizzaOrders();
+        }
+
+        private Dictionary<int, string> GetLocations(int loc)
+        {
+            EfData ef = new EfData();
+            Dictionary<int, string> locationDict = new Dictionary<int, string>();
+            foreach (var location in ef.ReadLocations())
+            {
+                if (location.LocationId == loc)
+                {
+                    string locString = "";
+                    locString += location.Address.Street;
+                    locString += ", " + location.Address.City;
+                    locString += ", " + location.Address.State.StateAbb;
+                    locString += ", " + location.Address.City;
+                    locationDict[location.LocationId] = locString;
+                }
+            }
+            return locationDict;
         }
 
         private Dictionary<int, string> GetLocations()

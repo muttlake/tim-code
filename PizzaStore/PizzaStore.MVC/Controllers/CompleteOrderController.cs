@@ -41,7 +41,7 @@ namespace PizzaStore.MVC.Controllers
             if(totalOrderCost > 1000)
             {
                 Console.WriteLine("totalOrderCost exceeds 1000");
-                ViewBag.PizzaProblem = "Total Order Cost exceeds $1000, please re-make your order";
+                HttpContext.Session.SetInt32("CostOfOrder", (int)totalOrderCost);
                 return RedirectToAction("Index", "Pizza");
             }
             //Check inventory availability here

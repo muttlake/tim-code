@@ -13,8 +13,8 @@ namespace PizzaStore.MVC.Controllers
         [HttpGet] //This Action only supports Get Requests
         public IActionResult Index() //Any Action you Create you can respond to all http verbs
         {
-            ViewBag.PizzaProblem = "";
-            HttpContext.Session.SetString("NewOrder", "true");
+            if (HttpContext.Session.GetInt32("CostOfOrder") > 1000)
+                ViewBag.PizzaProblem = "Order Exceeds $1000. It was $" + HttpContext.Session.GetInt32("CostOfOrder").ToString();
             return View(new PizzaViewModel());
         }
 
