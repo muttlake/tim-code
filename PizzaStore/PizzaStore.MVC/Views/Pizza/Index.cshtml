@@ -1,0 +1,148 @@
+﻿@{
+    ViewData["Title"] = "Add a Pizza Page";
+}
+
+
+@model PizzaStore.MVC.Models.PizzaViewModel
+
+<header class="col-md-12">
+    <h3>Add a Pizza to Your Order</h3>
+    <h2>@ViewBag.PizzaProblem</h2>
+</header>
+<div class="col-md-12">
+    <form asp-controller="Pizza" method="post">
+        <h4>Crust</h4>
+        <div class="form-group">
+            @foreach (KeyValuePair<int, string> crust in Model.Crusts)
+            {
+                <div>
+                    <label>@crust.Value</label>
+                    <input asp-for="CrustID" type="radio" id="" value=@crust.Key />
+                </div>
+            }
+        </div>
+        <h4>Sauce</h4>
+        <div class="form-group">
+            @foreach (KeyValuePair<int, string> sauce in Model.Sauces)
+            {
+                <div>
+                    <label>@sauce.Value</label>
+                    <input asp-for="SauceID" type="radio" id="" value=@sauce.Key />
+                </div>
+            }
+        </div>
+        <h4>Cheeses (at most 2)</h4>
+        <div class="form-group">
+            <div class="container">
+                @foreach (var item in Model.AvailableCheeses)
+                {
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox"
+                                   name="SelectedCheeses"
+                                   value="@item.Value" /> @item.Text
+                            </label>
+                        </div>
+                }
+            </div>
+        </div>
+        <h4>Toppings (at most 3)</h4>
+        <div class="form-group">
+            <div class="container">
+                @foreach (var item in Model.AvailableToppings)
+                {
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox"
+                                   name="SelectedToppings"
+                                   value="@item.Value" /> @item.Text
+                        </label>
+                    </div>
+                }
+            </div>
+        </div>
+        <h4>How many of this pizza do you want?</h4>
+        <div class="form-group">
+            <div class="container">
+                <label>Quantity of this Pizza: </label>
+                <input asp-for="PizzaQuantity" value="1" />
+            </div>
+        </div>
+        <button type="submit">Add Pizza(s) to Order</button>
+    </form>
+</div>
+
+
+@* this is a strongly typed view, view is tied to a view model *@
+
+
+@*@{
+
+}*@
+
+@*@using (@Html.BeginForm())
+    {
+        @Html.TextBoxFor(m => m.Name)
+
+
+        foreach (var item in pizzaView.Size)
+        {
+            @Html.RadioButtonFor(m => item, item.Text);
+        }
+    }*@
+
+@*<h4>Name</h4>
+    <div class="form-group">*@
+@*@Html.TextBoxFor(m => m.Name, "Person Name:")*@
+@*</div>
+    <h4>Sizes</h4> <!-- this property will come back as a list -->
+    <div class="form-group">
+        @using (@Html.BeginForm())
+        {*@
+@*@Html.LabelFor(m => m.Sizes.Small); //We were calling metadata of model
+    @Html.ValidationMessageFor(m => m.Name);
+    @Html.RadioButtonFor(m => m.Sizes.Small, "Size");
+    @Html.LabelFor(m => m.Sizes.Medium);
+    @Html.RadioButtonFor(m => m.Sizes.Medium, "Size");
+    @Html.LabelFor(m => m.Sizes.Large);
+    @Html.RadioButtonFor(m => m.Sizes.Large, "Size");*@
+
+@*@foreach (var @size in Model.Sizes2)
+    {
+        <label>@size  Whats upppppp</label> //@Model needs a new Model
+        <input type="radio" name="size" id="" value=@size />
+    }*@
+        @*}*@
+@*</div>
+        <h4>Crusts</h4> <!-- this property will come back as a list -->
+        @*<div class="form-group">
+            @Html.RadioButtonFor(m => Model.Crust, "Crust")
+        </div>
+        <h4>Toppings</h4> <!-- this property will come back as a list -->
+        <div class="form-group">
+            <label></label>
+            <form asp-controller="Pizza" method="post">
+                <h4>Sizes</h4> <!-- this property will come back as a list -->
+                <div class="form-group">
+                    @foreach (var @size in Model.Sizes)
+                    {
+                        <label>@size</label> //@Model needs a new Model
+                        <input asp-for="Size" type="radio" name="size" id="" value=@size />
+                    }
+                </div>
+                <h4>Crusts</h4> <!-- this property will come back as a list -->
+                <div class="form-group">
+                    @foreach (var @crust in Model.Crusts)
+                    {
+                        <label>@crust</label> //@Model needs a new Model
+                        <input asp-for="Crust" type="radio" name="crust" id="" value=@crust />
+                    }
+                </div>
+                @*<input asp-for="Size" type="radio" name="size" id="" value=@size />
+                <button type="submit">Submit your Order</button>
+            </form>
+            @*}
+        </div>
+    </div>*@
+
+

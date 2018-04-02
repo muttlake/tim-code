@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "Complete Order Page";
+}
+
+
+@model PizzaStore.MVC.Models.CompleteOrderViewModel
+
+<header class="col-md-12">
+    <h3>Complete Your Order</h3>
+</header>
+<div class="col-md-12">
+    <h3>Order Details</h3>
+    <div>
+        <h5> Customer:  @Model.GetCustomerName()</h5>
+    </div>
+    <div>
+        <h5> Store Location:  @Model.GetLocationString()</h5>
+    </div>
+    <h3>Pizza Details</h3>
+    <div>
+        <h5> Crust:  @Model.GetCrustString()</h5>
+    </div>
+    <div>
+        <h5> Sauce:  @Model.GetSauceString()</h5>
+    </div>
+    <div>
+        <h5> Cheeses: @Model.GetCheeseString()</h5>
+    </div>
+    <div>
+        <h5> Toppings: @Model.GetToppingString()</h5>
+    </div>
+    <div>
+        <h5> Quantity:  @Model.GetPizzaQuantity()</h5>
+    </div>
+    <div>
+        <h5> Per Pizza Cost:  $@Model.PerPizzaCost()</h5>
+    </div>
+    <div>
+        <h5> Total Order Cost:  $@Model.TotalOrderCost()</h5>
+    </div>
+    <form asp-controller="CompleteOrder" method="post">
+        <button type="submit">Place Order (You can add more pizzas to this same order later)</button>
+    </form>
+</div>
+
