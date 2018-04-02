@@ -305,6 +305,11 @@ where OrderID = 14;
 
 
 
+select * from PizzaStore.[Location];
+select * from PizzaStore.Inventory;
+
+
+
 
 select *
 from PizzaStore.vw_AllOrderInformation;

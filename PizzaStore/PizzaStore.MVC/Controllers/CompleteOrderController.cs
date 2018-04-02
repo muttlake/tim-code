@@ -91,6 +91,10 @@ namespace PizzaStore.MVC.Controllers
                 }
             }
 
+            //Subtract Inventory
+            InventorySubtractor invSub = new InventorySubtractor(locID);
+            invSub.SubtractInventory(crustID, sauceID, cheeseIDs, toppingIDs, pq);
+
             return RedirectToAction("Index", "ReviewOrder");
         }
 
