@@ -39,9 +39,10 @@ namespace PizzaStore.MVC.Controllers
 
             double totalOrderCost = completeOrder.TotalOrderCost();
 
-            if (totalOrderCost > 1000)
+            JsonHandler jh = new JsonHandler();
+            if (totalOrderCost > jh.JsonObject.MAX_ORDER_TOTAL)
             {
-                Console.WriteLine("totalOrderCost exceeds 1000");
+                Console.WriteLine("totalOrderCost exceeds {0}", jh.JsonObject.MAX_ORDER_TOTAL );
                 HttpContext.Session.SetInt32("CostOfOrder", (int)totalOrderCost);
                 return RedirectToAction("Index", "Pizza");
             }

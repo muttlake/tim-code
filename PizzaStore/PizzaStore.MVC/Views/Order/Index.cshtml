@@ -23,7 +23,7 @@
         <button type="submit">Make a New Order and Choose Pizza</button>
     </form>
     <form asp-controller="ReDoAnOrder" method="get">
-        <h4>Choose your reccommended Order</h4>
+        <h4>Order the same thing as last time </h4>
         @if (Model.HasPreviousOrders())
         {
             <h5>Order: @Model.GetMostRecentOrder().OrderID, Total Cost: $@Model.GetMostRecentOrder().OrderValue, Order Time: @Model.GetMostRecentOrder().OrderTime</h5>

@@ -135,7 +135,8 @@ namespace PizzaStore.Library
 
         public double AddCheeses(List<int> cheeseIds)
         {
-            int numCheeses = Math.Min(cheeseIds.Count, 2); //Fix with json file should not be hardcoded
+            JsonHandler jh = new JsonHandler();
+            int numCheeses = Math.Min(cheeseIds.Count, jh.JsonObject.MAX_CHEESES); //Fix with json file should not be hardcoded
             List<int> cheesesAddedAlready = new List<int>();
             int numCheesesAdded = 0;
             double totalCheeseCost = 0.00;
@@ -163,7 +164,8 @@ namespace PizzaStore.Library
 
         public double AddToppings(List<int> toppingIds)
         {
-            int numToppings = Math.Min(toppingIds.Count, 3); //Fix with Json file, should not be hard-coded
+            JsonHandler jh = new JsonHandler();
+            int numToppings = Math.Min(toppingIds.Count, jh.JsonObject.MAX_TOPPINGS); //Fix with Json file, should not be hard-coded
             List<int> toppingsAddedAlready = new List<int>();
             int numToppingsAdded = 0;
             double totalToppingCost = 0.00;
