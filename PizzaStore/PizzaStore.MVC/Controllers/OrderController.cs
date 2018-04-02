@@ -18,7 +18,11 @@ namespace PizzaStore.MVC.Controllers
             Console.WriteLine("Order Get Index");
             int custID = HttpContext.Session.GetInt32("CustomerID").Value;
             var orderViewModel = new OrderViewModel(custID);
-            HttpContext.Session.SetString("NewOrder", "false");
+            //HttpContext.Session.SetString("NewOrder", "false");
+
+            if(orderViewModel.HasPreviousOrders())
+                if (orderViewModel.ValidLocations.Count == 1)
+                    ViewBag.BadLocation = "You have ordered within two hours, so there is only one location";
             return View(orderViewModel);
         }
 

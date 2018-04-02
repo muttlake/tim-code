@@ -29,8 +29,8 @@ namespace PizzaStore.MVC.Controllers
                 HttpContext.Session.SetString("CustomerName", model.CustomerName);
                 HttpContext.Session.SetInt32("CustomerID", model.GetCustomerId());
 
-                //TempData["customerID"] = model.GetCustomerId();
-                //Console.WriteLine("The customerID is: {0}", TempData["customerID"]);
+                ViewBag.PizzaProblem = "";
+                HttpContext.Session.SetInt32("CostOfOrder", 0);
                 return RedirectToAction("Index", "Order");
             }
             else

@@ -38,10 +38,12 @@ namespace PizzaStore.MVC.Controllers
             var completeOrder = new CompleteOrderViewModel(custID, locID, crustID, sauceID, cheeseIDs, toppingIDs, pq);
 
             double totalOrderCost = completeOrder.TotalOrderCost();
-            if(totalOrderCost > 1000)
+
+            JsonHandler jh = new JsonHandler();
+            if (totalOrderCost > jh.JsonObject.MAX_ORDER_TOTAL)
             {
-                Console.WriteLine("totalOrderCost exceeds 1000");
-                ViewBag.PizzaProblem = "Total Order Cost exceeds $1000, please re-make your order";
+                Console.WriteLine("totalOrderCost exceeds {0}", jh.JsonObject.MAX_ORDER_TOTAL );
+                HttpContext.Session.SetInt32("CostOfOrder", (int)totalOrderCost);
                 return RedirectToAction("Index", "Pizza");
             }
             //Check inventory availability here
@@ -81,15 +83,17 @@ namespace PizzaStore.MVC.Controllers
 
             int orderId = initialOrder.GetOrderId();
 
-            if(pizzasAfterInitialPizza > 0)
+            AddAdditionalPizza pizzaAdder = new AddAdditionalPizza();
+
+            if (pizzasAfterInitialPizza > 0)
             {
-                AddAdditionalPizza pizzaAdder = new AddAdditionalPizza();
 
                 for (int i = 0; i < pizzasAfterInitialPizza; i++)
                 {
                     pizzaAdder.AddPizzaToOrder(orderId, crustID, sauceID, cheeseIDs, toppingIDs);
                 }
             }
+            pizzaAdder.SaveChanges();
 
             //Subtract Inventory
             InventorySubtractor invSub = new InventorySubtractor(locID);

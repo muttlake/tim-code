@@ -17,6 +17,11 @@ namespace PizzaStore.Library
             return dbContext.Pizza.ToList();
         }
 
+        public List<Pizza> GetPizzasInOrder(int orderID)
+        {
+            return dbContext.Pizza.Where(p => p.OrderId == orderID).ToList();
+        }
+
         public List<Crust> ReadCrusts()
         {
             return dbContext.Crust.ToList();

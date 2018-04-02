@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "ReDo Previous Order Page";
+}
+
+
+@model PizzaStore.MVC.Models.ReDoAnOrderViewModel
+
+<header class="col-md-12">
+    <h3>ReDo your most recent Order</h3>
+</header>
+<div class="col-md-12">
+    <h3>Order Details</h3>
+
+    <div class="form-group">
+        <div>
+            <h5>----------------------------------------------------</h5>
+            <h5>Total Cost: $@Model.PreviousOrder.OrderValue</h5>
+            <h5>Location: @Model.PreviousOrder.LocationString</h5>
+            <h5>Pizza: @Model.PreviousOrder.PizzaString</h5>
+        </div>
+    </div>
+    <form asp-controller="CompleteOrder" method="get">
+        <button type="submit">Complete Order</button>
+    </form>
+</div>
+

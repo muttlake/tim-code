@@ -135,7 +135,8 @@ namespace PizzaStore.Library
 
         public double AddCheeses(List<int> cheeseIds)
         {
-            int numCheeses = Math.Min(cheeseIds.Count, 2); //Fix with json file should not be hardcoded
+            JsonHandler jh = new JsonHandler();
+            int numCheeses = Math.Min(cheeseIds.Count, jh.JsonObject.MAX_CHEESES); //Fix with json file should not be hardcoded
             List<int> cheesesAddedAlready = new List<int>();
             int numCheesesAdded = 0;
             double totalCheeseCost = 0.00;
@@ -148,7 +149,6 @@ namespace PizzaStore.Library
                     pizzaHasCheese.CheeseId = cheeseIds[i];
                     pizzaHasCheese.PizzaId = BarePizza.PizzaId;
                     dbContext.PizzaHasCheese.Add(pizzaHasCheese);
-                    dbContext.SaveChanges();
 
                     totalCheeseCost += dbContext.Cheese.Where(p => p.CheeseId == cheeseIds[i]).FirstOrDefault().CheeseCost;
 
@@ -156,6 +156,7 @@ namespace PizzaStore.Library
                     numCheesesAdded += 1;
                 }
             }
+            dbContext.SaveChanges();
             Console.WriteLine("There were {0} cheeses added.", numCheesesAdded);
             return totalCheeseCost;
         }
@@ -163,7 +164,8 @@ namespace PizzaStore.Library
 
         public double AddToppings(List<int> toppingIds)
         {
-            int numToppings = Math.Min(toppingIds.Count, 3); //Fix with Json file, should not be hard-coded
+            JsonHandler jh = new JsonHandler();
+            int numToppings = Math.Min(toppingIds.Count, jh.JsonObject.MAX_TOPPINGS); //Fix with Json file, should not be hard-coded
             List<int> toppingsAddedAlready = new List<int>();
             int numToppingsAdded = 0;
             double totalToppingCost = 0.00;
@@ -176,7 +178,6 @@ namespace PizzaStore.Library
                     pizzaHasTopping.ToppingId = toppingIds[i];
                     pizzaHasTopping.PizzaId = BarePizza.PizzaId;
                     dbContext.PizzaHasTopping.Add(pizzaHasTopping);
-                    dbContext.SaveChanges();
 
                     totalToppingCost += dbContext.Topping.Where(p => p.ToppingId == toppingIds[i]).FirstOrDefault().ToppingCost;
 
@@ -184,6 +185,7 @@ namespace PizzaStore.Library
                     numToppingsAdded += 1;
                 }
             }
+            dbContext.SaveChanges();
             Console.WriteLine("There were {0} toppings added.", numToppingsAdded);
             return totalToppingCost;
         }
