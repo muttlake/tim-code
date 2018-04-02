@@ -44,6 +44,16 @@ namespace PizzaStore.MVC.Controllers
                 ViewBag.PizzaProblem = "Total Order Cost exceeds $1000, please re-make your order";
                 return RedirectToAction("Index", "Pizza");
             }
+            //Check inventory availability here
+            InventoryChecker ic = new InventoryChecker(locID);
+            if(!ic.checkInventory(crustID, sauceID, cheeseIDs, toppingIDs, pq))
+            {
+                Console.WriteLine("Inventory not sufficient");
+                ViewBag.PizzaProblem = "The Store does not have enough inventory to complete that order.";
+                return RedirectToAction("Index", "Pizza");
+            }
+
+
 
             return View(completeOrder);
         }
@@ -60,7 +70,6 @@ namespace PizzaStore.MVC.Controllers
             List<int> cheeseIDs = ConvertSessionStringToList("CheeseIDs");
             List<int> toppingIDs = ConvertSessionStringToList("ToppingIDs");
 
-            //Check inventory availability here
 
 
             InitialOrder initialOrder = new InitialOrder();
