@@ -16,7 +16,7 @@ namespace PizzaStore.MVC.Models
         public string LocationString { get; set; }
         public double OrderValue { get; set; }
         public DateTime OrderTime { get; set; }
-        public List<string> PizzaStrings { get; set; }
+        public string PizzaString { get; set; }
     }
 
 
@@ -41,12 +41,18 @@ namespace PizzaStore.MVC.Models
         {
             LocationID = -999;
             CustomerID = id;
-            TwoHourChecker thc = new TwoHourChecker(CustomerID);
-            if (thc.OrderedWithinTwoHours())
-                ValidLocations = GetLocations(thc.GetLastLocation());
+            SetPizzaOrders();
+
+            if (HasPreviousOrders())
+            {
+                TwoHourChecker thc = new TwoHourChecker(CustomerID);
+                if (thc.OrderedWithinTwoHours())
+                    ValidLocations = GetLocations(thc.GetLastLocation());
+                else
+                    ValidLocations = GetLocations();
+            }
             else
                 ValidLocations = GetLocations();
-            SetPizzaOrders();
         }
 
         private Dictionary<int, string> GetLocations(int loc)
@@ -115,26 +121,10 @@ namespace PizzaStore.MVC.Models
                 po.OrderTime = order.OrderTime;
                 po.LocationString = ef.GetLocationByID(ef.GetLocationIDForOrder(orderID));
 
-                po.PizzaStrings = new List<string>();
-                List<int> pizzaIDs = ef.GetAllPizzaIDsForOrder(orderID);
-                int count = 0;
-                string lastPizzaString = ef.GetPizzaStringByPizzaID(pizzaIDs.ElementAt(0));
+                int firstPizzaID = ef.GetAllPizzaIDsForOrder(orderID).FirstOrDefault();
 
-                for(int i = 0; i < pizzaIDs.Count; i++)
-                {
-                    string newPizzaString = ef.GetPizzaStringByPizzaID(pizzaIDs.ElementAt(i));
-                    if (!newPizzaString.Equals(lastPizzaString))
-                    {
-                        po.PizzaStrings.Add(lastPizzaString + string.Format(", Quantity: {0}", count));
-                        lastPizzaString = newPizzaString;
-                        count = 1;
-                    }
-                    else
-                        count += 1;
-
-                    if (i == pizzaIDs.Count - 1)
-                        po.PizzaStrings.Add(newPizzaString + string.Format(", Quantity: {0}", count));
-                }
+                po.PizzaString = ef.GetPizzaStringByPizzaID(firstPizzaID);
+                po.PizzaString += string.Format(", Quantity: {0}", ef.GetAllPizzaIDsForOrder(orderID).Count);
 
                 AllPizzaOrders.Add(po);
 

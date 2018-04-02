@@ -148,7 +148,6 @@ namespace PizzaStore.Library
                     pizzaHasCheese.CheeseId = cheeseIds[i];
                     pizzaHasCheese.PizzaId = BarePizza.PizzaId;
                     dbContext.PizzaHasCheese.Add(pizzaHasCheese);
-                    dbContext.SaveChanges();
 
                     totalCheeseCost += dbContext.Cheese.Where(p => p.CheeseId == cheeseIds[i]).FirstOrDefault().CheeseCost;
 
@@ -156,6 +155,7 @@ namespace PizzaStore.Library
                     numCheesesAdded += 1;
                 }
             }
+            dbContext.SaveChanges();
             Console.WriteLine("There were {0} cheeses added.", numCheesesAdded);
             return totalCheeseCost;
         }
@@ -176,7 +176,6 @@ namespace PizzaStore.Library
                     pizzaHasTopping.ToppingId = toppingIds[i];
                     pizzaHasTopping.PizzaId = BarePizza.PizzaId;
                     dbContext.PizzaHasTopping.Add(pizzaHasTopping);
-                    dbContext.SaveChanges();
 
                     totalToppingCost += dbContext.Topping.Where(p => p.ToppingId == toppingIds[i]).FirstOrDefault().ToppingCost;
 
@@ -184,6 +183,7 @@ namespace PizzaStore.Library
                     numToppingsAdded += 1;
                 }
             }
+            dbContext.SaveChanges();
             Console.WriteLine("There were {0} toppings added.", numToppingsAdded);
             return totalToppingCost;
         }

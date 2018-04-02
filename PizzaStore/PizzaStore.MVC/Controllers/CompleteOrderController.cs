@@ -38,7 +38,8 @@ namespace PizzaStore.MVC.Controllers
             var completeOrder = new CompleteOrderViewModel(custID, locID, crustID, sauceID, cheeseIDs, toppingIDs, pq);
 
             double totalOrderCost = completeOrder.TotalOrderCost();
-            if(totalOrderCost > 1000)
+
+            if (totalOrderCost > 1000)
             {
                 Console.WriteLine("totalOrderCost exceeds 1000");
                 HttpContext.Session.SetInt32("CostOfOrder", (int)totalOrderCost);
@@ -81,15 +82,17 @@ namespace PizzaStore.MVC.Controllers
 
             int orderId = initialOrder.GetOrderId();
 
-            if(pizzasAfterInitialPizza > 0)
+            AddAdditionalPizza pizzaAdder = new AddAdditionalPizza();
+
+            if (pizzasAfterInitialPizza > 0)
             {
-                AddAdditionalPizza pizzaAdder = new AddAdditionalPizza();
 
                 for (int i = 0; i < pizzasAfterInitialPizza; i++)
                 {
                     pizzaAdder.AddPizzaToOrder(orderId, crustID, sauceID, cheeseIDs, toppingIDs);
                 }
             }
+            pizzaAdder.SaveChanges();
 
             //Subtract Inventory
             InventorySubtractor invSub = new InventorySubtractor(locID);

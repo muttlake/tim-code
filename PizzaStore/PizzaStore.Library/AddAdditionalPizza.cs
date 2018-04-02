@@ -26,12 +26,16 @@ namespace PizzaStore.Library
                 currentPizzaPrice += cheeseAndToppingCost;
                 dbContext.Pizza.Where(p => p.PizzaId == Pizza.PizzaId).FirstOrDefault().TotalPizzaCost = currentPizzaPrice;
                 dbContext.Order.Where(p => p.OrderId == orderId).FirstOrDefault().TotalValue += currentPizzaPrice;
-                dbContext.SaveChanges();
+                //dbContext.SaveChanges();
                 return true;
             }
             return false;
         }
 
+        public void SaveChanges()
+        {
+            dbContext.SaveChanges();
+        }
 
         public bool CreateBarePizza(int crustId, int sauceId, int orderID)
         {
@@ -89,7 +93,6 @@ namespace PizzaStore.Library
                     pizzaHasCheese.CheeseId = cheeseIds[i];
                     pizzaHasCheese.PizzaId = Pizza.PizzaId;
                     dbContext.PizzaHasCheese.Add(pizzaHasCheese);
-                    dbContext.SaveChanges();
 
                     totalCheeseCost += dbContext.Cheese.Where(p => p.CheeseId == cheeseIds[i]).FirstOrDefault().CheeseCost;
 
@@ -97,6 +100,7 @@ namespace PizzaStore.Library
                     numCheesesAdded += 1;
                 }
             }
+            //dbContext.SaveChanges();
             Console.WriteLine("There were {0} cheeses added.", numCheesesAdded);
             return totalCheeseCost;
         }
@@ -117,7 +121,6 @@ namespace PizzaStore.Library
                     pizzaHasTopping.ToppingId = toppingIds[i];
                     pizzaHasTopping.PizzaId = Pizza.PizzaId;
                     dbContext.PizzaHasTopping.Add(pizzaHasTopping);
-                    dbContext.SaveChanges();
 
                     totalToppingCost += dbContext.Topping.Where(p => p.ToppingId == toppingIds[i]).FirstOrDefault().ToppingCost;
 
@@ -125,6 +128,7 @@ namespace PizzaStore.Library
                     numToppingsAdded += 1;
                 }
             }
+            //dbContext.SaveChanges();
             Console.WriteLine("There were {0} toppings added.", numToppingsAdded);
             return totalToppingCost;
         }
