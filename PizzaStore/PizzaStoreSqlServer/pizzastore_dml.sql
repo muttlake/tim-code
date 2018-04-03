@@ -335,6 +335,10 @@ insert into PizzaStore.Customer(FirstName, LastName, AddressID, Phone, Email, Mo
 values
 ('Test5', 'Test5', 5, '2222222222', 't5@email.com', getdate());
 
+insert into PizzaStore.Customer(FirstName, LastName, AddressID, Phone, Email, ModifiedDate)
+values
+('Test7', 'Test7', 5, '2222222222', 't7@email.com', getdate());
+
 
 
 select * from PizzaStore.Pizza2;
