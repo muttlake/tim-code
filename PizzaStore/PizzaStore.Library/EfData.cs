@@ -27,6 +27,41 @@ namespace PizzaStore.Library
             return dbContext.Crust.ToList();
         }
 
+        public bool ValidateLocation(int locID)
+        {
+            return dbContext.Location.Where(predicate: p => p.LocationId == locID).Count() == 1;
+        }
+
+        public bool ValidateCustomer(int locID)
+        {
+            return dbContext.Customer.Where(predicate: p => p.CustomerId == locID).Count() == 1;
+        }
+
+        public bool ValidateOrder(int orderId)
+        {
+            return dbContext.Order.Where(predicate: p => p.OrderId == orderId).Count() == 1;
+        }
+
+        public bool ValidateCrust(int crustID)
+        {
+            return dbContext.Crust.Where(predicate: p => p.CrustId == crustID).Count() == 1;
+        }
+
+        public bool ValidateSauce(int sauceId)
+        {
+            return dbContext.Sauce.Where(predicate: p => p.SauceId == sauceId).Count() == 1;
+        }
+
+        public bool ValidateCheese(int cheeseID)
+        {
+            return dbContext.Cheese.Where(predicate: p => p.CheeseId == cheeseID).Count() == 1;
+        }
+
+        public bool ValidateTopping(int toppingID)
+        {
+            return dbContext.Topping.Where(predicate: p => p.ToppingId == toppingID).Count() == 1;
+        }
+
         public List<Sauce> ReadSauces()
         {
             return dbContext.Sauce.ToList();

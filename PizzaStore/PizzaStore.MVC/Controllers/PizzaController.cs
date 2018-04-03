@@ -6,6 +6,7 @@ using PizzaStore.MVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using PizzaStore.Library;
+using PizzaStore.Data;
 
 namespace PizzaStore.MVC.Controllers
 {
@@ -46,22 +47,10 @@ namespace PizzaStore.MVC.Controllers
                 }
             }
 
-            HttpContext.Session.SetInt32("CrustID", model.CrustID);
-            HttpContext.Session.SetInt32("SauceID", model.SauceID);
-            HttpContext.Session.SetInt32("PizzaQuantity", pizzaQuantity);
-            HttpContext.Session.SetString("CheeseIDs", model.GetCheeseIDString()); 
-            HttpContext.Session.SetString("ToppingIDs", model.GetToppingIDString());
-
-
-            Console.WriteLine("The SessionData CustomerID is: {0}", HttpContext.Session.GetInt32("CustomerID"));
-            Console.WriteLine("The SessionData CustomerName is: {0}", HttpContext.Session.GetString("CustomerName"));
-            Console.WriteLine("The SessionData LocationID is: {0}", HttpContext.Session.GetInt32("LocationID"));
-            Console.WriteLine("The SessionData CrustID is: {0}", HttpContext.Session.GetInt32("CrustID"));
-            Console.WriteLine("The SessionData SauceID is: {0}", HttpContext.Session.GetInt32("SauceID"));
-            Console.WriteLine("The SessionData CheeseIDString is: {0}", HttpContext.Session.GetString("CheeseIDs"));
-            Console.WriteLine("The SessionData ToppingIDString is: {0}", HttpContext.Session.GetString("ToppingIDs"));
-
-
+            var oh = HttpContext.Session.Get<OrderHandler>("OrderHandler");
+            oh.Pizzas.Add(model.MakePizza());
+            oh.TotalOrderValue += oh.Pizzas.Last().TotalPizzaCost.Value;
+            HttpContext.Session.Set<OrderHandler>("OrderHandler", oh);
 
             return RedirectToAction("Index", "CompleteOrder");
         }

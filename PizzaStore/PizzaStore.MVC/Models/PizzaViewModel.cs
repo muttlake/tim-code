@@ -11,15 +11,10 @@ namespace PizzaStore.MVC.Models
 {
     public class PizzaViewModel
     {
-        //[Required(Message = "the message")]
-        // [Message="sample message"]
-        //[DataType(DataType.int)]
-        //[StLength]
+
         public int CrustID { get; set; }
         public Dictionary<int, string> Crusts { get; set; }
 
-        [Required]
-        //[NameValidator(ErrorMessage = "bad name")]
         public int SauceID { get; set; }
         public Dictionary<int, string> Sauces { get; set; }
 
@@ -38,14 +33,9 @@ namespace PizzaStore.MVC.Models
         {
             Crusts = GetCrusts();
             Sauces = GetSauces();
-            foreach(KeyValuePair<int, string> entry in Crusts)
-                Console.WriteLine("Crusts: {0} : {1}", entry.Key, entry.Value);
-            foreach (KeyValuePair<int, string> entry in Sauces)
-                Console.WriteLine("Sauces: {0} : {1}", entry.Key, entry.Value);
 
             SelectedCheeses = new List<string>();
             AvailableCheeses = GetCheeses();
-
 
             SelectedToppings = new List<string>();
             AvailableToppings = GetToppings();
@@ -59,37 +49,6 @@ namespace PizzaStore.MVC.Models
             foreach(var crust in crusts)
                 crustDict[crust.CrustId] = crust.Crust1;
             return crustDict;
-        }
-
-        public string GetCheeseIDString()
-        {
-            string cheeseString = "";
-            int count = 0;
-            foreach(var cheeseID in GetCheeseIDs())
-            {
-                if (count == 0)
-                    cheeseString += cheeseID.ToString();
-                else
-                    cheeseString += "," + cheeseID.ToString();
-                count += 1;
-            }
-            Console.WriteLine("CheeseString: :" + cheeseString + ":");
-            return cheeseString;
-        }
-
-        public string GetToppingIDString()
-        {
-            string toppingString = "";
-            int count = 0;
-            foreach (var toppingID in GetToppingIDs())
-            {
-                if (count == 0)
-                    toppingString += toppingID.ToString();
-                else
-                    toppingString += "," + toppingID.ToString();
-                count += 1;
-            }
-            return toppingString;
         }
 
         private Dictionary<int, string> GetSauces()
@@ -116,6 +75,82 @@ namespace PizzaStore.MVC.Models
             }
 
             return cheeseSelectList;
+        }
+
+        public Pizza2 MakePizza()
+        {
+            Pizza2 pizza = new Pizza2();
+            pizza.CrustId = CrustID;
+            pizza.SauceId = SauceID;
+            List<int> cheeseIDs = GetCheeseIDs();
+            List<int> toppingIDs = GetToppingIDs();
+
+            // Set Cheese1 and Cheese2
+            if (cheeseIDs.Count == 0)
+            {
+                pizza.Cheese1 = null;
+                pizza.Cheese2 = null;
+            }
+            else if (cheeseIDs.Count == 1)
+            {
+                pizza.Cheese1 = cheeseIDs[0];
+                pizza.Cheese2 = null;
+            }
+            else if (cheeseIDs.Count == 2)
+            {
+                pizza.Cheese1 = cheeseIDs[0];
+                pizza.Cheese2 = cheeseIDs[1];
+            }
+
+            // Set Topping1, Topping2, and Topping3
+            if (toppingIDs.Count == 0)
+            {
+                pizza.Topping1 = null;
+                pizza.Topping2 = null;
+                pizza.Topping3 = null;
+            }
+            else if (toppingIDs.Count == 1)
+            {
+                pizza.Topping1 = toppingIDs[0];
+                pizza.Topping2 = null;
+                pizza.Topping3 = null;
+            }
+            else if (toppingIDs.Count == 2)
+            {
+                pizza.Topping1 = toppingIDs[0];
+                pizza.Topping2 = toppingIDs[1];
+                pizza.Topping3 = null;
+            }
+            else if (toppingIDs.Count == 3)
+            {
+                pizza.Topping1 = toppingIDs[0];
+                pizza.Topping2 = toppingIDs[1];
+                pizza.Topping3 = toppingIDs[2];
+            }
+
+            int q = 0;
+            Int32.TryParse(PizzaQuantity, out q);
+            pizza.Quantity = q;
+
+            var ef = new EfData();
+            pizza.TotalPizzaCost = 0;
+            pizza.TotalPizzaCost += ef.GetCrustCost(pizza.CrustId);
+            if(pizza.SauceId != null)
+                pizza.TotalPizzaCost += ef.GetSauceCost(pizza.SauceId.Value);
+            if (pizza.Cheese1 != null)
+                pizza.TotalPizzaCost += ef.GetCheeseCost(pizza.Cheese1.Value);
+            if (pizza.Cheese2 != null)
+                pizza.TotalPizzaCost += ef.GetCheeseCost(pizza.Cheese2.Value);
+            if (pizza.Topping1 != null)
+                pizza.TotalPizzaCost += ef.GetToppingCost(pizza.Topping1.Value);
+            if (pizza.Topping2 != null)
+                pizza.TotalPizzaCost += ef.GetToppingCost(pizza.Topping2.Value);
+            if (pizza.Topping3 != null)
+                pizza.TotalPizzaCost += ef.GetToppingCost(pizza.Topping3.Value);
+
+            pizza.ModifiedDate = DateTime.Now;
+
+            return pizza;
         }
 
         public List<int> GetCheeseIDs()

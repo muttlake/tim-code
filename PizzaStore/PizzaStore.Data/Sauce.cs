@@ -8,6 +8,7 @@ namespace PizzaStore.Data
         public Sauce()
         {
             Pizza = new HashSet<Pizza>();
+            Pizza2 = new HashSet<Pizza2>();
         }
 
         public int SauceId { get; set; }
@@ -17,5 +18,6 @@ namespace PizzaStore.Data
         public bool? Active { get; set; }
 
         public ICollection<Pizza> Pizza { get; set; }
+        public ICollection<Pizza2> Pizza2 { get; set; }
     }
 }

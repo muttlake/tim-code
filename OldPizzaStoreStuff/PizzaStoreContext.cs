@@ -17,7 +17,6 @@ namespace PizzaStore.Library
         public virtual DbSet<Location> Location { get; set; }
         public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<Pizza> Pizza { get; set; }
-        public virtual DbSet<Pizza2> Pizza2 { get; set; }
         public virtual DbSet<PizzaHasCheese> PizzaHasCheese { get; set; }
         public virtual DbSet<PizzaHasTopping> PizzaHasTopping { get; set; }
         public virtual DbSet<Sauce> Sauce { get; set; }
@@ -27,14 +26,12 @@ namespace PizzaStore.Library
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
-            {
-                //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                //optionsBuilder.UseSqlServer(@"server=pizzastoredb.cxkf3wzoieaw.us-east-2.rds.amazonaws.com; database=pizzastoredb; user id=sqladmin; password=password123");
+            {                
                 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 //optionsBuilder.UseSqlServer(@"server=pizzastoredb.cxkf3wzoieaw.us-east-2.rds.amazonaws.com; database=pizzastoredb; user id=sqladmin; password=");
                 IConfiguration Configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.dev.json").Build();
                 //System.Console.WriteLine("AWContext connection string: " + Configuration.GetConnectionString("DefaultConnection"));
-                optionsBuilder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+                optionsBuilder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")); 
             }
         }
 
@@ -247,66 +244,13 @@ namespace PizzaStore.Library
                     .WithMany(p => p.Pizza)
                     .HasForeignKey(d => d.OrderId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Pizza2_OrderID");
+                    .HasConstraintName("FK_Pizza_OrderID");
 
                 entity.HasOne(d => d.Sauce)
                     .WithMany(p => p.Pizza)
                     .HasForeignKey(d => d.SauceId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Pizza_SauceID");
-            });
-
-            modelBuilder.Entity<Pizza2>(entity =>
-            {
-                entity.HasKey(e => e.PizzaId);
-
-                entity.ToTable("Pizza2", "PizzaStore");
-
-                entity.Property(e => e.PizzaId).HasColumnName("PizzaID");
-
-                entity.Property(e => e.Active).HasDefaultValueSql("((1))");
-
-                entity.Property(e => e.CrustId).HasColumnName("CrustID");
-
-                entity.Property(e => e.ModifiedDate).HasColumnType("datetime2(3)");
-
-                entity.Property(e => e.SauceId).HasColumnName("SauceID");
-
-                entity.HasOne(d => d.Cheese1Navigation)
-                    .WithMany(p => p.Pizza2Cheese1Navigation)
-                    .HasForeignKey(d => d.Cheese1)
-                    .HasConstraintName("FK_Pizza2_Cheese1");
-
-                entity.HasOne(d => d.Cheese2Navigation)
-                    .WithMany(p => p.Pizza2Cheese2Navigation)
-                    .HasForeignKey(d => d.Cheese2)
-                    .HasConstraintName("FK_Pizza2_Cheese2");
-
-                entity.HasOne(d => d.Crust)
-                    .WithMany(p => p.Pizza2)
-                    .HasForeignKey(d => d.CrustId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Pizza2_CrustID");
-
-                entity.HasOne(d => d.Sauce)
-                    .WithMany(p => p.Pizza2)
-                    .HasForeignKey(d => d.SauceId)
-                    .HasConstraintName("FK_Pizza2_SauceID");
-
-                entity.HasOne(d => d.Topping1Navigation)
-                    .WithMany(p => p.Pizza2Topping1Navigation)
-                    .HasForeignKey(d => d.Topping1)
-                    .HasConstraintName("FK_Pizza2_Topping1");
-
-                entity.HasOne(d => d.Topping2Navigation)
-                    .WithMany(p => p.Pizza2Topping2Navigation)
-                    .HasForeignKey(d => d.Topping2)
-                    .HasConstraintName("FK_Pizza2_Topping2");
-
-                entity.HasOne(d => d.Topping3Navigation)
-                    .WithMany(p => p.Pizza2Topping3Navigation)
-                    .HasForeignKey(d => d.Topping3)
-                    .HasConstraintName("FK_Pizza2_Topping3");
             });
 
             modelBuilder.Entity<PizzaHasCheese>(entity =>

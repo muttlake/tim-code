@@ -7,6 +7,8 @@ namespace PizzaStore.Data
     {
         public Cheese()
         {
+            Pizza2Cheese1Navigation = new HashSet<Pizza2>();
+            Pizza2Cheese2Navigation = new HashSet<Pizza2>();
             PizzaHasCheese = new HashSet<PizzaHasCheese>();
         }
 
@@ -16,6 +18,8 @@ namespace PizzaStore.Data
         public DateTime ModifiedDate { get; set; }
         public bool? Active { get; set; }
 
+        public ICollection<Pizza2> Pizza2Cheese1Navigation { get; set; }
+        public ICollection<Pizza2> Pizza2Cheese2Navigation { get; set; }
         public ICollection<PizzaHasCheese> PizzaHasCheese { get; set; }
     }
 }

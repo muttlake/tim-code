@@ -59,18 +59,16 @@ namespace PizzaStore.MVC.Models
         {
             EfData ef = new EfData();
             Dictionary<int, string> locationDict = new Dictionary<int, string>();
-            foreach (var location in ef.ReadLocations())
-            {
-                if (location.LocationId == loc)
-                {
-                    string locString = "";
-                    locString += location.Address.Street;
-                    locString += ", " + location.Address.City;
-                    locString += ", " + location.Address.State.StateAbb;
-                    locString += ", " + location.Address.City;
-                    locationDict[location.LocationId] = locString;
-                }
-            }
+            Location location = ef.ReadLocations().Where(p => p.LocationId == loc).FirstOrDefault();
+
+            string locString = "";
+            locString += location.Address.Street;
+            locString += ", " + location.Address.City;
+            locString += ", " + location.Address.State.StateAbb;
+            locString += ", " + location.Address.City;
+
+            locationDict[location.LocationId] = locString;
+
             return locationDict;
         }
 

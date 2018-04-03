@@ -31,6 +31,10 @@ namespace PizzaStore.MVC.Controllers
 
                 ViewBag.PizzaProblem = "";
                 HttpContext.Session.SetInt32("CostOfOrder", 0);
+
+
+
+
                 return RedirectToAction("Index", "Order");
             }
             else
