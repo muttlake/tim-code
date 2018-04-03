@@ -58,59 +58,17 @@ namespace PizzaStore.MVC.Controllers
         [HttpPost]
         public IActionResult Index(CompleteOrderViewModel model)
         {
+            var oh = HttpContext.Session.Get<OrderHandler>("OrderHandler");
 
-            int custID = HttpContext.Session.GetInt32("CustomerID").Value;
-            int locID = HttpContext.Session.GetInt32("LocationID").Value;
-            int crustID = HttpContext.Session.GetInt32("CrustID").Value;
-            int sauceID = HttpContext.Session.GetInt32("SauceID").Value;
-            int pq = HttpContext.Session.GetInt32("PizzaQuantity").Value;
-            List<int> cheeseIDs = ConvertSessionStringToList("CheeseIDs");
-            List<int> toppingIDs = ConvertSessionStringToList("ToppingIDs");
-
-
-
-            InitialOrder initialOrder = new InitialOrder();
-            Console.WriteLine("Adding Initial Order...");
-            initialOrder.CreateNewOrderWithSinglePizza(locID, custID, crustID, sauceID,
-                                                       cheeseIDs, toppingIDs);
-            int pizzasAfterInitialPizza = pq - 1;
-            Console.WriteLine("Should have added Initial Order...");
-
-            int orderId = initialOrder.GetOrderId();
-
-            AddAdditionalPizza pizzaAdder = new AddAdditionalPizza();
-
-            if (pizzasAfterInitialPizza > 0)
-            {
-
-                for (int i = 0; i < pizzasAfterInitialPizza; i++)
-                {
-                    pizzaAdder.AddPizzaToOrder(orderId, crustID, sauceID, cheeseIDs, toppingIDs);
-                }
-            }
-            pizzaAdder.SaveChanges();
+            //Make order
+            OrderMaker om = new OrderMaker(oh);
+            om.MakeOrder();
 
             //Subtract Inventory
-            InventorySubtractor invSub = new InventorySubtractor(locID);
-            invSub.SubtractInventory(crustID, sauceID, cheeseIDs, toppingIDs, pq);
+            OrderInventoryHandler oih = new OrderInventoryHandler(oh);
+            oih.SubtractInventory();
 
             return RedirectToAction("Index", "ReviewOrder");
-        }
-
-        private List<int> ConvertSessionStringToList(string s)
-        {
-            if (HttpContext.Session.GetString(s).Length == 0)
-                return new List<int>();
-
-            string[] stringArray = HttpContext.Session.GetString(s).Split(",");
-            Console.WriteLine("Length of stringArray: {0}", stringArray.Length);
-
-            List<int> list = new List<int>();
-            foreach (var item in stringArray)
-            {
-                list.Add(Convert.ToInt32(item));
-            }
-            return list;
         }
 
     }

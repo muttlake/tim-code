@@ -13,6 +13,11 @@ namespace PizzaStore.MVC.Models
     {
         public OrderHandler Oh { get; set; }
 
+        public CompleteOrderViewModel()
+        {
+
+        }
+
         public CompleteOrderViewModel(OrderHandler oh)
         {
             Oh = oh;
@@ -54,6 +59,7 @@ namespace PizzaStore.MVC.Models
             if (pizza.Topping1 != null) { ps += string.Format(", Toppings {0}", ef.GetToppingByID(pizza.Topping1.Value)); }
             if (pizza.Topping2 != null) { ps += string.Format(", {0}", ef.GetToppingByID(pizza.Topping2.Value)); }
             if (pizza.Topping3 != null) { ps += string.Format(", {0}", ef.GetToppingByID(pizza.Topping3.Value)); }
+            ps += string.Format(", Quantity: {0}", pizza.Quantity);
 
             return ps;
         }

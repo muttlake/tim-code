@@ -17,10 +17,12 @@ namespace PizzaStore.Data
         public double? TotalPizzaCost { get; set; }
         public DateTime ModifiedDate { get; set; }
         public bool? Active { get; set; }
+        public int? OrderId { get; set; }
 
         public Cheese Cheese1Navigation { get; set; }
         public Cheese Cheese2Navigation { get; set; }
         public Crust Crust { get; set; }
+        public Order Order { get; set; }
         public Sauce Sauce { get; set; }
         public Topping Topping1Navigation { get; set; }
         public Topping Topping2Navigation { get; set; }

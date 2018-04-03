@@ -322,8 +322,7 @@ where CustomerId = 2;
 select * from PizzaStore.Crust;
 
 update PizzaStore.[Order]
-set Active = 0
-Where TotalValue = 0;
+set Active = 0;
 
 
 select * from PizzaStore.Customer;
@@ -331,4 +330,11 @@ GO
 
 insert into PizzaStore.Customer(FirstName, LastName, AddressID, Phone, Email, ModifiedDate)
 values
-('Mina', 'Kimes', 5, '2222222222', 'mk@email.com', getdate());
+('Mr', 'Test', 5, '2222222222', 'mt@email.com', getdate());
+
+
+
+select * from PizzaStore.Pizza2;
+
+
+select * from PizzaStore.[Order];

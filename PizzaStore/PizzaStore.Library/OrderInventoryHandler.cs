@@ -5,7 +5,7 @@ using System.Text;
 
 namespace PizzaStore.Library
 {
-    class OrderInventoryHandler
+    public class OrderInventoryHandler
     {
         public OrderHandler Oh { get; set; }
 
@@ -26,6 +26,16 @@ namespace PizzaStore.Library
                     return false;
             }
             return true;
+        }
+
+        public void SubtractInventory()
+        {
+            InventorySubtractor IS = new InventorySubtractor(Oh.LocationID);
+            foreach (var pizza in Oh.Pizzas) //This is actually an error
+            {
+                IS.SubtractInventory(pizza.CrustId, pizza.SauceId.Value, GetCheeseIDs(pizza), GetToppingIDs(pizza), pizza.Quantity);
+            }
+
         }
 
         private List<int> GetCheeseIDs(Pizza2 pizza)

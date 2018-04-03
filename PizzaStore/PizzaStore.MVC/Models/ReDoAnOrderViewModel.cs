@@ -105,8 +105,8 @@ namespace PizzaStore.MVC.Models
             po.OrderTime = prevOrder.OrderTime;
             po.LocationString = ef.GetLocationByID(ef.GetLocationIDForOrder(po.OrderID));
             int firstPizzaID = ef.GetAllPizzaIDsForOrder(po.OrderID).FirstOrDefault();
-            po.PizzaString = ef.GetPizzaStringByPizzaID(firstPizzaID);
-            po.PizzaString += string.Format(", Quantity: {0}", ef.GetAllPizzaIDsForOrder(po.OrderID).Count);
+            //po.PizzaString = ef.GetPizzaStringByPizzaID(firstPizzaID);
+            //po.PizzaString += string.Format(", Quantity: {0}", ef.GetAllPizzaIDsForOrder(po.OrderID).Count);
 
             PreviousOrder = po;
         }

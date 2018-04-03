@@ -1,6 +1,7 @@
 ﻿using PizzaStore.Data;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace PizzaStore.Library
@@ -22,14 +23,15 @@ namespace PizzaStore.Library
         {
             if(MakeNewOrder())
             {
-                
+                AddPizzasToOrder(order.OrderId);
                 return true;
             }
             else
                 return false;
         }
 
-        public bool MakeNewOrder()
+
+        private bool MakeNewOrder()
         {
             var ef = new EfData();
             if (ef.ValidateCustomer(Oh.CustomerID) && ef.ValidateLocation(Oh.LocationID))
@@ -49,19 +51,17 @@ namespace PizzaStore.Library
                 return false;
         }
 
-        public bool AddPizzasToOrder(int orderID)
+        public void AddPizzasToOrder(int orderID)
         {
-
-            return true;
+            foreach (var pizza in Oh.Pizzas)
+                AddPizzaToOrder(pizza, orderID);
+            dbContext.SaveChanges();
         }
 
-        public bool AddPizzaToOrder(int orderID)
+        public void AddPizzaToOrder(Pizza2 pizza, int orderID)
         {
-
-            return true;
+            pizza.OrderId = orderID;
+            dbContext.Pizza2.Add(pizza);
         }
-
     }
-
-}
 }

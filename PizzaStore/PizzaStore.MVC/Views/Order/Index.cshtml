@@ -28,7 +28,10 @@
         {
             <h5>Order: @Model.GetMostRecentOrder().OrderID, Total Cost: $@Model.GetMostRecentOrder().OrderValue, Order Time: @Model.GetMostRecentOrder().OrderTime</h5>
             <h5>Location: @Model.GetMostRecentOrder().LocationString</h5>
-            <h5>Pizza: @Model.GetMostRecentOrder().PizzaString</h5>
+            @foreach (var ps in Model.GetMostRecentOrder().PizzaStrings)
+            {
+                <h5>Pizza: @ps</h5>
+            }
             <button type="submit">Redo most recent Order</button>
         }
     </form>
@@ -42,7 +45,10 @@
                     <h5>----------------------------------------------------</h5>
                     <h5>Order: @po.OrderID, Total Cost: $@po.OrderValue, Order Time: @po.OrderTime</h5>
                     <h5>Location: @po.LocationString</h5>
-                    <h5>Pizza: @po.PizzaString</h5>
+                    @foreach (var ps in po.PizzaStrings)
+                    {
+                        <h5>Pizza: @ps</h5>
+                    }
                 </div>
             }
         }

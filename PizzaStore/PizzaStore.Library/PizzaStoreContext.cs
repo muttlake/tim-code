@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 
+
 namespace PizzaStore.Library
 {
     public partial class PizzaStoreContext : DbContext
@@ -270,6 +271,8 @@ namespace PizzaStore.Library
 
                 entity.Property(e => e.ModifiedDate).HasColumnType("datetime2(3)");
 
+                entity.Property(e => e.OrderId).HasColumnName("OrderID");
+
                 entity.Property(e => e.SauceId).HasColumnName("SauceID");
 
                 entity.HasOne(d => d.Cheese1Navigation)
@@ -287,6 +290,11 @@ namespace PizzaStore.Library
                     .HasForeignKey(d => d.CrustId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Pizza2_CrustID");
+
+                entity.HasOne(d => d.Order)
+                    .WithMany(p => p.Pizza2)
+                    .HasForeignKey(d => d.OrderId)
+                    .HasConstraintName("FK_Pizza2_OrderID2");
 
                 entity.HasOne(d => d.Sauce)
                     .WithMany(p => p.Pizza2)

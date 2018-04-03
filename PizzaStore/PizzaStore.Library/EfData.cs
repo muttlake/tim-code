@@ -27,6 +27,11 @@ namespace PizzaStore.Library
             return dbContext.Crust.ToList();
         }
 
+        public List<Pizza2> GetPizza2sForOrder(int orderID)
+        {
+            return dbContext.Pizza2.Where(p => p.OrderId == orderID).ToList();
+        }
+
         public bool ValidateLocation(int locID)
         {
             return dbContext.Location.Where(predicate: p => p.LocationId == locID).Count() == 1;
