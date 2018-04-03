@@ -328,8 +328,7 @@ update PizzaStore.[Order]
 set Active = 0;
 
 
-select * from PizzaStore.Customer;
-GO
+ 
 
 insert into PizzaStore.Customer(FirstName, LastName, AddressID, Phone, Email, ModifiedDate)
 values
@@ -337,7 +336,9 @@ values
 
 insert into PizzaStore.Customer(FirstName, LastName, AddressID, Phone, Email, ModifiedDate)
 values
-('Test9', 'Test9', 5, '2222222222', 't9@email.com', getdate());
+('test55', 'test55', 5, '2222222222', 't55@email.com', getdate()),
+('test66', 'test66', 5, '2222222222', 't66@email.com', getdate()),
+('test77', 'test77', 5, '2222222222', 't77@email.com', getdate());
 
 
 
@@ -348,3 +349,11 @@ select * from PizzaStore.[Order];
 
 
 select * from PizzaStore.Inventory;
+
+
+
+USE pizzastoredb;
+GO
+
+
+select * from PizzaStore.Customer;
