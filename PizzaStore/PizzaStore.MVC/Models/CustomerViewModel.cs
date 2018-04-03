@@ -11,6 +11,7 @@ namespace PizzaStore.MVC.Models
     {
         [Required]
         [Display(Name = "Customer Name")]
+        [DataType(DataType.Text)]
         public string CustomerName { get; set; }
 
         public int GetCustomerId()

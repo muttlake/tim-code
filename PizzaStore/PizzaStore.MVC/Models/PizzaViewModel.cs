@@ -27,6 +27,8 @@ namespace PizzaStore.MVC.Models
         public IList<SelectListItem> AvailableToppings { get; set; }
 
         [Required]
+        [DataType(DataType.Text)]
+        [StringLength(3, MinimumLength = 1)]
         public string PizzaQuantity { get; set; }
 
         public PizzaViewModel()

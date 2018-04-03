@@ -337,7 +337,7 @@ values
 
 insert into PizzaStore.Customer(FirstName, LastName, AddressID, Phone, Email, ModifiedDate)
 values
-('Test7', 'Test7', 5, '2222222222', 't7@email.com', getdate());
+('Test9', 'Test9', 5, '2222222222', 't9@email.com', getdate());
 
 
 
@@ -345,3 +345,6 @@ select * from PizzaStore.Pizza2;
 
 
 select * from PizzaStore.[Order];
+
+
+select * from PizzaStore.Inventory;

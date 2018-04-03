@@ -56,7 +56,7 @@ namespace PizzaStore.MVC.Models
             if (pizza.SauceId != null) { ps += string.Format(", Sauce: {0}", ef.GetSauceByID(pizza.SauceId.Value)); }
             if (pizza.Cheese1 != null) { ps += string.Format(", Cheeses: {0}", ef.GetCheeseByID(pizza.Cheese1.Value)); }
             if (pizza.Cheese2 != null) { ps += string.Format(", {0}", ef.GetCheeseByID(pizza.Cheese2.Value)); }
-            if (pizza.Topping1 != null) { ps += string.Format(", Toppings {0}", ef.GetToppingByID(pizza.Topping1.Value)); }
+            if (pizza.Topping1 != null) { ps += string.Format(", Toppings: {0}", ef.GetToppingByID(pizza.Topping1.Value)); }
             if (pizza.Topping2 != null) { ps += string.Format(", {0}", ef.GetToppingByID(pizza.Topping2.Value)); }
             if (pizza.Topping3 != null) { ps += string.Format(", {0}", ef.GetToppingByID(pizza.Topping3.Value)); }
             ps += string.Format(", Quantity: {0}", pizza.Quantity);

@@ -23,6 +23,7 @@ namespace PizzaStore.MVC.Models
     public class OrderViewModel
     {
 
+        [Required]
         public int LocationID { get; set; }
         public int CustomerID { get; set; }
         public string CustomerName { get; set; }
