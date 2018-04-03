@@ -42,8 +42,8 @@ namespace PizzaStore.MVC.Controllers
                 HttpContext.Session.SetInt32("CostOfOrder", (int)oh.TotalOrderValue);
                 oh.TotalOrderValue -= oh.Pizzas.Last().TotalPizzaCost.Value * oh.Pizzas.Last().Quantity;
                 oh.Pizzas.RemoveAt(oh.Pizzas.Count - 1);
-                if (oh.Pizzas.Count >= 1)
-                    return RedirectToAction("Index", "Pizza");
+                HttpContext.Session.Set<OrderHandler>("OrderHandler", oh);
+
                 return RedirectToAction("Index", "Pizza");
             }
 
@@ -52,13 +52,12 @@ namespace PizzaStore.MVC.Controllers
             if (!oih.GetInventorySufficiency())
             {
                 Console.WriteLine("Inventory not sufficient");
-                ViewBag.CompleteOrderProblem = "The Store does not have enough inventory to complete that order.";
-                ViewBag.PizzaProblem = "The Store does not have enough inventory to complete that order.";
+                ViewBag.ViewBag.BadLocation = "The Store does not have enough inventory to complete that order.";
                 oh.TotalOrderValue -= oh.Pizzas.Last().TotalPizzaCost.Value * oh.Pizzas.Last().Quantity;
-                oh.Pizzas.RemoveAt(oh.Pizzas.Count - 1);
-                if (oh.Pizzas.Count >= 1)
-                    return RedirectToAction("Index", "Pizza");
-                return RedirectToAction("Index", "Pizza");
+                oh.Pizzas.RemoveAll(p => true);
+                HttpContext.Session.Set<OrderHandler>("OrderHandler", oh);
+
+                return RedirectToAction("Index", "Order");
             }
 
             var completeOrder = new CompleteOrderViewModel(oh);
