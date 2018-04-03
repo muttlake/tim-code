@@ -15,47 +15,53 @@ namespace PizzaStore.MVC.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            Console.WriteLine("CO SessionData CustomerID is: {0}", HttpContext.Session.GetInt32("CustomerID"));
-            Console.WriteLine("CO SessionData CustomerName is: {0}", HttpContext.Session.GetString("CustomerName"));
-            Console.WriteLine("CO SessionData LocationID is: {0}", HttpContext.Session.GetInt32("LocationID"));
-            Console.WriteLine("CO SessionData CrustID is: {0}", HttpContext.Session.GetInt32("CrustID"));
-            Console.WriteLine("CO SessionData SauceID is: {0}", HttpContext.Session.GetInt32("SauceID"));
-            Console.WriteLine("CO SessionData CheeseIDString is: {0}", HttpContext.Session.GetString("CheeseIDs"));
-            Console.WriteLine("CO SessionData ToppingIDString is: {0}", HttpContext.Session.GetString("ToppingIDs"));
-            Console.WriteLine("CO SessionData PizzaQuantity is: {0}", HttpContext.Session.GetString("PizzaQuantity"));
+            var oh = HttpContext.Session.Get<OrderHandler>("OrderHandler");
+            Console.WriteLine("OrderHandlerObject: CustomerID: {0}", oh.CustomerID);
+            Console.WriteLine("OrderHandlerObject: LocationID: {0}", oh.LocationID);
+            Console.WriteLine("OrderHandlerObject: TotalOrderCost: {0}", oh.TotalOrderValue);
+            foreach (var pizza in oh.Pizzas)
+            {
+                Console.WriteLine("OrderHandlerObject: pizza crustID: {0}", pizza.CrustId);
+                Console.WriteLine("OrderHandlerObject: pizza sauceID: {0}", pizza.SauceId);
+                Console.WriteLine("OrderHandlerObject: pizza cheese1: {0}", pizza.Cheese1);
+                Console.WriteLine("OrderHandlerObject: pizza cheese2: {0}", pizza.Cheese2);
+                Console.WriteLine("OrderHandlerObject: pizza topping1: {0}", pizza.Topping1);
+                Console.WriteLine("OrderHandlerObject: pizza topping2: {0}", pizza.Topping2);
+                Console.WriteLine("OrderHandlerObject: pizza topping3: {0}", pizza.Topping3);
+                Console.WriteLine("OrderHandlerObject: pizza quantity: {0}", pizza.Quantity);
+            }
 
-            int custID = HttpContext.Session.GetInt32("CustomerID").Value;
-            int locID = HttpContext.Session.GetInt32("LocationID").Value;
-            int crustID = HttpContext.Session.GetInt32("CrustID").Value;
-            int sauceID = HttpContext.Session.GetInt32("SauceID").Value;
-            int pq = HttpContext.Session.GetInt32("PizzaQuantity").Value;
-            List<int> cheeseIDs = ConvertSessionStringToList("CheeseIDs");
-            List<int> toppingIDs = ConvertSessionStringToList("ToppingIDs");
-            
-
-
-
-            var completeOrder = new CompleteOrderViewModel(custID, locID, crustID, sauceID, cheeseIDs, toppingIDs, pq);
-
-            double totalOrderCost = completeOrder.TotalOrderCost();
-
+            //Check if Order is too Expensive
             JsonHandler jh = new JsonHandler();
-            if (totalOrderCost > jh.JsonObject.MAX_ORDER_TOTAL)
+            if (oh.TotalOrderValue > jh.JsonObject.MAX_ORDER_TOTAL)
             {
                 Console.WriteLine("totalOrderCost exceeds {0}", jh.JsonObject.MAX_ORDER_TOTAL );
-                HttpContext.Session.SetInt32("CostOfOrder", (int)totalOrderCost);
+                ViewBag.CompleteOrderProblem = string.Format("totalOrderCost ${0} exceeds limit of ${1}", oh.TotalOrderValue, jh.JsonObject.MAX_ORDER_TOTAL);
+                ViewBag.PizzaProblem = string.Format("totalOrderCost ${0} exceeds limit of ${1}", oh.TotalOrderValue, jh.JsonObject.MAX_ORDER_TOTAL);
+
+                HttpContext.Session.SetInt32("CostOfOrder", (int)oh.TotalOrderValue);
+                oh.TotalOrderValue -= oh.Pizzas.Last().TotalPizzaCost.Value * oh.Pizzas.Last().Quantity;
+                oh.Pizzas.RemoveAt(oh.Pizzas.Count - 1);
+                if (oh.Pizzas.Count >= 1)
+                    return RedirectToAction("Index", "Pizza");
                 return RedirectToAction("Index", "Pizza");
             }
+
             //Check inventory availability here
-            InventoryChecker ic = new InventoryChecker(locID);
-            if(!ic.checkInventory(crustID, sauceID, cheeseIDs, toppingIDs, pq))
+            OrderInventoryHandler oih = new OrderInventoryHandler(oh);
+            if (!oih.GetInventorySufficiency())
             {
                 Console.WriteLine("Inventory not sufficient");
+                ViewBag.CompleteOrderProblem = "The Store does not have enough inventory to complete that order.";
                 ViewBag.PizzaProblem = "The Store does not have enough inventory to complete that order.";
+                oh.TotalOrderValue -= oh.Pizzas.Last().TotalPizzaCost.Value * oh.Pizzas.Last().Quantity;
+                oh.Pizzas.RemoveAt(oh.Pizzas.Count - 1);
+                if (oh.Pizzas.Count >= 1)
+                    return RedirectToAction("Index", "Pizza");
                 return RedirectToAction("Index", "Pizza");
             }
 
-
+            var completeOrder = new CompleteOrderViewModel(oh);
 
             return View(completeOrder);
         }
@@ -63,59 +69,17 @@ namespace PizzaStore.MVC.Controllers
         [HttpPost]
         public IActionResult Index(CompleteOrderViewModel model)
         {
+            var oh = HttpContext.Session.Get<OrderHandler>("OrderHandler");
 
-            int custID = HttpContext.Session.GetInt32("CustomerID").Value;
-            int locID = HttpContext.Session.GetInt32("LocationID").Value;
-            int crustID = HttpContext.Session.GetInt32("CrustID").Value;
-            int sauceID = HttpContext.Session.GetInt32("SauceID").Value;
-            int pq = HttpContext.Session.GetInt32("PizzaQuantity").Value;
-            List<int> cheeseIDs = ConvertSessionStringToList("CheeseIDs");
-            List<int> toppingIDs = ConvertSessionStringToList("ToppingIDs");
-
-
-
-            InitialOrder initialOrder = new InitialOrder();
-            Console.WriteLine("Adding Initial Order...");
-            initialOrder.CreateNewOrderWithSinglePizza(locID, custID, crustID, sauceID,
-                                                       cheeseIDs, toppingIDs);
-            int pizzasAfterInitialPizza = pq - 1;
-            Console.WriteLine("Should have added Initial Order...");
-
-            int orderId = initialOrder.GetOrderId();
-
-            AddAdditionalPizza pizzaAdder = new AddAdditionalPizza();
-
-            if (pizzasAfterInitialPizza > 0)
-            {
-
-                for (int i = 0; i < pizzasAfterInitialPizza; i++)
-                {
-                    pizzaAdder.AddPizzaToOrder(orderId, crustID, sauceID, cheeseIDs, toppingIDs);
-                }
-            }
-            pizzaAdder.SaveChanges();
+            //Make order
+            OrderMaker om = new OrderMaker(oh);
+            om.MakeOrder();
 
             //Subtract Inventory
-            InventorySubtractor invSub = new InventorySubtractor(locID);
-            invSub.SubtractInventory(crustID, sauceID, cheeseIDs, toppingIDs, pq);
+            OrderInventoryHandler oih = new OrderInventoryHandler(oh);
+            oih.SubtractInventory();
 
             return RedirectToAction("Index", "ReviewOrder");
-        }
-
-        private List<int> ConvertSessionStringToList(string s)
-        {
-            if (HttpContext.Session.GetString(s).Length == 0)
-                return new List<int>();
-
-            string[] stringArray = HttpContext.Session.GetString(s).Split(",");
-            Console.WriteLine("Length of stringArray: {0}", stringArray.Length);
-
-            List<int> list = new List<int>();
-            foreach (var item in stringArray)
-            {
-                list.Add(Convert.ToInt32(item));
-            }
-            return list;
         }
 
     }

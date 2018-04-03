@@ -277,6 +277,60 @@ on pizzaTopping.ToppingID = topping.ToppingID;
 GO
 
 
+----------------------------------------------------------------------------------
+-- Trying to make a better version of Pizza that does not take so long to save to the database
+create table PizzaStore.Pizza2
+(
+	PizzaID int not null primary key identity(1,1)
+	, CrustID int not null -- FK references Crust
+	, SauceID int  -- FK references Sauce
+	, Cheese1 int  -- FK references Cheese
+	, Cheese2 int  -- FK references Cheese
+	, Topping1 int -- FK references Topping
+	, Topping2 int -- FK references Topping
+	, Topping3 int -- FK references Topping
+	, Quantity int not null
+	, TotalPizzaCost float
+	, ModifiedDate datetime2(3) not null
+	, Active bit not null default(1)
+);
+
+alter table PizzaStore.Pizza2
+	add OrderID int;
+
+
+-- Foreign keys for pizza table
+alter table PizzaStore.Pizza2
+	add constraint FK_Pizza2_CrustID foreign key (CrustID) references PizzaStore.Crust(CrustID)
+	on update cascade;
+
+alter table PizzaStore.Pizza2
+	add constraint FK_Pizza2_SauceID foreign key (SauceID) references PizzaStore.Sauce(SauceID)
+	on update cascade;
+
+alter table PizzaStore.Pizza2
+	add constraint FK_Pizza2_Cheese1 foreign key (Cheese1) references PizzaStore.Cheese(CheeseID)
+	on update cascade;
+
+alter table PizzaStore.Pizza2
+	add constraint FK_Pizza2_Cheese2 foreign key (Cheese2) references PizzaStore.Cheese(CheeseID)
+	on update no action;
+
+alter table PizzaStore.Pizza2
+	add constraint FK_Pizza2_Topping1 foreign key (Topping1) references PizzaStore.Topping(ToppingID)
+	on update cascade;
+
+alter table PizzaStore.Pizza2
+	add constraint FK_Pizza2_Topping2 foreign key (Topping2) references PizzaStore.Topping(ToppingID)
+	on update no action;
+
+alter table PizzaStore.Pizza2
+	add constraint FK_Pizza2_Topping3 foreign key (Topping3) references PizzaStore.Topping(ToppingID)
+	on update no action;
+
+alter table PizzaStore.Pizza2
+	add constraint FK_Pizza2_OrderID2 foreign key (OrderID) references PizzaStore.[Order](OrderID)
+	on update no action;
 /*
 alter table PizzaStore.Inventory
 	drop column LocationID

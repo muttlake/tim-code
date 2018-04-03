@@ -47,6 +47,7 @@ namespace PizzaStore.MVC
             // IMPORTANT: This session call MUST go before UseMvc()
             app.UseSession();
 
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
