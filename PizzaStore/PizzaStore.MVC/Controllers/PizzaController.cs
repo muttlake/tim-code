@@ -18,6 +18,15 @@ namespace PizzaStore.MVC.Controllers
             JsonHandler jh = new JsonHandler();
             if (HttpContext.Session.GetInt32("CostOfOrder") > jh.JsonObject.MAX_ORDER_TOTAL)
                 ViewBag.PizzaProblem = string.Format("Order Exceeds ${0}. It was $", jh.JsonObject.MAX_ORDER_TOTAL) + HttpContext.Session.GetInt32("CostOfOrder").ToString();
+
+            if (HttpContext.Session.GetInt32("InventoryProblem") == 1)
+            {
+                ViewBag.PizzaProblem = "Inventory insufficient for additional pizzas";
+                HttpContext.Session.SetInt32("InventoryProblem", 0);
+            }
+
+
+
             return View(new PizzaViewModel());
         }
 

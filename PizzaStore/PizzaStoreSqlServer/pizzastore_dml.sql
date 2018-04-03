@@ -308,6 +308,9 @@ where OrderID = 14;
 select * from PizzaStore.[Location];
 select * from PizzaStore.Inventory;
 
+update PizzaStore.Inventory
+set Crust_Thick_Count = 0
+Where InventoryID = 1;
 
 
 
@@ -330,7 +333,7 @@ GO
 
 insert into PizzaStore.Customer(FirstName, LastName, AddressID, Phone, Email, ModifiedDate)
 values
-('Test3', 'Test3', 5, '2222222222', 't3@email.com', getdate());
+('Test5', 'Test5', 5, '2222222222', 't5@email.com', getdate());
 
 
 

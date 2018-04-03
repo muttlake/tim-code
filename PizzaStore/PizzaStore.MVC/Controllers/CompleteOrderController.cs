@@ -52,12 +52,15 @@ namespace PizzaStore.MVC.Controllers
             if (!oih.GetInventorySufficiency())
             {
                 Console.WriteLine("Inventory not sufficient");
-                ViewBag.ViewBag.BadLocation = "The Store does not have enough inventory to complete that order.";
+                ViewBag.BadLocation = "The Store does not have enough inventory to complete that order.";
+                ViewBag.PizzaProblem = "The Store does not have enough inventory to complete that order.";
+                HttpContext.Session.SetInt32("InventoryProblem", 1);
+
                 oh.TotalOrderValue -= oh.Pizzas.Last().TotalPizzaCost.Value * oh.Pizzas.Last().Quantity;
-                oh.Pizzas.RemoveAll(p => true);
+                oh.Pizzas.RemoveAt(oh.Pizzas.Count - 1);
                 HttpContext.Session.Set<OrderHandler>("OrderHandler", oh);
 
-                return RedirectToAction("Index", "Order");
+                return RedirectToAction("Index", "Pizza");
             }
 
             var completeOrder = new CompleteOrderViewModel(oh);
