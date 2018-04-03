@@ -43,7 +43,7 @@ namespace PizzaStore.MVC.Controllers
                 oh.TotalOrderValue -= oh.Pizzas.Last().TotalPizzaCost.Value * oh.Pizzas.Last().Quantity;
                 oh.Pizzas.RemoveAt(oh.Pizzas.Count - 1);
                 if (oh.Pizzas.Count >= 1)
-                    return View();
+                    return RedirectToAction("Index", "Pizza");
                 return RedirectToAction("Index", "Pizza");
             }
 
@@ -57,7 +57,7 @@ namespace PizzaStore.MVC.Controllers
                 oh.TotalOrderValue -= oh.Pizzas.Last().TotalPizzaCost.Value * oh.Pizzas.Last().Quantity;
                 oh.Pizzas.RemoveAt(oh.Pizzas.Count - 1);
                 if (oh.Pizzas.Count >= 1)
-                    return View();
+                    return RedirectToAction("Index", "Pizza");
                 return RedirectToAction("Index", "Pizza");
             }
 
