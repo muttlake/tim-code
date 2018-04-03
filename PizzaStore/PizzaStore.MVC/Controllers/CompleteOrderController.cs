@@ -15,7 +15,6 @@ namespace PizzaStore.MVC.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-
             var oh = HttpContext.Session.Get<OrderHandler>("OrderHandler");
             Console.WriteLine("OrderHandlerObject: CustomerID: {0}", oh.CustomerID);
             Console.WriteLine("OrderHandlerObject: LocationID: {0}", oh.LocationID);
@@ -37,7 +36,14 @@ namespace PizzaStore.MVC.Controllers
             if (oh.TotalOrderValue > jh.JsonObject.MAX_ORDER_TOTAL)
             {
                 Console.WriteLine("totalOrderCost exceeds {0}", jh.JsonObject.MAX_ORDER_TOTAL );
+                ViewBag.CompleteOrderProblem = string.Format("totalOrderCost ${0} exceeds limit of ${1}", oh.TotalOrderValue, jh.JsonObject.MAX_ORDER_TOTAL);
+                ViewBag.PizzaProblem = string.Format("totalOrderCost ${0} exceeds limit of ${1}", oh.TotalOrderValue, jh.JsonObject.MAX_ORDER_TOTAL);
+
                 HttpContext.Session.SetInt32("CostOfOrder", (int)oh.TotalOrderValue);
+                oh.TotalOrderValue -= oh.Pizzas.Last().TotalPizzaCost.Value * oh.Pizzas.Last().Quantity;
+                oh.Pizzas.RemoveAt(oh.Pizzas.Count - 1);
+                if (oh.Pizzas.Count >= 1)
+                    return View();
                 return RedirectToAction("Index", "Pizza");
             }
 
@@ -46,7 +52,12 @@ namespace PizzaStore.MVC.Controllers
             if (!oih.GetInventorySufficiency())
             {
                 Console.WriteLine("Inventory not sufficient");
+                ViewBag.CompleteOrderProblem = "The Store does not have enough inventory to complete that order.";
                 ViewBag.PizzaProblem = "The Store does not have enough inventory to complete that order.";
+                oh.TotalOrderValue -= oh.Pizzas.Last().TotalPizzaCost.Value * oh.Pizzas.Last().Quantity;
+                oh.Pizzas.RemoveAt(oh.Pizzas.Count - 1);
+                if (oh.Pizzas.Count >= 1)
+                    return View();
                 return RedirectToAction("Index", "Pizza");
             }
 

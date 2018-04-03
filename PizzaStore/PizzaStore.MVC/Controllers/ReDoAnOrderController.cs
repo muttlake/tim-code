@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PizzaStore.Library;
 using PizzaStore.MVC.Models;
 
 namespace PizzaStore.MVC.Controllers
@@ -16,13 +17,7 @@ namespace PizzaStore.MVC.Controllers
         public IActionResult Index()
         {
             var raovm = new ReDoAnOrderViewModel(HttpContext.Session.GetInt32("CustomerID").Value);
-
-            HttpContext.Session.SetInt32("LocationID", raovm.LocationID);
-            HttpContext.Session.SetInt32("CrustID", raovm.GetCrustID());
-            HttpContext.Session.SetInt32("SauceID", raovm.GetSauceID());
-            HttpContext.Session.SetInt32("PizzaQuantity", raovm.GetPQ());
-            HttpContext.Session.SetString("CheeseIDs", raovm.GetCheeseIDString());
-            HttpContext.Session.SetString("ToppingIDs", raovm.GetToppingIDString());
+            HttpContext.Session.Set<OrderHandler>("OrderHandler", raovm.Oh);
 
             return View(raovm);
         }

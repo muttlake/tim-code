@@ -14,9 +14,11 @@
     <div class="form-group">
         <div>
             <h5>----------------------------------------------------</h5>
-            <h5>Total Cost: $@Model.PreviousOrder.OrderValue</h5>
-            <h5>Location: @Model.PreviousOrder.LocationString</h5>
-            <h5>Pizza: @Model.PreviousOrder.PizzaString</h5>
+            <h5>Location: @Model.Po.LocationString, Total Cost: $@Model.Po.OrderValue,</h5>
+            @foreach (var ps in Model.Po.PizzaStrings)
+            {
+                <h5>Pizza: @ps</h5>
+            }
         </div>
     </div>
     <form asp-controller="CompleteOrder" method="get">

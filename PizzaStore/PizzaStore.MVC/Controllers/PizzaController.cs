@@ -51,6 +51,7 @@ namespace PizzaStore.MVC.Controllers
             oh.Pizzas.Add(model.MakePizza());
             oh.TotalOrderValue += oh.Pizzas.Last().TotalPizzaCost.Value * oh.Pizzas.Last().Quantity;
             HttpContext.Session.Set<OrderHandler>("OrderHandler", oh);
+            ViewBag.CompleteOrderProblem = "";
 
             return RedirectToAction("Index", "CompleteOrder");
         }
