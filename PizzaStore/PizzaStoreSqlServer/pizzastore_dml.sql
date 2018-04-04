@@ -336,9 +336,8 @@ values
 
 insert into PizzaStore.Customer(FirstName, LastName, AddressID, Phone, Email, ModifiedDate)
 values
-('test55', 'test55', 5, '2222222222', 't55@email.com', getdate()),
-('test66', 'test66', 5, '2222222222', 't66@email.com', getdate()),
-('test77', 'test77', 5, '2222222222', 't77@email.com', getdate());
+('test88', 'test88', 5, '2222222222', 't55@email.com', getdate()),
+('test99', 'test99', 5, '2222222222', 't66@email.com', getdate());
 
 
 
