@@ -1,5 +1,3 @@
-
 ./PizzaStore.MVC
 ./PizzaStore.Client
 ./PizzaStore.Client/bin/Debug/netcoreapp2.0
-
