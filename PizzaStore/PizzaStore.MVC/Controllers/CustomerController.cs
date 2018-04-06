@@ -33,9 +33,6 @@ namespace PizzaStore.MVC.Controllers
                 HttpContext.Session.SetInt32("CostOfOrder", 0);
                 HttpContext.Session.SetInt32("InventoryProblem", 0);
 
-
-
-
                 return RedirectToAction("Index", "Order");
             }
             else
