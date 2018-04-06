@@ -29,12 +29,7 @@ namespace PizzaStore.Library
         {
             if (!optionsBuilder.IsConfigured)
             {
-                //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                //optionsBuilder.UseSqlServer(@"server=pizzastoredb.cxkf3wzoieaw.us-east-2.rds.amazonaws.com; database=pizzastoredb; user id=sqladmin; password=password123");
-                //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                //optionsBuilder.UseSqlServer(@"server=pizzastoredb.cxkf3wzoieaw.us-east-2.rds.amazonaws.com; database=pizzastoredb; user id=sqladmin; password=");
                 IConfiguration Configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.dev.json").Build();
-                //System.Console.WriteLine("AWContext connection string: " + Configuration.GetConnectionString("DefaultConnection"));
                 optionsBuilder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             }
         }

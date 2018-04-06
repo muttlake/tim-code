@@ -13,6 +13,14 @@ node
         }
     }
 
+    stage ('TEST')
+    {
+        dir ('PizzaStore/PizzaStore.Test/')
+        {
+            bat 'dotnet xunit -fxversion 2.0.6 -xml ../Tests/testresult.xml'
+        }
+    }
+
     stage ('ANALYZE')
     {
         dir ('PizzaStore/')
@@ -23,13 +31,6 @@ node
         }
     }
 
-    stage ('TEST')
-    {
-        dir ('PizzaStore/PizzaStore.Test/')
-        {
-            bat 'dotnet test'
-        }
-    }
 
     stage ('PACKAGE')
     {
@@ -43,7 +44,7 @@ node
     {
         dir ('PizzaStore/')
         {
-            bat 'C:\\Program Files (x86)\\IIS\\Microsoft Web Deploy V3\\msdeploy -verb:sync -source:iisApp="C:\\Program Files (x86)\\Jenkins\\workspace\\devops-demo\\PizzaStore\\Publish" -dest:iisApp="Default Web Site/DemoMVC"'
+            bat 'msdeploy -verb:sync -source:iisApp="C:\\Program Files (x86)\\Jenkins\\workspace\\devops-demo\\PizzaStore\\Publish" -dest:iisApp="Default Web Site/DemoMVC", -enableRule:AppOffline'
         }
     }
 
