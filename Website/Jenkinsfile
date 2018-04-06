@@ -31,5 +31,12 @@ node
         }
     }
 
+    stage ('PACKAGE')
+    {
+        dir ('PizzaStore/PizzaStore.MVC/')
+        {
+            bat 'dotnet publish --output ../Publish'
+        }
+    }
 
 }
