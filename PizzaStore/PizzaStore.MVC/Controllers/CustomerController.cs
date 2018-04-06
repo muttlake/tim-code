@@ -23,7 +23,7 @@ namespace PizzaStore.MVC.Controllers
         public IActionResult Index(CustomerViewModel model)
         {
             Console.WriteLine(model.CustomerName);
-            //System.Web.HttpContext.Current.Session["customerID"] = model.GetCustomerId();
+
             if (model.GetCustomerId() > 0)
             {
                 HttpContext.Session.SetString("CustomerName", model.CustomerName);

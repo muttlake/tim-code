@@ -36,7 +36,7 @@ namespace PizzaStore.MVC.Controllers
         {
             int pizzaQuantity = 0;
             bool validQuantity = Int32.TryParse(model.PizzaQuantity, out pizzaQuantity);
-            if(!(pizzaQuantity > 0)) { validQuantity = false; }
+            if(pizzaQuantity <= 0) { validQuantity = false; }
             if (ModelState.IsValid) // does same check as client side using [Required] annotations, this time they can't bypass it
             {
                 if (model.SelectedCheeses.Count > 2 || model.SelectedToppings.Count > 3 || !validQuantity || model.CrustID == 0 || model.SauceID == 0)

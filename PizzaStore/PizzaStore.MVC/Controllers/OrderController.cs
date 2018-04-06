@@ -21,9 +21,8 @@ namespace PizzaStore.MVC.Controllers
             var orderViewModel = new OrderViewModel(custID);
 
 
-            if (orderViewModel.HasPreviousOrders())
-                if (orderViewModel.ValidLocations.Count == 1)
-                    ViewBag.BadLocation = "You have ordered within two hours, so there is only one location";
+            if (orderViewModel.HasPreviousOrders() && orderViewModel.ValidLocations.Count == 1)
+                ViewBag.BadLocation = "You have ordered within two hours, so there is only one location";
 
             return View(orderViewModel);
         }
