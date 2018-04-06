@@ -23,6 +23,13 @@ node
         }
     }
 
+    stage ('TEST')
+    {
+        dir ('PizzaStore/PizzaStore.Test/')
+        {
+            bat 'dotnet test'
+        }
+    }
 
 
 }
