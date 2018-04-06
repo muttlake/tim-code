@@ -8,7 +8,7 @@ namespace PizzaStore.Library
 {
     public class OrderMaker
     {
-        private PizzaStoreContext dbContext = new PizzaStoreContext();
+        private readonly PizzaStoreContext dbContext = new PizzaStoreContext();
 
         public OrderHandler Oh { get; set; }
 

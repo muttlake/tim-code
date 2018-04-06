@@ -1,15 +1,28 @@
 node 
 {
-    stage ('Import')
+    stage ('IMPORT')
     {
         git url: 'https://github.com/1803-mar12-net/tim-code.git', branch: 'master', credentialId: 'github-token'
     }
 
-    stage ('Build')
+    stage ('BUILD')
     {
-        dir ('Adworks/')
+        dir ('PizzaStore/')
         {
             bat 'dotnet build'
         }
     }
+
+    stage ('ANALYZE')
+    {
+        dir ('PizzaStore/')
+        {
+            bat 'dotnet c:\\tools\\sonarqube\\SonarScanner.MSBuild.dll begin /k:dd-key-44'
+            bat 'dotnet build' //this build is a half build, not a full normal build
+            bat 'dotnet c:\\tools\\sonarqube\\SonarScanner.MSBuild.dll end'
+        }
+    }
+
+
+
 }

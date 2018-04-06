@@ -16,7 +16,7 @@ namespace PizzaStore.Library
 
     public class CopyAnOrder
     {
-        private PizzaStoreContext dbContext = new PizzaStoreContext();
+        private readonly PizzaStoreContext dbContext = new PizzaStoreContext();
         private List<PizzaOrderInfo> pizzasOrderedInfo { get; set; }
         private List<int> pizzaQuantities { get; set; }
 

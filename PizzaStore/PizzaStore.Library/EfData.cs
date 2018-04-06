@@ -10,7 +10,7 @@ namespace PizzaStore.Library
     public class EfData
     {
         // Something else is managing connection
-        private PizzaStoreContext dbContext = new PizzaStoreContext();
+        private readonly PizzaStoreContext dbContext = new PizzaStoreContext();
 
         public List<Pizza> ReadPizzas()
         {

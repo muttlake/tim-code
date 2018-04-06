@@ -7,7 +7,7 @@ namespace PizzaStore.Library
 {
     public class InventoryChecker
     {
-        private PizzaStoreContext dbContext = new PizzaStoreContext();
+        private readonly PizzaStoreContext dbContext = new PizzaStoreContext();
         public int InventoryID { get; set; }
 
         public InventoryChecker(int locID)

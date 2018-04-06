@@ -7,7 +7,7 @@ namespace PizzaStore.Library
 {
     public class TwoHourChecker
     {
-        private PizzaStoreContext dbContext = new PizzaStoreContext();
+        private readonly PizzaStoreContext dbContext = new PizzaStoreContext();
         public int CustomerID { get; set; }
         public int LocationID { get; set; }
         public DateTime OrderTime { get; set; }
