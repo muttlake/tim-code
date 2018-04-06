@@ -39,4 +39,12 @@ node
         }
     }
 
+    stage ('DEPLOY')
+    {
+        dir ('PizzaStore/')
+        {
+            bat 'msdeploy -verb:sync -source:iisApp="C:\Program Files (x86)\Jenkins\workspace\devops-demo\PizzaStore\Publish" -dest:iisApp="Default Web Site/DemoMVC"'
+        }
+    }
+
 }
