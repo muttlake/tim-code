@@ -31,6 +31,7 @@ namespace PizzaStore.Library
             {
                 IConfiguration Configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").Build();
                 optionsBuilder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+                Console.WriteLine("Configured SqlServer Connection.");
             }
         }
 
