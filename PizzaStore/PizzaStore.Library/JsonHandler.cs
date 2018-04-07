@@ -19,7 +19,7 @@ namespace PizzaStore.Library
     public class JsonHandler
     {
         //private string _jsonPath = "../PizzaStore.MVC/appsettings.json";
-        private string _jsonPath = "appsettings.json";
+        private string _jsonPath = "appsettings.dev.json";
 
         public JsonFormat JsonObject { get; set; }
 
