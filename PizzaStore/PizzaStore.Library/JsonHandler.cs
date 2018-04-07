@@ -18,7 +18,7 @@ namespace PizzaStore.Library
 
     public class JsonHandler
     {
-        private string _jsonPath = "/Revature/tim.code/PizzaStore/PizzaStore.MVC/appsettings.dev.json";
+        private string _jsonPath = "../PizzaStore.MVC/appsettings.json";
 
         public JsonFormat JsonObject { get; set; }
 

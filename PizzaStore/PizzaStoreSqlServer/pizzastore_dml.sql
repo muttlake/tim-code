@@ -361,3 +361,9 @@ select *  from PizzaStore.[Location]
 --from PizzaStore.[Location]
 --Where LocationID > 3;
 
+
+select * from PizzaStore.Cheese;
+
+delete 
+from PizzaStore.Cheese
+WHere CheeseID > 3;
