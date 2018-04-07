@@ -354,7 +354,10 @@ select * from PizzaStore.Inventory;
 USE pizzastoredb;
 GO
 
+select *  from PizzaStore.[Location]
 
-select * from PizzaStore.Customer;
 
+--delete
+--from PizzaStore.[Location]
+--Where LocationID > 3;
 
