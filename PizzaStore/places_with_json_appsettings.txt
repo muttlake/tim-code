@@ -1,3 +1,15 @@
-./PizzaStore.MVC
-./PizzaStore.Client
-./PizzaStore.Client/bin/Debug/netcoreapp2.0
+.:
+./PizzaStore.Client:
+-rw-r--r-- 1 shepb 197609  303 Apr  2 16:59 appsettings.dev.json
+-rw-r--r-- 1 shepb 197609  181 Apr  3 01:34 appsettings.json
+./PizzaStore.Client/bin/Debug/netcoreapp2.0:
+-rw-r--r-- 1 shepb 197609   303 Apr  2 16:59 appsettings.dev.json
+-rw-r--r-- 1 shepb 197609   181 Apr  2 20:13 appsettings.json
+./Publish:
+-rw-r--r-- 1 shepb 197609     178 Apr  1 21:43 appsettings.Development.json
+-rw-r--r-- 1 shepb 197609     303 Apr  2 16:58 appsettings.dev.json
+-rw-r--r-- 1 shepb 197609     181 Apr  3 01:34 appsettings.json
+./PizzaStore.MVC:
+-rw-r--r-- 1 shepb 197609  178 Apr  1 21:43 appsettings.Development.json
+-rw-r--r-- 1 shepb 197609  303 Apr  2 16:58 appsettings.dev.json
+-rw-r--r-- 1 shepb 197609  181 Apr  3 01:34 appsettings.json
