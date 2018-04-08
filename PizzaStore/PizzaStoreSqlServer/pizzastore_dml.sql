@@ -367,3 +367,5 @@ select * from PizzaStore.Cheese;
 delete 
 from PizzaStore.Cheese
 WHere CheeseID > 3;
+
+

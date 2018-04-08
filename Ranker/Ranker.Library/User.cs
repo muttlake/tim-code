@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace FoodRanker.Library
+namespace Ranker.Library
 {
     public class User
     {
         [Key]
         public int UserID {get; set; }
+
 		public string FirstName { get; set; }
 
 		public string LastName { get; set; }
@@ -16,8 +18,6 @@ namespace FoodRanker.Library
 		public string Username { get; set; }
 
 		public string Password { get; set; }
-
-        
 
         public User()
         {
@@ -36,6 +36,9 @@ namespace FoodRanker.Library
             Username = un;
             Password = pw;
         }
+
+	    //User can have many RankedItems
+	public virtual ICollection<RankedItem> RankedItems {get; set;}
 
     }
 }

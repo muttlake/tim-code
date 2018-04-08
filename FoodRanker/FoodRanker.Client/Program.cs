@@ -37,7 +37,8 @@ namespace FoodRanker.Client
                     Console.Write("Enter Stop to Stop: "); 
                     stop = Console.ReadLine(); 
                 }
-                                // Display all Blogs from the database 
+                
+                // Display all Blogs from the database 
                 var query = from b in db.Users 
                             select b; 
     

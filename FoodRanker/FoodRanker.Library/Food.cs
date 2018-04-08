@@ -9,8 +9,9 @@ namespace FoodRanker.Library
         public int FoodID { get; set;}
         public string Name { get; set; }
 
-        public int AverageRank { get; set; }
+        public double AverageRank { get; set; }
 
+        public int FoodTypeID { get; set; }
         public virtual FoodType FoodType { get; set; }
 
 
