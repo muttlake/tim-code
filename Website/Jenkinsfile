@@ -7,23 +7,23 @@ node
 
     stage ('BUILD')
     {
-        dir ('PizzaStore/')
+        dir ('WeatherApp/')
         {
             bat 'dotnet build'
         }
     }
 
-    stage ('TEST')
-    {
-        dir ('PizzaStore/PizzaStore.Test/')
-        {
-            bat 'dotnet xunit -fxversion 2.0.6 -xml ../Tests/testresult.xml'
-        }
-    }
+    // stage ('TEST')
+    // {
+    //     dir ('PizzaStore/PizzaStore.Test/')
+    //     {
+    //         bat 'dotnet xunit -fxversion 2.0.6 -xml ../Tests/testresult.xml'
+    //     }
+    // }
 
     stage ('ANALYZE')
     {
-        dir ('PizzaStore/')
+        dir ('WeatherApp/')
         {
             bat 'dotnet c:\\tools\\sonarqube\\SonarScanner.MSBuild.dll begin /k:dd-key-44'
             bat 'dotnet build' //this build is a half build, not a full normal build
@@ -34,7 +34,7 @@ node
 
     stage ('PACKAGE')
     {
-        dir ('PizzaStore/PizzaStore.MVC/')
+        dir ('WeatherApp/WeatherApp.MVC/')
         {
             bat 'dotnet publish --output ../Publish'
         }
@@ -42,9 +42,9 @@ node
 
     stage ('DEPLOY')
     {
-        dir ('PizzaStore/')
+        dir ('WeatherApp/')
         {
-            bat 'msdeploy -verb:sync -source:iisApp="C:\\Program Files (x86)\\Jenkins\\workspace\\devops-demo\\PizzaStore\\Publish" -dest:iisApp="Default Web Site/DemoMVC", -enableRule:AppOffline'
+            bat 'msdeploy -verb:sync -source:iisApp="C:\\Program Files (x86)\\Jenkins\\workspace\\devops-demo\\WeatherApp\\Publish" -dest:iisApp="Default Web Site/WeatherApp", -enableRule:AppOffline'
         }
     }
 

@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 using WeatherApp.Client;
+using WeatherApp.Library;
 
 namespace WeatherApp.Client.Migrations
 {
