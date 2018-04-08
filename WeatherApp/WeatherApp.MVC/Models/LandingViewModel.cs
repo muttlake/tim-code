@@ -13,6 +13,7 @@ namespace WeatherApp.MVC.Models
         public LandingViewModel(User u)
         {
             User = u;
+
         }
     }
 }
