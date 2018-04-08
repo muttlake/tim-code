@@ -21,6 +21,8 @@ namespace WeatherApp.MVC
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDistributedMemoryCache(); // Adds a default in-memory implementation of IDistributedCache
+            services.AddSession();
             services.AddMvc();
         }
 
@@ -29,6 +31,7 @@ namespace WeatherApp.MVC
         {
             if (env.IsDevelopment())
             {
+                app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
             }
             else
@@ -37,6 +40,11 @@ namespace WeatherApp.MVC
             }
 
             app.UseStaticFiles();
+
+
+            // IMPORTANT: This session call MUST go before UseMvc()
+            app.UseSession();
+
 
             app.UseMvc(routes =>
             {

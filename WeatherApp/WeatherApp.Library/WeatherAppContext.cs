@@ -5,7 +5,7 @@ using WeatherApp.Library;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
-namespace WeatherApp.Client
+namespace WeatherApp.Library
 {
 	public class WeatherAppContext : DbContext, IDisposable
 	{

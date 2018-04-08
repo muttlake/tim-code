@@ -17,16 +17,14 @@ namespace WeatherApp.MVC.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
+            ViewData["Message"] = "This Weather App was made by me.";
 
             return View();
         }
 
-        public IActionResult Contact()
+        public IActionResult Login()
         {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
+            return RedirectToAction("Index", "Login");
         }
 
         public IActionResult Error()

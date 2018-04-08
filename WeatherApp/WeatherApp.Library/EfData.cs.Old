@@ -1,0 +1,19 @@
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using WeatherApp.Client;
+
+namespace WeatherApp.Library
+{
+    public class EfData
+    {
+        // Something else is managing connection
+        private readonly WeatherAppContext dbContext = new WeatherAppContext();
+
+        public List<User> ReadUsers()
+        {
+            return dbContext.User.ToList();
+        }
+        
+    }
+}
