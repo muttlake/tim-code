@@ -16,7 +16,7 @@ namespace WeatherApp.MVC.Controllers
             return View(new LoginViewModel());
         }
 
-        [HttpPost]
+        [HttpPost] 
         public IActionResult Index(LoginViewModel model)
         {
             Console.WriteLine(model.Email);
