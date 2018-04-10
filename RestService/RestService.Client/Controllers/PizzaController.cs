@@ -6,7 +6,8 @@ using RestService.Client.Models;
 
 namespace RestService.Client.Controllers
 {
-    [EnableCors("allow all")] //Enable Cross Origin Resource Sharing
+    [EnableCors("allowAll")] //Enable Cross Origin Resource Sharing
+    [Produces("application/json")] // Means every action result will always be a json type result
     [Route("pizza/[action]")]
     public class PizzaController : Controller
     {
