@@ -1,0 +1,46 @@
+﻿@*
+    For more information on enabling MVC etc etc etc
+*@
+
+@model Blog2.Client.Models.HomeViewModel
+
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "DotNet Blog";
+}
+
+<header>
+    <h1>The Blog</h1>
+</header>
+
+<main>
+    <ul>
+        @{
+            foreach (var item in Model.Articles)
+            {
+                <li>
+                    <article>
+                        <header>
+                            <h2>@item.Title</h2>
+                        </header>
+                        <p>@item.Content</p>
+                        <footer>
+                            <span>@item.Author</span>
+                        </footer>
+                    </article>
+                </li>
+            }
+        }
+
+    </ul>
+    <article></article>
+
+</main>
+
+
+<footer>
+    <small>
+        copyright &copy; 2018 tim shepard, all rights reserved
+    </small>
+</footer>

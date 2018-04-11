@@ -1,5 +1,6 @@
 using System;
 using System.Net.Http;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using RestService.Client.Models;
@@ -16,9 +17,11 @@ namespace RestService.Client.Controllers
         // [HttpGet("{msg}")] //msg is mandatory
         // [HttpGet()]
         [HttpGet("{msg}")]
-        public IActionResult Read(string msg, string extra)
+        //public IActionResult Read(string msg, string extra)
+        public async Task<IActionResult> Read(string msg, string extra)
         {
-            return Ok(new PizzaResult(msg));
+            return await Task.Run( () => Ok(new PizzaResult(msg))); // want to return a task because we do not know how long Ok will take
+            // return Ok(new PizzaResult(msg));
             //return new JsonResult(new PizzaResult(msg + extra));  //You can return a Json or message directly
             //return RedirectPermanent(new PizzaResult(msg)); //tells DNS to permanently redirect
         }
