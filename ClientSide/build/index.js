@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var Person = (function () {
     function Person(first, last) {
         this.firstName = first;
@@ -8,5 +8,4 @@ var Person = (function () {
     return Person;
 }());
 exports.Person = Person;
-var p = new Person("Jimmy", "CricketSnap");
-//# sourceMappingURL=index.js.map
+var x = new Person("Ally", "Whatsnaggle");

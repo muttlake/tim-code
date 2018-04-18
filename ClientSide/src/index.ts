@@ -1,6 +1,7 @@
 
 //export means we want this to be available to other people
 export class Person { 
+// class Person { 
     
     firstName: string;
     lastName: string;
@@ -14,4 +15,11 @@ export class Person {
 
 }
 
-var p = new Person("Jimmy", "CricketSnap");
+var x = new Person("Ally", "Whatsnaggle");
+
+// var p = new Person("Jimmy", "CricketSnap");
+
+// console.log("inside index.ts");
+
+// console.log(x);
+// console.log(p);

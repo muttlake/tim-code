@@ -1,20 +1,18 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
-        "noImplicitAny": true,
-        "removeComments": true,
-        "preserveConstEnums": true,
-        "sourceMap": true,
-        "alwaysStrict": true,
-        "charset": "utf-8",
-        "outDir": "./build",
-        "target": "es3",
-        "types" : [
-            "node"
-        ]
-    },
+            "alwaysStrict": true,
+            "charset": "utf-8",
+            "outDir": "./build",
+            // "module":"es6",
+            "module":"commonjs",
+            "target": "es5",
+            "removeComments": true,
+            "types": [
+                "node"
+            ]
+        },
+
     "include": [
         "**/*.ts"
     ]
 }
-

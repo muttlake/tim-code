@@ -1,6 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var index_js_1 = require("./index.js");
-var x = new index_js_1.Person("Ally", "Whatsnaggle");
+var x = new index_js_1.Person("Herman", "Ghhiijij");
 console.log(x);
-//# sourceMappingURL=main.js.map

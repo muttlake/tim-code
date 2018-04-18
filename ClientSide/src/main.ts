@@ -1,5 +1,7 @@
-import { Person as p } from "./index.js";
+import { Person } from "./index.js";
 
-var x = new p("Ally", "Whatsnaggle");
+
+
+var x = new Person("Herman", "Ghhiijij");
 
 console.log(x);
