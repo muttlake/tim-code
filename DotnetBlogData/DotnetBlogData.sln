@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotnetBlogData.Cli", "Dotne
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotnetBlogData.DB", "DotnetBlogData.DB\DotnetBlogData.DB.csproj", "{489A04A3-8C0D-4A6D-B76D-B1E8D416F982}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotnetBlogData.Svc", "DotnetBlogData.Svc\DotnetBlogData.Svc.csproj", "{2EEBBAC2-60BE-46D6-9004-F84CB6516FAC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{489A04A3-8C0D-4A6D-B76D-B1E8D416F982}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{489A04A3-8C0D-4A6D-B76D-B1E8D416F982}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{489A04A3-8C0D-4A6D-B76D-B1E8D416F982}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EEBBAC2-60BE-46D6-9004-F84CB6516FAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EEBBAC2-60BE-46D6-9004-F84CB6516FAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EEBBAC2-60BE-46D6-9004-F84CB6516FAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EEBBAC2-60BE-46D6-9004-F84CB6516FAC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
