@@ -1,0 +1,16 @@
+<h5> TODOOOODODODODODO </h5>
+
+<form action="">
+    <label for="todo">content</label>
+    <input type="text" id="todo" [(ngModel)]="todoItem.content" name="content">
+    <button type="button"  (click)="add(todoItem)">OK</button> 
+</form>
+<ul>
+    <li *ngFor="let t of todoList">
+        {{ t.content }}
+    </li>
+</ul>
+
+<form action="">
+    <button type="button" (click)="callService()">Call Service</button>
+</form>
