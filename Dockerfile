@@ -1,6 +1,7 @@
 #Here we create application
 FROM microsoft/dotnet as build
 WORKDIR /docker
+#COPY ./App/App.csproj ./app # /docker/app/App.csproj
 RUN dotnet new mvc --name HelloMVC
 WORKDIR /docker/HelloMVC
 RUN dotnet build
