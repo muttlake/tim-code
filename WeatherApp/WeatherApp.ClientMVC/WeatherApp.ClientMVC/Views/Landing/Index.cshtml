@@ -1,0 +1,65 @@
+﻿@{
+    ViewData["Title"] = "Landing Page";
+
+    System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+    dtDateTime = dtDateTime.AddSeconds(Model.HomeZipRootObject.dt).ToLocalTime();
+}
+<link href="~/css/modal.css" rel="stylesheet" type="text/css" />
+
+@model WeatherApp.ClientMVC.Models.LandingViewModel
+
+<div class="container">
+    <h3>Welcome @Model.User.FirstName @Model.User.LastName</h3>
+    <h4>Your Current Weather</h4>
+    <div class="row">
+        <div class="col-md-5" style="float: left">
+            <div class="thumbnail">
+                <center><h4>Current Weather:</h4></center>
+                <div>
+                    <p style="float: left"><img src=@Model.WeatherIcon alt="Weather Icon" width="150px"></p><br>
+                    <b> @Model.HomeZipRootObject.main.temp<sup>°</sup></b><br>
+                    <b>@Model.HomeZipRootObject.weather[0].description</b>
+                </div>
+                <div class="caption">
+                    <p>
+                        City:<b> @Model.HomeZipRootObject.name</b><br><br>
+                        Last Weather Update:<b> @dtDateTime</b>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <h5>All Posts by @Model.User.FirstName  @Model.User.LastName</h5>
+        @foreach (var pww in Model.PostsWithWeather)
+        {
+            <div class="col-md-4">
+                <div class="row">
+                    <p style="float:left">
+                        <img style="float: left" src=@pww.WeatherIconImage alt="Card image cap" />
+                        <h5 class="card-title"><b>@pww.Post.PublishDateTime.ToLocalTime() Post</b></h5>
+                    </p><br />
+                </div>
+                <div class="row">
+                    <div style="float: left; margin: 1px 25px 1px 1px">
+                        <p style="float: left"><a href="~/UserFiles/Images/@pww.Post.ImageFile"><img src="~/UserFiles/Images/@pww.Post.ImageFile" height="100px" width="100px" /></a></p>
+                    </div>
+                    <div>
+                        <b> @pww.Post.TempFahr°</b>
+                        <b> @pww.Post.WeatherType</b><br />
+                        <p>Zip: <b>@pww.Post.ZipCode </b></p>
+                        <p>Blog Post: <b>@pww.Post.BlogPost</b></p><br />
+                    </div>
+
+                </div>
+                <div class="row">
+                    <small class="text-muted">Last updated:<b> @pww.Post.PublishDateTime.ToLocalTime() </b></small>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+

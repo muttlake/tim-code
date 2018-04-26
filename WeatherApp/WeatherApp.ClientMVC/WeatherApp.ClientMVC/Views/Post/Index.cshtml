@@ -1,0 +1,64 @@
+﻿@model WeatherApp.ClientMVC.Models.PostViewModel
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="col-md-12">
+    <h5>Add Post</h5>
+    @using (Html.BeginForm("PutNewPost", "Post", FormMethod.Post))
+    {
+        @*@Html.TextBoxFor(m => m.NewPost.BlogPost)
+        @Html.TextBoxFor(m => m.NewPost.ImageTitle)
+        @Html.TextBoxFor(m => m.NewPost.ImageDescription)*@
+        <label class="control-label col-md-1">Image</label>
+        <div class="col-md-6">
+            <input type="file" id="imageUrl" name="imageUrl" />
+        </div>
+    }
+    <form action="LandingViewModel" method="put" name="PostImage" enctype="multipart/form-data">
+        <div class="form-group row">
+            <label class="control-label col-md-1">Title</label>
+            <div class="col-md-6">
+                <input type="text" id="imageTitle" name="imageTitle" placeholder="Enter image title" size="30" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="control-label col-md-1">Description</label>
+            <div class="col-md-6">
+                <input type="text" id="imageDescription" name="imageDescription" placeholder="Enter image description" size="30" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="control-label col-md-1">Name</label>
+            <div class="col-md-6">
+                <input type="text" id="imageName" name="imageName" placeholder="Enter image name" size="30" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="control-label col-md-1">Type</label>
+            <div class="col-md-6">
+                <input type="text" id="imageType" name="imageType" placeholder="Enter image type (optional)" size="30" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="control-label col-md-1">Album</label>
+            <div class="col-md-6">
+                <input type="text" id="imageAlbum" name="imageAlbum" placeholder="Enter album name (optional)" size="30" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="control-label col-md-1">Image</label>
+            <div class="col-md-6">
+                <input type="file" id="imageUrl" name="imageUrl" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-offset-2">
+                <input type="submit" value="Post" class="btn btn-default" />
+            </div>
+        </div>
+    </form>
+</div>

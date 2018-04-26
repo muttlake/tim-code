@@ -1,0 +1,94 @@
+﻿@{
+    ViewData["Title"] = "Feed Page";
+}
+<link href="~/css/modal.css" rel="stylesheet" type="text/css" />
+
+@model WeatherApp.ClientMVC.Models.FeedViewModel
+
+<div>
+    <h3> @ViewData["Title"] </h3>
+
+    <div>
+        <form asp-controller="Landing" method="get">
+            <button type="submit" class="btn btn-success">Go back to your Landing page</button>
+        </form>
+    </div>
+    <div>
+        <br>
+        <form asp-controller="Feed" method="post">
+            <p>Apply Filters</p>
+            <div class="form-group">
+                <label>Temperature Filter:</label>
+                <input type="text" class="form-control" name="TempFahrFilter" placeholder="Temperature Filter"><br>
+            </div>
+
+            <div class="form-group">
+                <label>Weather Type Filter:</label>
+                <input type="text" class="form-control" name="WeatherTypeFilter" placeholder="Weather Type Filter"><br>
+            </div>
+
+            <div class="form-group">
+                <label>ZipCode Filter:</label>
+                <input type="text" class="form-control" name="ZipCodeFilter" placeholder="Zip Code"><br>
+            </div>
+            <button type="submit" class="btn btn-success">Apply Filters</button>
+        </form>
+
+        <h5>Posts</h5>
+        @foreach (var blog in Model.FeedWithWeather)
+        {
+            @*<div class="col-md-4" style="border: 1px solid #808080">*@
+            <div class="col-md-4">
+                <div class="row">
+                    <p style="float:left">
+                        <img style="float: left" src=@blog.WeatherIconImage alt="Card image cap" />
+                        <h5 class="card-title"><b>@blog.Post.PublishDateTime.ToLocalTime() Post</b></h5>
+                    </p><br />
+                </div>
+                <div class="row">
+                    <div style="float: left; margin: 1px 25px 1px 1px">
+                        <p style="float: left"><a href="~/UserFiles/Images/@blog.Post.ImageFile"><img id="myImg" src="~/UserFiles/Images/@blog.Post.ImageFile" height="100px" width="100px" /></a></p>
+                        <div id="myModal" class="modal">
+                            <span class="close">&times;</span>
+                            <img class="modal-content" id="~/UserFiles/Images/@blog.Post.ImageFile">
+                            <div id="@blog.Post.BlogPost"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <b>@blog.Post.TempFahr°</b>
+                        <b> @blog.Post.WeatherType</b><br />
+                        <p>Zip: <b>@blog.Post.ZipCode </b></p>
+                        <p>Blog Post: <b>@blog.Post.BlogPost</b></p>
+                        <p>Posted by: <b>@blog.Post.Username</b></p><br />
+                    </div>
+
+                </div>
+                <div class="row">
+                    <small class="text-muted">Last updated:<b> @blog.Post.PublishDateTime</b></small>
+                </div>
+            </div>
+        }
+        <script>
+            // Get the modal
+            var modal = document.getElementById('myModal');
+
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById('myImg');
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function () {
+                modal.style.display = "block";
+                modalImg.src = this.src;
+                captionText.innerHTML = this.alt;
+            }
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function () {
+                modal.style.display = "none";
+            }
+        </script>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+﻿@{
+    ViewData["Title"] = "Login Page";
+}
+@model WeatherApp.ClientMVC.Models.LoginViewModel
+
+
+<div class="container">
+    <h3> @ViewData["Title"] </h3>
+    <form asp-controller="Login" method="post">
+        
+        <div class="row">
+            <div class="col-md-6">
+                <label>Login Below</label><br>
+                <label>Don't have an account yet? <a href='@Url.Action("Index", "Register")' class="elements" method="get">
+                <span>Register Here</span>
+                </a></label>
+            </div>
+        </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon2">Email:</span>
+                <input asp-for="Email" autocomplete="off" type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon2">
+            </div>
+        </div>
+    </div>
+    <br>
+        <!-- <div class="input-group">
+        <span class="input-group-addon" id="sizing-addon2">Password:</span>
+        <input asp-for="Password" autocomplete="off" type="password" class="form-control" placeholder="Password" aria-describedby="sizing-addon2">
+        </div> -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon2">Password:</span>
+                <input asp-for="Password" autocomplete="off" type="password" class="form-control" placeholder="Password" aria-describedby="sizing-addon2">
+            </div>
+        </div>
+    </div>
+    <br>
+        
+        <!-- <div class="form-group">
+            <label> </label>
+            <input asp-for= autocomplete="off" type= />
+        </div> -->
+    <div class="row">
+        <div class="col-md-4">
+        <button type="submit" class="btn btn-success">Login to See Weather Data</button>
+        </div>
+    </div>
+    </form>
+</div>

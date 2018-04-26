@@ -207,7 +207,7 @@ drwxrwxrwx 1 vagrant vagrant     0 Apr 25 19:34 DockerApp
 -rwxrwxrwx 1 vagrant vagrant 38491 Apr 25 19:57 ubuntu-xenial-16.04-cloudimg-console.log
 -rwxrwxrwx 1 vagrant vagrant   674 Apr 25 19:59 Vagrantfile
 vagrant@devbox:/vagrant$
-vagrant@devbox:/vagrant$ docker container run --name nginx --rm -d -p 9000:80 nginx
+vagrant@devbox:/vagrant$  
 Unable to find image 'nginx:latest' locally
 latest: Pulling from library/nginx
 2a72cbf407d6: Pull complete

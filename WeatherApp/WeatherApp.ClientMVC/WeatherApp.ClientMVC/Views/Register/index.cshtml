@@ -1,0 +1,76 @@
+@{
+   ViewData["Title"] = "Index";
+}
+
+<div class="container">
+<h2>Create Account</h2><br><br>
+
+<form asp-controller="Register" method="post">
+ 
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <label>First name:</label>
+      <input type="text" class="form-control" name="usr.FirstName" placeholder="Enter Firstname"><br>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <label>Last name:</label>
+      <input type="text" class="form-control" name="usr.LastName" placeholder="Enter Lastname"><br>
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <label>Email:</label>
+      <input type="text" class="form-control" name="usr.Email" placeholder="Enter Email "><br>
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <label>Home Zip Code:</label>
+      <input type="text" class="form-control" name="InputZipCode" placeholder="Enter ZipCode"><br>
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <label>Username:</label>
+      <input type="text" class="form-control" name="usr.UserName" placeholder="Enter Username "><br>
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <label>Password:</label>
+      <input type="password" class="form-control" name="usr.Password" placeholder="Enter Password"><br>
+    </div>
+ </div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-6">
+    <button type="submit" class="btn btn-success">Login</button>
+  </div>
+</div>
+</form>
+
+</div>

@@ -1,0 +1,72 @@
+@{
+    ViewData["Title"] = "Index";
+
+    System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+    dtDateTime = dtDateTime.AddSeconds(Model.ZipRootObject.dt).ToLocalTime();
+}
+@model WeatherApp.ClientMVC.Models.MakeAPostViewModel
+
+<div class="container">
+
+
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Make a Post</h2>
+            @using (Html.BeginForm("Index", "MakeAPost", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <input type="file" name="file" />
+                <input type="text" name="NewPost.BlogPost" />
+                <input type="submit" value="OK" />
+            }
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="class=" thumbnail"">
+                <center><h4>Current Weather:</h4></center>
+                <p style="float: left;"><img src=@Model.WeatherIcon alt="Weather Icon" width="150px" ;></p><br><br>
+                <b> @Model.ZipRootObject.main.temp<sup></sup></b></br>
+                <b> @Model.ZipRootObject.weather[0].description</b>
+                <div>
+                    <br>
+                    <div class="caption">
+                        <p>
+                            City:<b> @Model.ZipRootObject.name</b><br><br>
+                            DateTime:<b> @dtDateTime</b>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*<form asp-controller="MakeAPost" method="post" enctype="multipart/form-data" asp-action="UploadFiles">
+            <p>Create a New Post, @Model.User.FirstName @Model.User.LastName</p>
+            @*<div class="form-group">
+                    <label>Image File:</label>
+                    <input type="text" class="form-control" name="NewPost.ImageFile" placeholder="Enter Weather Image"><br>
+                </div>
+                <div class="form-group">
+                    <label>Blog Post</label>
+                    <input type="text" class="form-control" name="NewPost.BlogPost" placeholder="Enter Weather Blog Post"><br>
+                </div>
+            <div class="form-group">
+                <div class="container">
+                    <label>Image File</label>
+                    <input asp-for="NewPost.ImageFile" type="file" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="container">
+                    <label>Blog Post</label>
+                    <input asp-for="NewPost.BlogPost" value="" />
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success">Make this post about the Weather</button>
+
+        </form>*@
+</div>
