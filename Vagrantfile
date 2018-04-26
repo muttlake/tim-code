@@ -12,7 +12,8 @@ Vagrant.configure("2") do |co|
   co.vm.synced_folder ".", "/vagrant"
 
 # DEFINITION - NETWORK
-  co.vm.network "forwarded_port", guest: 9000, host: 9000, host_ip: "127.0.0.1  co.vm.network "forwarded_port", guest: 8000, host: 8000, host_ip: "127.0.0.1"
+  co.vm.network "forwarded_port", guest: 9000, host: 9000, host_ip: "127.0.0.1" 
+#  co.vm.network "forwarded_port", guest: 8000, host: 8000, host_ip: "127.0.0.1"
 #  co.vm.network "forwarded_port", guest: 4000, host: 4000, host_ip: "127.0.0.1"
 
 # DEFINITION - PROVIDER
