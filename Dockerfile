@@ -1,29 +1,39 @@
-#Here we create application
-FROM microsoft/dotnet as build
+#ng.Dockerfile
+
+
+#build stage
+FROM node as build
+RUN chown -R node:node /usr/local/lib/node_modules
+RUN chown -R node:node /usr/local/bin 
+
+# node user gets created, use it to install npm
+USER node
+RUN npm install -g @angular/cli
+
+USER root
 WORKDIR /docker
-RUN git clone https://github.com/1803-mar12-net/proj2-derek-joseph-tim.git
-RUN ls -lrt proj2-derek-joseph-tim
-RUN dotnet build proj2-derek-joseph-tim/WeatherApp/WeatherApp.ClientMVC/WeatherApp.ClientMVC.sln
-RUN dotnet publish proj2-derek-joseph-tim/WeatherApp/WeatherApp.ClientMVC --output ./bin
-ENTRYPOINT [ "dotnet" ]
+RUN ng new HelloNG
+WORKDIR /docker/HelloNG
+RUN ng build
 
-# What is a stage build ?
-# The ability to run a peice of code when you don't need anything
-# In Jenkins pipeline, you only deployed just the application
-# We do not need to attach to application the build tools
-# We need aspnetcore to create application
-# but we only need runtime to deploy.
+# USER root
+# RUN npm install @angular/cli
+# #RUN ls -R -lrt | grep -e "ng"
+# #RUN chown -R 777 *
+# #WORKDIR node_modules/@angular/cli/bin
+# RUN ls -l
+# RUN node_modules/@angular/cli/bin/ng new HelloNG
+# RUN ls -lrt
+# WORKDIR /docker/HelloNG
+# RUN ng build
+# RUN pwd
+# RUN ls -lrt
 
-#Here we install runtime
-FROM microsoft/aspnetcore
-WORKDIR /publish
-COPY --from=build  /docker/proj2-derek-joseph-tim/WeatherApp/WeatherApp.ClientMVC/WeatherApp.ClientMVC/bin .
+
+# #serve stage
+FROM nginx:1.12
+COPY --from=build /docker/HelloNG/dist /usr/share/nginx/html
 RUN pwd
 RUN ls -lrt
-ENV ASPNET_URLS="http://*:4200"
-EXPOSE 4200 80
-CMD [ "dotnet", "WeatherApp.ClientMVC.dll" ]
-
-
-
-# We want dotnet run when we call the image
+EXPOSE 80
+# EOF
