@@ -3,34 +3,40 @@
 # There are different versions of the parser for the docker compose file
 version: '3.6'
 
-# This has 2 services, each service contains 2 containers,
-# both services are on the same network: 'skynet', so they can communicate
+
 services:
+
   ng:
-    image: muttlake/angular
+    image: web:ng
     deploy: 
-      replicas:
+      replicas: 2
       restart_policy:
         condition: on-failure
         delay: 10s
-      ports:
-        - '9000:80'
-      networks:
-        - skynet
+    ports:
+      - '9000:80'
+    networks:
+      - skynet
+    volumes:
+      - dockervol:/usr/share/nginx/html
 
   mvc:
-    image: muttlake/mvc
+    image: web:mvc
     deploy:
       replicas: 2
       restart_policy:
         condition: on-failure
         delay: 10s
-      ports:
-        - '9000:80'
-      networks:
-        - skeynet
+    ports:
+      - '9001:80'
+    networks:
+      - skynet
+    # volumes:
+    #   - dockervol:/publish
 
 volumes:
+  dockervol:
+    external: true
 
 networks:
   skynet:

@@ -1,0 +1,701 @@
+    1  ls -lrt
+    2  pwd
+    3  cd //
+    4  ls -lrt
+    5  cd -
+    6  ls -lrt
+    7  cd /vagrant
+    8  ls -lrt
+    9  top
+   10  whoami
+   11  ls -lrt
+   12  ps -fu vagrant
+   13  top
+   14  docker
+   15  docker container run hello-world
+   16  ls -lrt
+   17  cat ubuntu-xenial-16.04-cloudimg-console.log 
+   18  ls -lrt
+   19  docker container run --name nginx --rm -d -p 9000:80 nginx
+   20  docker container ls
+   21  docker container stop nginx 
+   22  docker image ls
+   23  docker container ls
+   24  docker container run --name nginx --rm -d -p 9000:80 nginx
+   25  docker image ls
+   26  docker container ls
+   27  docker container stop nginx 
+   28  docker image ls
+   29  docker container ls
+   30  exit
+   31  docker image ls
+   32  docker container ls
+   33  docker container run --name nginx --rm -d -p 9000:80 nginx
+   34  docker container ls
+   35  exit
+   36  docker container ls
+   37  docker image ls
+   38  ps -fu vagrant
+   39  docker container ls
+   40  exit
+   41  cd /vagrant/
+   42  docker image build --file DockerApp/Dockerfile --tag hellodocker ./DockerApp/
+   43  dotnet container ls
+   44  docker container ls
+   45  ls -lrt
+   46  cd DockerApp/
+   47  ls -lrt
+   48  cd ..
+   49  ls -lrt
+   50  docker image ls
+   51  docker container ls
+   52  docker container run --rm -it hellodocker /bin/bash
+   53  docker image build --file DockerApp/Dockerfile --tag hellodocker ./DockerApp/
+   54  docker container run --rm  hellodocker
+   55  docker container ls
+   56  docker container run hellodocker
+   57  docker container ls
+   58  ls -lrt
+   59  docker container ls -a
+   60  docker container ls
+   61  docker container ls -a
+   62  docker rm hellodocker
+   63  docker container ls -a
+   64  docker image ls
+   65  docker rm infallible_johnson 
+   66  docker image ls
+   67  docker container ls
+   68  docker container run --rm  hellodocker
+   69  docker container ls
+   70  docker image ls
+   71  exit
+   72  docker container ls
+   73  docker image ls
+   74  exit
+   75  docker container ls
+   76  docker container ls -a
+   77  docker image ls -a
+   78  cd /vagrant/
+   79  ls -lrt
+   80  docker image build --file Heroes2/angular-tour-of-heroes/Dockerfile --tag heroes2 --tag heroes2 ./Heroes2
+   81  docker image ls
+   82  ls -lrt
+   83  docker image build --file DockerApp/Dockerfile --tag helloworld33 ./DockerApp/
+   84  docker image ls
+   85  docker container run helloworld33
+   86  docker container ls
+   87  docker container ls -a
+   88  docker stop nginx 
+   89  docker container ls -a
+   90  docker image ls -a
+   91  docker container ls -a
+   92  ls -lrt
+   93  docker image build --file Heroes2/angular-tour-of-heroes/Dockerfile --tag heroes2 ./Heroes2/angular-tour-of-heroes/
+   94  docker container ls -a
+   95  docker image ls -a
+   96  exit
+   97  cd /vagrant/
+   98  ls -rlt
+   99  cat terminal_04252018.txt 
+  100  ls -lrt
+  101  docker image ls -a
+  102  docker container ls -a
+  103  docker image build --file DockerApp/mvc.Dockerfile --tag hellomvc ./DockerApp/
+  104  docker container run --rm --name mvc hellomvc
+  105  docker image build --file DockerApp/mvc.Dockerfile --tag hellomvc ./DockerApp/
+  106  docker container run --rm --name mvc hellomvc
+  107  docker image build --file DockerApp/mvc.Dockerfile --tag hellomvc ./DockerApp/
+  108  docker container run --rm --name mvc hellomvc
+  109  docker container run --rm -d --name mvc hellomvc
+  110  docker container ls
+  111  curl http://localhost
+  112  curl http://localhost:5000
+  113  curl http://localhost:9000
+  114  docker container exec -it mvc bash
+  115  docker container ls
+  116  docker container stop mvc
+  117  docker container run --rm -d -p 8000:80 --name mvc hellomvc 
+  118  docker container ls
+  119  curl http://localhost
+  120  curl http://localhost:80
+  121  curl http://localhost:8000
+  122  docker container stop mvc
+  123  docker image build --file DockerApp/mvc.Dockerfile --tag hellomvc ./DockerApp/
+  124  docker container run --rm -d -p 8000:80 --name mvc hellomvc 
+  125  curl http://localhost
+  126  curl http://localhost:8000
+  127  docker container stop mvc
+  128  docker image build --file DockerApp/mvc.Dockerfile --tag hellomvc ./DockerApp/
+  129  docker container run --rm -d -p 9000:80 --name mvc hellomvc 
+  130  docker container ls
+  131  docker container ls -a
+  132  docker container stop mvc
+  133  docker container run --rm -d -p 9000:5000 --name mvc hellomvc 
+  134  docker container stop mvc
+  135  docker container ls -la
+  136  docker image build --file DockerApp/mvc.Dockerfile --tag hellomvc ./DockerApp/
+  137  docker container run --rm -d -p 9000:4200 --name mvc hellomvc 
+  138  docker container ls -a
+  139  dotnet container exec -it mvc bash
+  140  docker container exec -it mvc bash
+  141  ls -lrt
+  142  docker container ls -a
+  143  docker container ls
+  144  exit
+  145  cd /vagrant/
+  146  docker image build --file DockerApp/mvc.Dockerfile --tag hellomvc ./DockerApp/
+  147  docker container run --rm --name mvc hellomvc
+  148  docker container run --rm --name mvc1 hellomvc
+  149  docker container run --rm -d --name mvc1 hellomvc
+  150  docker container exec -it mvc1 bash
+  151  http://localhost
+  152  docker container run --rm -d --name mvc2 -p 4000:80 hellomvc
+  153  curl http://localhost:4000/
+  154  docker container run --rm -d --name mvc2 -p 9000:80 hellomvc
+  155  docker container run --rm -d --name mvc3 -p 9000:80 hellomvc
+  156  docker container ls
+  157  docker stop mvc
+  158  docker container run --rm -d --name mvc3 -p 9000:80 hellomvc
+  159  docker stop mvc3
+  160  docker container ls
+  161  docker container run --rm -d --name mvc3 -p 9000:80 hellomvc
+  162  docker container ls
+  163  docker ps
+  164  docker container ls
+  165  docker ps -a
+  166  whoami
+  167  docker container ls -a
+  168  docker logs mvc3
+  169  docker container ls -a
+  170  eit
+  171  exit
+  172  cd /vagrant
+  173  ls -lrt
+  174  cd WeatherApp
+  175  cd WeatherApp.LibSvc/
+  176  ls -lrt
+  177  cd ../../
+  178  ls -lrt
+  179  docker image build --file DockerApp/libsvc.Dockerfile --tag libsvc ./DockerApp/
+  180  RUN dotnet build WeatherApp.LibSvc.sln
+  181  cd /vagrant/WeatherApp
+  182  ls -lrt
+  183  cd WeatherApp.LibSvc/
+  184  ls -lrt
+  185  cd ../../
+  186  docker image build --file DockerApp/libsvc.Dockerfile --tag libsvc ./DockerApp/
+  187  cd WeatherApp/WeatherApp.LibSvc/
+  188  ls -lrt
+  189  docker image build --file DockerApp/libsvc.Dockerfile --tag libsvc ./DockerApp/
+  190  cd ../../
+  191  docker image build --file DockerApp/libsvc.Dockerfile --tag libsvc ./DockerApp/
+  192  dotnet image ls 
+  193  docker image ls -a
+  194  docker container run --rm -d --name libsvc1 -p 9000:80 libsvc
+  195  docker container ls -a
+  196  docker stop mvc3
+  197  docker stop mvc2
+  198  docker stop mvc1
+  199  docker container ls -a
+  200  docker container ls
+  201  docker container run --rm -d --name libsvc1 -p 9000:80 libsvc
+  202  docker ls
+  203  docker container ls
+  204  docker container ls -a
+  205  docker image build --file DockerApp/libsvc.Dockerfile --tag libsvc ./DockerApp/
+  206  docker container run --rm -d --name libsvc2 -p 9000:80 libsvc
+  207  docker container ls -a
+  208  docker container ls
+  209  docker image build --file DockerApp/libsvc.Dockerfile --tag libsvc ./DockerApp/
+  210  docker container run --rm -d --name libsvc3 -p 9000:80 libsvc
+  211  docker container ls
+  212  docker image build --file DockerApp/libsvc.Dockerfile --tag libsvc ./DockerApp/
+  213  docker image build --file DockerApp/libsvc.Dockerfile --no-cache --tag libsvc ./DockerApp/
+  214  docker image build --file DockerApp/libsvc.Dockerfile --tag libsvc ./DockerApp/
+  215  docker container ls
+  216  docker container run --rm -d --name libsvc4 -p 9000:80 libsvc
+  217  docker container ls
+  218  curl http://localhost:9000
+  219  curl http://localhost:9000/LibSvc/api/values
+  220  docker image build --file DockerApp/libsvc.Dockerfile --nocache --tag weatherappmvc ./DockerApp/
+  221  docker image build --file DockerApp/libsvc.Dockerfile --no-cache --tag weatherappmvc ./DockerApp/
+  222  docker container run --rm -d --name weatherappmvc -p 9000:80 weatherappmvc
+  223  docker ls
+  224  docker container ls
+  225  docker stop libsvc4
+  226  docker container run --rm -d --name weatherappmvc -p 9000:80 weatherappmvc
+  227  docker container ls
+  228  curl http://localhost:9000
+  229  curl http://localhost:5000
+  230  curl http://localhost:4200
+  231  docker container exec -it weatherappmvc bash
+  232  ls -lrt
+  233  docker container ls
+  234  docker image build --file DockerApp/libsvc.Dockerfile --no-cache --tag weatherapplibsvc ./DockerApp/
+  235  dotnet container ls
+  236  docker container ls
+  237  docker container run --rm -d --name weatherapplibsvc -p 9000:80 weatherapplibsvc
+  238  docker stop weatherappmvc 
+  239  docker container ls -a
+  240  docker image ls
+  241  docker container run --rm -d --name weatherapplibsvc -p 9000:80 weatherapplibsvc
+  242  docker container ls
+  243  curl http://localhost:9000/LibSvc/api/values
+  244  docker stop weatherapplibsvc 
+  245  exit
+  246  ls -lrt
+  247  docker image build --file DockerApp/libsvc.Dockerfile --no-cache --tag weatherapplibsvc ./DockerApp/
+  248  cd /vagrant
+  249  docker image build --file DockerApp/libsvc.Dockerfile --no-cache --tag weatherapplibsvc ./DockerApp/
+  250  docker container run --rm -d --name weatherapplibsvc33 -p 9000:80 weatherapplibsvc
+  251  docker container ls
+  252  curl http://localhost:9000
+  253  curl http://localhost:8000/api/values
+  254  curl http://localhost:9000/api/values
+  255  docker container ls
+  256  docker stop weatherapplibsvc33 
+  257  docker image build --file DockerApp/libsvc.Dockerfile --no-cache --tag weatherapplibsvc44 ./DockerApp/
+  258  ls -lrt
+  259  docker image ls
+  260  docker container run --rm -d --name weatherapplibsvc55 -p 9000:80 weatherapplibsvc44
+  261  docker container ls
+  262  docker ps
+  263  exit
+  264  docker container ls
+  265  docker container exec -it weatherapplibsvc55 bash
+  266  docker container ls
+  267  docker stop weatherapplibsvc55 
+  268  docker container ls
+  269  docker image ls
+  270  exit
+  271  docker container ls
+  272  docker image ls
+  273  docker image build --file DockerApp/libsvc.Dockerfile --no-cache --tag weatherapplibsvc77 ./DockerApp/
+  274  cd /vagrant/
+  275  docker image build --file DockerApp/libsvc.Dockerfile --no-cache --tag weatherapplibsvc77 ./DockerApp/
+  276  docker image ls
+  277  docker container run --rm -p 8000:80 weatherapplibsvc77
+  278  docker container ls
+  279  docker container ls -a
+  280  docker container run --rm -p 9000:80 weatherapplibsvc77
+  281  docker container run --rm -p 9000:8000 weatherapplibsvc77
+  282  docker container run --rm -p 0000:8000 weatherapplibsvc77
+  283  docker container run --rm -p 8000:8000 weatherapplibsvc77
+  284  docker image ls
+  285  docker container ls
+  286  docker image ls
+  287  docker rmi $(docker images -q)
+  288  docker container ls
+  289  docker container ls -a
+  290  docker image ls -a
+  291  docker ps -aq -f status=exited
+  292  docker ps -aq --no-trunc -f status=exited | xargs docker rm
+  293  docker container ls
+  294  docker container ls -a
+  295  docker rmi $(docker images -q)
+  296  docker container ls
+  297  docker container ls -a
+  298  docker image ls -a
+  299  ls -rlt
+  300  docker image build --file DockerApp/libsvc.Dockerfile --no-cache --tag weatherapplibsvc77 ./DockerApp/
+  301  docker container ls
+  302  docker container ls -a
+  303  docker image ls -a
+  304  docker container run --rm -p 9000:8000 weatherapplibsvc77
+  305  docker image build --file DockerApp/libsvc.Dockerfile --no-cache --tag weatherapplibsvc77 ./DockerApp/
+  306  docker image ls
+  307  docker container run weatherapplibsvc77
+  308  exit
+  309  docker container ls
+  310  docker container ls -a
+  311  docker rm sad_visvesvar
+  312  docker container ls -a
+  313  exit
+  314  docker container ls
+  315  docker container ls -a
+  316  docker rm sad_visvesvaraya 
+  317  docker container ls -a
+  318  docker container
+  319  docker container ls
+  320  docker container ls -a
+  321  docker image ls -a
+  322  exit
+  323  ls -lrt
+  324  dir
+  325  ls -lrt
+  326  cd /
+  327  ls -lrt
+  328  pwd
+  329  cd /vagrant/
+  330  ls -lrt
+  331  docker container ls
+  332  docker image ls
+  333  docker container run -p 9000:80 weatherapplibsvc77
+  334  exit
+  335  docker container ls
+  336  docker container ls -a
+  337  docker image ls -a
+  338  docker image build --file DockerApp/libsvc.Dockerfile --no-cache --tag weatherapplibsvc99 ./DockerApp/
+  339  cd /vagrant
+  340  docker image build --file DockerApp/libsvc.Dockerfile --no-cache --tag weatherapplibsvc99 ./DockerApp/
+  341  ls -lrt
+  342  docker container run -p 9000:9000 weatherapplibsvc99
+  343  docker container run -d -p 9000:9000 weatherapplibsvc99
+  344  docker container ls
+  345  curl http://localhost:4200/api/values
+  346  curl http://localhost:9000/api/values
+  347  curl http://localhost:9000/api/userlib
+  348  exit
+  349  docker image build --file DockerApp/libsvc.Dockerfile --no-cache --tag weatherapplibsvc99 ./DockerApp/
+  350  cd /vagrant/
+  351  docker image build --file DockerApp/libsvc.Dockerfile --no-cache --tag weatherapplibsvc99 ./DockerApp/
+  352  docker image ls
+  353  docker container run -d -p 9000:8000 weatherapplibsvc99
+  354  docker container run -d -p 9000:80 weatherapplibsvc99
+  355  docker container ls
+  356  docker stop laughing_bardeen 
+  357  docker container run -d -p 9000:8000 weatherapplibsvc99
+  358  docker container ls
+  359  docker image build --file DockerApp/libsvc.Dockerfile --no-cache --tag weatherapplclientmvc99 ./DockerApp/
+  360  ls -lrt
+  361  docker image ls
+  362  docker container run --name clientmvc --rm -d -p 9000:80 weatherapplclientmvc99
+  363  docker container ls
+  364  docker stop frosty_lewin 
+  365  docker container run --name clientmvc --rm -d -p 9000:80 weatherapplclientmvc99
+  366  docker container ls
+  367  curl http://localhost:9000
+  368  docker container ls
+  369  docker container ls -a
+  370  ls -lrt
+  371  docker container ls -a
+  372  docker container ls 
+  373  docker container ls -a
+  374  docker container ls
+  375  docker container ls -a
+  376  docker container rm $(docker container ls -a)
+  377  docker container ls -a
+  378  docker stop clientmvc 
+  379  ls -lrt
+  380  docker container rm $(docker container ls -aq)
+  381  docker container ls
+  382  docker container ls -a
+  383  docker image ls -a
+  384  docker image ls -a | grep none
+  385  docker image ls -a | grep none | awk '{print "docker rm " $3}'
+  386  docker image ls -a | grep none | awk '{print "docker rm " $3}' | bash
+  387  docker image rm $(docker image ls -aq)
+  388  docker image ls -a
+  389  docker image build --file DockerApp/libsvc.Dockerfile --no-cache --tag weatherapplclientmvc99 ./DockerApp/
+  390  docker container run --name clientmvc --rm -d -p 9000:80 weatherapplclientmvc99
+  391  docker image ls
+  392  docker image ls -a
+  393  docker container ls -a
+  394  history
+  395  docker image build --file DockerApp/mvc.Dockerfile --tag hellomvc ./DockerApp/
+  396  docker image tag hellomvc:dev muttlake/project2:dev
+  397  docker image tag hellomvc:latest muttlake/project2:dev
+  398  docker login
+  399  docker image ls
+  400  docker image tag hellomvc:dev muttlake/project2:dev
+  401  docker push muttlake/project2:dev 
+  402  docer pull fredbelotte/project2:dev
+  403  docker pull fredbelotte/project2:dev
+  404  ls -lrt
+  405  docker image ls
+  406  docker container run --name fredHello --rm -d -p 9001:80 fredbelotte/project2 
+  407  docker container run --name fredHello --rm -d -p 9001:80 fredbelotte/project2:dev
+  408  docker container ls
+  409  docker stop fredHello 
+  410  docker container ls
+  411  docker image ls
+  412  docker container run --name helloAgain --rm -d -p 9000:80 hellomvc
+  413  docker container ls -a
+  414  docker stop clientmvc 
+  415  docker container run --name helloAgain --rm -d -p 9000:80 hellomvc
+  416  docker container ls
+  417  docker stop helloAgain 
+  418  docker container run --name clientmvc --rm -d -p 9000:80 weatherapplclientmvc99
+  419  docker container ls
+  420  exit
+  421  docker container ls -a
+  422  exit
+  423  ls -lrt
+  424  cd /vagrant
+  425  docker container ls
+  426  docker container ls -a
+  427  docker 
+  428  docker image ls -a
+  429  docker pull muttlake/tim-code
+  430  ls -lrt
+  431  docker image ls -a
+  432  ls -lrt
+  433  history
+  434  docker image ls -a
+  435  history
+  436  history | grep exec
+  437  exit
+  438  ls -lrt
+  439  pwd
+  440  docker container ls -a
+  441  docker image ls -a
+  442  dir
+  443  ls -lrt
+  444  history
+  445  cd /vagrant
+  446  docker image build --file DockerApp/mvc.Dockerfile --tag hellodockermvc ./DockerApp/
+  447  ls -lrt
+  448  history
+  449  docker image ls -a
+  450  docker container run --name ccccc_hellodocker -rm -d -p 9000:80 hellodockermvc
+  451  docker container run --name ccccc_hellodocker --rm -d -p 9000:80 hellodockermvc
+  452  docker container ls -a
+  453  curl http://localhost:9000
+  454  curl http://localhost:4200
+  455  docker image ls -a
+  456  docker container ls -a
+  457  exit
+  458  ls -lrt
+  459  docker container ls -a
+  460  docker stop ccccc_hellodocker 
+  461  cd /vagrant/
+  462  ls -lrt
+  463  docker container ls -a
+  464  docker image ls -a
+  465  docker image build --file DockerApp/mvc.Dockerfile --tag HHH3_hellodockermvc ./DockerApp/
+  466  docker image build --file DockerApp/mvc.Dockerfile --tag hellodockermvc888 ./DockerApp/
+  467  docker image ls -a
+  468  ls -lrt
+  469  docker image ls -a
+  470  docker container run --name eeeee_hellodocker --rm -d -p 9000:80 hellodockermvc888
+  471  docker container ls -a
+  472  curl http://localhost:9000
+  473  exit
+  474  docker container ls -a
+  475  docker stop eeeee_hellodocker 
+  476  docker container ls -a
+  477  docker container run --name eeeee_hellodocker -d -p 9000:80 hellodockermvc888
+  478  docker container ls
+  479  docker stop eeeee_hellodocker 
+  480  ls -lrt
+  481  docker container ls -a
+  482  cd /vagrant/
+  483  docker image build --file DockerApp/ng.Dockerfile --tag ngdocker555 ./DockerApp/
+  484  docker image build --file DockerApp/ng.Dockerfile --tag angular:dev .
+  485  docker image build --file DockerApp/ng.Dockerfile --tag angular555:dev ./DockerApp/
+  486  docker image build --no-cache --file DockerApp/ng.Dockerfile --tag angular555:dev ./DockerApp/
+  487  docker image build --file DockerApp/ng.Dockerfile --tag angular555:dev ./DockerApp/
+  488  docker container ls -a
+  489  docker container ls
+  490  docker container ls -a
+  491  history
+  492  docker image ls -a
+  493  docker container run --name eeee_angular555 -d -p 9000:80 angular555
+  494  docker container run --name eeee_angular555 -d -p 9000:80 angular555:dev 
+  495  docker container ls
+  496  docker stop eeee_angular555 
+  497  docker container ls
+  498  exit
+  499  docker container ls -a
+  500  docker image ls -a
+  501  docker push angular555
+  502  docker login --username=muttlake --email=shepbop@gmail.com
+  503  docker login --username=muttlake 
+  504  docker push muttlake/tim-code/angular555
+  505  docker push angular555
+  506  docker push angular555:dev
+  507  docker tag angular555:dev muttlake/angular555
+  508  docker push muttlake/angular555
+  509  docker container ls
+  510  docker image ls -a
+  511  docker container run --name hm888 -d -p 9000:80 hellodockermvc888:latest 
+  512  docker container ls
+  513  docker stop hm888 
+  514  docker container ls -a
+  515  docker container run --name hm888 -d -p 9000:80 hellodockermvc888:latest 
+  516  docker container ls
+  517  docker container run --name hm999 -d -p 9000:80 hellodockermvc888:latest 
+  518  docker stop hm999 
+  519  docker container ls
+  520  docker image ls
+  521  docker tag hellodockermvc888:latest muttlake/hellodockermvc888
+  522  docker push muttlake/hellodockermvc888
+  523  exit
+  524  ls -lrt
+  525  cd /vagrant/
+  526  ls -rlt
+  527  docker swarm init
+  528  docker container ls -a
+  529  docker container ls
+  530  docker image ls -a
+  531  docker stack deploy -c DockerApp/docker-compose.yml skynet_stack
+  532  docker stack ls
+  533  docker stack ps skynet_stack
+  534  ls -lrt
+  535  docker stack ls
+  536  docker stack remove
+  537  docker stack rm skynet_stack 
+  538  cd DockerApp/
+  539  ls -lrt
+  540  docker stack deploy -c docker-compose.yml skynet_stack
+  541  cd ../
+  542  docker stack ls
+  543  docker stack ps skynet_stack
+  544  docker ps
+  545  docker stack ps skynet_stack
+  546  docker stack rm skynet_stack 
+  547  docker stack ls
+  548  docker stack ls -a
+  549  docker stack deploy -c docker-compose.yml skynet_stack
+  550  docker stack deploy -c DockerApp/docker-compose.yml skynet_stack
+  551  docker stack ls
+  552  docker stack rm skynet_stack 
+  553  docker stack deploy -c DockerApp/docker-compose.yml skynet_stack
+  554  ls -lrt
+  555  docker stack ls
+  556  docker stack ps skynet_stack
+  557  docker stack rm skynet_stack 
+  558  history
+  559  docker image build --file DockerApp/ng.Dockerfile --tag web:ng ./DockerApp/
+  560  docker image build --file DockerApp/mvc.Dockerfile --tag web:mvc ./DockerApp/
+  561  docker image ls
+  562  docker stack deploy -c DockerApp/docker-compose.yml skynet_stack
+  563  docker stack ls
+  564  docker stack ps skynet_stack
+  565  docker stack rm skynet_stack 
+  566  docker stack deploy -c DockerApp/docker-compose.yml skynet_stack
+  567  docker stack ls
+  568  docker stack deploy -c DockerApp/docker-compose.yml skynet_stack
+  569  docker stack ls
+  570  docker stack ps skynet_stack
+  571  docker image ls -a
+  572  docker stack rm skynet_stack 
+  573  docker stack deploy -c DockerApp/docker-compose.yml skynet_stack
+  574  docker stack ls
+  575  docker stack ps skynet_stack
+  576  history
+  577  docker stack ps skynet_stack
+  578  docker stack ls -a
+  579  docker stack ls 
+  580  docker pc
+  581  docker ps
+  582  docker ls -a
+  583  docker container ls -a
+  584  docker ps
+  585  docker container rm -f c4d52
+  586  docker stack ps
+  587  docker stack ps skynet_stack 
+  588  docker logs
+  589  docker container ls
+  590  docker logs ff04
+  591  docker logs 8ed52
+  592  docker logs 6b1b
+  593  curl http://localhost:9000
+  594  curl http://localhost:9001
+  595  docker container ls
+  596  docker log 8ed
+  597  docker logs 8ed
+  598  docker logs 6b1b
+  599  curl http://localhost:9000
+  600  docker logs 8ed
+  601  docker logs 6b1b
+  602  docker logs ff04
+  603  docker logs 9b7
+  604  docker stats
+  605  docker ps
+  606  history
+  607  docker stack deploy -c DockerApp/docker-compose.yml skynet_stack
+  608  docker stack ls
+  609  curl http://localhost:9000
+  610  docker stack ls
+  611  docker volume create dockervol
+  612  history > vagranthistory.txt
+  613  ls -rlt
+  614  cat vagranthistory.txt 
+  615  docker volume ls
+  616  docker volume inspect dockervol
+  617  docker stack deploy -c DockerApp/docker-compose.yml skynet_stack
+  618  docker stacj ls
+  619  docker stack ps skynet_stack 
+  620  docker stack deploy -c DockerApp/docker-compose.yml skynet_stack
+  621  docker stack ps skynet_stack 
+  622  docker stack deploy -c DockerApp/docker-compose.yml skynet_stack
+  623  docker stack ps skynet_stack 
+  624  docker stack deploy -c DockerApp/docker-compose.yml skynet_stack
+  625  docker stack ps skynet_stack 
+  626  docker stack deploy -c DockerApp/docker-compose.yml skynet_stack
+  627  docker stack ps skynet_stack 
+  628  docker stack deploy -c DockerApp/docker-compose.yml skynet_stack
+  629  docker stack ps skynet_stack 
+  630  docker stack deploy -c DockerApp/docker-compose.yml skynet_stack
+  631  docker stack ps skynet_stack 
+  632  docker stack ls
+  633  docker stack rm skynet_stack 
+  634  docker stack ls
+  635  docker stack deploy -c DockerApp/docker-compose.yml skynet_stack
+  636  docker stack ls
+  637  docker stack ps skynet_stack 
+  638  docker image ls -a
+  639  docker stack deploy -c DockerApp/docker-compose.yml skynet_stack
+  640  docker stack ps skynet_stack 
+  641  docker stack rm skynet_stack 
+  642  docker stack ls -a
+  643  docker stack ls
+  644  docker stack deploy -c DockerApp/docker-compose.yml skynet_stack
+  645  docker stack s
+  646  docker stack ls
+  647  docker stack services
+  648  docker stack services skynet_stack 
+  649  docker stack ls
+  650  docker stack ps skynet_stack 
+  651  docker logs tt6c0
+  652  docker container ls
+  653  docker container ls -a
+  654  docker logs 2e21a096b600
+  655  docker container ls -a
+  656  docker logs 299137f09a8b
+  657  skynet_stack_mvc.1.ss4vc5h3ijn53goitze628res
+  658  docker logs skynet_stack_mvc.1.ss4vc5h3ijn53goitze628res
+  659  docker stack rm skynet_stack 
+  660  docker container ls
+  661  histroy
+  662  history
+  663  docker image build --file DockerApp/ng.Dockerfile --tag web:ng ./DockerApp/
+  664  docker image build --file DockerApp/mvc.Dockerfile --tag web:mvc ./DockerApp/
+  665  history
+  666  docker stack deploy -c DockerApp/docker-compose.yml skynet_stack
+  667  docker stack services skynet_stack 
+  668  docker stack ps skynet_stack 
+  669  history
+  670  docker container run --name testets -d -p 9002:80 web:mvc 
+  671  docker container ls
+  672  docker stop web:mvc
+  673  docker stop testets 
+  674  docker container ls
+  675  docker stack ps skynet_stack 
+  676  docker stack rm skynet_stack 
+  677  docker stack ls
+  678  history
+  679  docker stack deploy -c DockerApp/docker-compose.yml skynet_stack
+  680  docker stack ls
+  681  docker stack services skynet_stack 
+  682  docker stack ps skynet_stack 
+  683  docker stack rm skynet_stack 
+  684  docker stack ls
+  685  docker stack services skynet_stack 
+  686  docker stack ls
+  687  docker stack deploy -c DockerApp/docker-compose.yml skynet_stack
+  688  docker stack ls
+  689  docker stack services skynet_stack 
+  690  docker stack ls
+  691  docker stack ps skynet_stack 
+  692  docker stack rm skynet_stack 
+  693  docker stack ls
+  694  docker stack deploy -c DockerApp/docker-compose.yml skynet_stack
+  695  docker stack ls
+  696  docker stack services skynet_stack 
+  697  docker stack ps skynet_stack 
+  698  docker stack deploy -c DockerApp/docker-compose.yml skynet_stack
+  699  docker stack ps
+  700  docker stack ps skynet_stack 
+  701  history > vagranthistory.txt 
