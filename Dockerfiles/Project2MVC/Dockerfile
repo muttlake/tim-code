@@ -25,5 +25,4 @@ EXPOSE 4200 80
 CMD [ "dotnet", "WeatherApp.ClientMVC.dll" ]
 
 
-
 # We want dotnet run when we call the image
