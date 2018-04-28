@@ -14,8 +14,10 @@ USER root
 WORKDIR /docker
 RUN git clone https://github.com/1803-mar12-net/tim-code.git
 RUN ls -lrt tim-code
-RUN ls -lrt tim-code/Heroes2/angular-tour-of-heroes
-RUN ng build tim-code/Heroes2/angular-tour-of-heroes
+WORKDIR /docker/tim-code/Heroes2/angular-tour-of-heroes
+RUN npm install
+RUN ls -lrt
+RUN ng build
 
 # #serve stage
 FROM nginx:1.12
