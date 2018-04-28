@@ -13,15 +13,21 @@ RUN npm install -g @angular/cli
 USER root
 WORKDIR /docker
 RUN git clone https://github.com/1803-mar12-net/tim-code.git
+RUN pwd
 RUN ls -lrt tim-code
 WORKDIR /docker/tim-code/Heroes2/angular-tour-of-heroes
+RUN pwd
+RUN ls -lrt
 RUN npm install
 RUN ls -lrt
 RUN ng build
+RUN pwd
+RUN ls -lrt
 
 # #serve stage
+RUN echo "Now in serve stage"
 FROM nginx:1.12
-COPY --from=build tim-code/Heroes2/angular-tour-of-heroes/dist /usr/share/nginx/html
+COPY --from=build /docker/tim-code/Heroes2/angular-tour-of-heroes/dist /usr/share/nginx/html
 RUN pwd
 RUN ls -lrt
 EXPOSE 80
