@@ -12,27 +12,14 @@ RUN npm install -g @angular/cli
 
 USER root
 WORKDIR /docker
-RUN ng new HelloNG
-WORKDIR /docker/HelloNG
-RUN ng build
-
-# USER root
-# RUN npm install @angular/cli
-# #RUN ls -R -lrt | grep -e "ng"
-# #RUN chown -R 777 *
-# #WORKDIR node_modules/@angular/cli/bin
-# RUN ls -l
-# RUN node_modules/@angular/cli/bin/ng new HelloNG
-# RUN ls -lrt
-# WORKDIR /docker/HelloNG
-# RUN ng build
-# RUN pwd
-# RUN ls -lrt
-
+RUN git clone https://github.com/1803-mar12-net/tim-code.git
+RUN ls -lrt tim-code
+RUN ls -lrt tim-code/Heroes2/angular-tour-of-heroes
+RUN ng build tim-code/Heroes2/angular-tour-of-heroes
 
 # #serve stage
 FROM nginx:1.12
-COPY --from=build /docker/HelloNG/dist /usr/share/nginx/html
+COPY --from=build tim-code/Heroes2/angular-tour-of-heroes/dist /usr/share/nginx/html
 RUN pwd
 RUN ls -lrt
 EXPOSE 80
