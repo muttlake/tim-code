@@ -1,0 +1,26 @@
+<h2>My Numbers</h2>
+
+<div class="numbers" *ngFor="let num of numbers">
+	<button (click)="getValue(num)"> {{ num.name }} </button>
+</div>
+<div class="numbers" *ngFor="let op of operators">
+	<button (click)="getOperator(op)"> {{ op }} </button>
+</div>
+<div>
+	<label>CurrentOperator: {{ currentOperator }}</label>
+</div>
+<div>
+	<label>Operand1: {{ operand1 }}</label>
+</div>
+<div>
+	<label>Operand2: {{ operand2 }}</label>
+</div>
+<div class="numbers"> 
+	<button (click)="evaluate()"> {{ equalsOperator }} </button>
+</div>
+<div>
+	<label>Result: {{ result }}</label>
+</div>
+<div class="numbers"> 
+	<button (click)="clear()"> Clear All </button>
+</div>

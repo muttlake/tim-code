@@ -1,25 +1,34 @@
-# base image
-FROM node:8.11.1
+#ng.Dockerfile
 
-# install chrome for protractor tests
-# RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-# RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-# RUN apt-get update && apt-get install -yq google-chrome-stable
 
-# set working directory
-RUN mkdir /usr/src/app
-WORKDIR /usr/src/app
+#build stage
+FROM node as build
+RUN chown -R node:node /usr/local/lib/node_modules
+RUN chown -R node:node /usr/local/bin 
 
-# add `/usr/src/app/node_modules/.bin` to $PATH
-ENV PATH /usr/src/app/node_modules/.bin:$PATH
-
-# install and cache app dependencies
-COPY package.json /usr/src/app/package.json
-RUN npm install
+# node user gets created, use it to install npm
+USER node
 RUN npm install -g @angular/cli
 
-# add app
-COPY . /usr/src/app
+USER root
+WORKDIR /docker
+RUN git clone https://github.com/1803-mar12-net/tim-code.git
+RUN pwd
+RUN ls -lrt tim-code
+WORKDIR /docker/tim-code/Heroes2/angular-tour-of-heroes
+RUN pwd
+RUN ls -lrt
+RUN npm install
+RUN ls -lrt
+RUN ng build
+RUN pwd
+RUN ls -lrt
 
-# start app
-CMD ng serve
+# #serve stage
+RUN echo "Now in serve stage"
+FROM nginx:1.12
+COPY --from=build /docker/tim-code/Heroes2/angular-tour-of-heroes/dist /usr/share/nginx/html
+RUN pwd
+RUN ls -lrt
+EXPOSE 80
+# EOF
