@@ -315,4 +315,4 @@ __pycache__/
 # End of https://www.gitignore.io/api/visualstudiocode
 
 appsettings.dev.json
-*/*package-lock.json
+*package-lock.json
