@@ -13,6 +13,9 @@ Vagrant.configure("2") do |co|
 
 # DEFINITION - NETWORK
   co.vm.network "forwarded_port", guest: 9000, host: 9000, host_ip: "127.0.0.1" 
+  co.vm.network "forwarded_port", guest: 9001, host: 9001, host_ip: "127.0.0.1" 
+  co.vm.network "forwarded_port", guest: 4200, host: 4200, host_ip: "127.0.0.1" 
+  co.vm.network "forwarded_port", guest: 3333, host: 3333, host_ip: "127.0.0.1" 
 #  co.vm.network "forwarded_port", guest: 8000, host: 8000, host_ip: "127.0.0.1"
 #  co.vm.network "forwarded_port", guest: 4000, host: 4000, host_ip: "127.0.0.1"
 
