@@ -12,6 +12,8 @@ namespace B2CAttempt
 {
     public class Program
     {
+
+
         private static string tenant = ConfigurationManager.AppSettings["b2c:Tenant"];
         private static string clientId = ConfigurationManager.AppSettings["b2c:ClientId"];
         private static string clientSecret = ConfigurationManager.AppSettings["b2c:ClientSecret"];
@@ -208,5 +210,7 @@ namespace B2CAttempt
             Console.WriteLine("Help                         : Prints this help menu.");
             Console.WriteLine("Syntax                       : Gives syntax information for each command, along with examples.");
         }
+
+
     }
 }
