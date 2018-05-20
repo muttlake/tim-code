@@ -1,0 +1,68 @@
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'app-user',
+    templateUrl: './user.component.html',
+    styleUrls: ['./user.component.css']
+
+    //template: '<h2>John Doe</h2>'
+    // styles : [
+    //     `h2 {
+    //         color: blue;
+    //     }`
+    // ]
+})
+
+export class UserComponent {
+
+    //properties
+    firstName: string;
+    lastName: string;
+    age: number;
+    address;
+
+    foo: any; // can be any type
+    hasKids: boolean;
+    numberArray: number[];
+    stringArray: string[];
+    mixedArray: any[];
+    myTuple: [string, number, boolean];
+    unusable: void;
+    u: undefined;
+    n: null;
+    
+    //method
+    constructor() {
+        this.firstName = 'John';
+        this.lastName = 'Doooe';
+        this.age = 55;
+
+        this.address = {
+            street: '50 Main St',
+            city: 'Boston',
+            state: 'MA'
+        }
+
+        this.foo = 1;
+        this.foo = true;
+        this.hasKids = true;
+        this.numberArray = [1,2,3,4];
+        this.mixedArray = ['sstt', true, 1];
+        this.myTuple = ['ss', 1, false];
+        this.unusable = undefined;
+        this.u = undefined;
+        this.n = null;
+
+        console.log(this.addNumbers(2, 3));
+
+    }
+
+    showAge() {
+        return this.age + 5;
+    }
+
+    addNumbers(num1: number, num2: number): number {
+        return num1 + num2;
+    }
+
+}

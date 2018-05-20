@@ -1,0 +1,37 @@
+<button (click)="showUserForm = !showUserForm" class="btn btn-dark mb-3">Add User</button>
+<div class="card card-body mb-3" *ngIf="showUserForm">
+  <h2>Add User</h2>
+  <form (submit)="onSubmit($event)">
+    <div class="form-group">
+      <label> First Name </label>
+      <!-- <input (keydown)="fireEvent($event)" type="text" class="form-control" name="firstName"> -->
+      <!-- <input (keyup)="fireEvent($event)" type="text" class="form-control" name="firstName"> -->
+      <!-- <input (keypress)="fireEvent($event)" type="text" class="form-control" name="firstName"> -->
+      <!-- <input (focus)="fireEvent($event)" type="text" class="form-control" name="firstName"> -->
+      <!-- <input (blur)="fireEvent($event)" type="text" class="form-control" name="firstName"> -->
+      <!-- <input (cut)="fireEvent($event)" type="text" class="form-control" name="firstName">
+      <input (paste)="fireEvent($event)" type="text" class="form-control" name="firstName">
+      <input (copy)="fireEvent($event)" type="text" class="form-control" name="firstName"> -->
+      <input (keydown)="fireEvent($event)" type="text" class="form-control" name="firstName">
+    </div>
+    <button (click)="addUser({firstName: 'Mary', lastName: 'Jackson', isActive: true})" [disabled]="!enableAdd" class="btn btn-block mb-3"> Add New User </button>
+  </form>
+</div>
+<!-- <button (dragover)="fireEvent($event)" [disabled]="!enableAdd" class="btn btn-block mb-3"> Add New User </button> -->
+<!-- <button (dblclick)="fireEvent($event)" [disabled]="!enableAdd" class="btn btn-block mb-3"> Add New User </button> -->
+<!-- <button (mouseup)="fireEvent($event)" [disabled]="!enableAdd" class="btn btn-block mb-3"> Add New User </button> -->
+<!-- <button (mouseout)="fireEvent($event)" [disabled]="!enableAdd" class="btn btn-block mb-3"> Add New User </button> -->
+<!-- <button (mouseover)="fireEvent($event)" [disabled]="!enableAdd" class="btn btn-block mb-3"> Add New User </button> -->
+<ul class="list-unstyled" *ngIf="loaded && users?.length > 0">
+  <li class="card card-body mb-2" *ngFor="let user of users" [class.bg-light]="user.isActive">
+    <h3> {{ user.firstName }} {{ user.lastName }} 
+    <small *ngIf="user.age && user.address" ><button (click)="user.hide = !user.hide" class="btn btn-dark btn-sm"><i [ngClass]="user.hide ? 'fa fa-plus' : 'fa fa-minus'"></i></button></small> </h3>
+    <ul class="list-group" *ngIf="!user.hide && user.age && user.address">
+      <li class="list-group-item"> Age: {{ user.age }} </li>
+      <li class="list-group-item"> Address: {{ user.address.street }} {{ user.address.city }} {{ user.address.state }} </li>
+      <li class="list-group-item"> Joined: {{ user.registered | date:"shortDate" }} </li>
+    </ul>
+  </li>
+</ul>
+<h4 *ngIf="users?.length == 0"> No Users Found </h4>
+<h4 *ngIf="!loaded"> Loading Users ... </h4>
